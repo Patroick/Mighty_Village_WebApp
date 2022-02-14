@@ -1,0 +1,26 @@
+{
+  "name": "mighty_village_web_app",
+  "version": "1.0.0",
+  "description": "Web Demo Spiel für die Diplomarbeit \"Mighty Villagw\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FlorianJester/Mighty_Village_WebApp.git"
+  },
+  "author": "Florian Jester",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FlorianJester/Mighty_Village_WebApp/issues"
+  },
+  "homepage": "https://github.com/FlorianJester/Mighty_Village_WebApp#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
