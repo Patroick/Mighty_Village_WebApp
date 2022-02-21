@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  server: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'server'
+    ports:
+      - '80:3000'

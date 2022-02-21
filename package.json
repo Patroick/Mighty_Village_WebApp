@@ -4,8 +4,10 @@
   "description": "Web Demo Spiel für die Diplomarbeit \"Mighty Villagw\"",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+
   },
   "repository": {
     "type": "git",
