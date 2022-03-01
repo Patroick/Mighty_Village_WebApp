@@ -1,95 +1,99 @@
-#row-top{
+#row-top {
     background-color: yellow;
     width: 100%;
     height: 20%;
     align-items: stretch;
     display: flex;
+    text-align: center;
+    text-align: top;
+    float: left;
 }
 
-#container-top-left{
+#container-top-left {
     color: black;
     background-color: blueviolet;
-    float: left;
-    text-align: top;
     width: 40%;
 }
 
-#container-top-middle{
+#container-top-middle {
     color: black;
     background-color: gray;
-    float: left;
-    text-align: top;
     width: 40%;
 }
 
-#container-top-right{
+#container-top-right {
     color: black;
     background-color: coral;
-    float: left;
-    text-align: top;
     width: 20%;
 }
 
-#row-top:after{
-  content: "";
-  display: table;
-  clear: both;
+#row-top:after {
+    content: "";
+    display: block;
+    clear: both;
 }
+
 
 /* ------------------------------------------------ */
 
-#row-middle{
+#row-middle {
     background-color: cornsilk;
     width: 100%;
-    height: 100%;
     display: flex;
-    align-items: stretch;
+    text-align: center;
+    float: left;
 }
 
-#container-middle-left{
+#container-middle-left {
     color: black;
     background-color: pink;
-    float: left;
     width: 40%;
 }
 
-#container-middle{
+#container-middle {
     color: black;
     background-color: lightblue;
-    float: left;
     width: 40%;
 }
 
-#container-middle-right{
+#container-middle-right {
     color: black;
     background-color: red;
-    float: left;
     width: 20%;
 }
 
-#row-middle:after{
-  content: "";
-  display: table;
-  clear: both;
+#row-middle:after {
+    content: "";
+    display: block;
+    clear: both;
 }
+
 
 /* ------------------------------------------------ */
 
-#row-bottom{
+.footer {
     background-color: cornsilk;
     width: 100%;
-    height: 10%;
+    height: 3%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
+
 
 /* ------------------------------------------------ */
 
+html,
 body {
     background-color: greenyellow;
     margin: 0;
 }
 
 .content {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
+    display: flex;
+    flex-flow: column;
+    height: auto;
+    align-items: stretch;
 }
