@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+
+<head>
+    <script src="https://pixijs.download/release/pixi.js"></script>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+
+
+<body>
+    <script>
+        let counter = 0;
+
+        let app = new PIXI.Application({
+            width: window.innerWidth,
+            height: window.innerHeight
+        });
+        app.renderer.view.style.position = "absolute";
+
+
+        document.body.appendChild(app.view);
+        let test = PIXI.Sprite.from('pictures/sample.png');
+        test.anchor.set(0.5);
+        test.position.set(app.renderer.width / 2, app.renderer.height / 2);
+        app.stage.addChild(test);
+
+        let elapsed = 0;
+
+        test.interactive = true;
+
+        test.on('pointerdown', (event) => {
+            counter++;
+            console.log(counter);
+        });
+
+        /* app.ticker.add((delta) => {
+            elapsed += delta;
+        }); */
+    </script>
+</body>
+
+</html>

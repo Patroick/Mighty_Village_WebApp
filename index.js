@@ -18,6 +18,12 @@ app.get('/infoseite/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '/infoseite/index.html'))
 });
 
+app.get('/webgame/pixijstest.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '/webgame/pixijstest.html'))
+});
+
+app.use('/webgame/pictures', express.static(path.join(__dirname, '/webgame/pictures')));
+
 let PORT = process.env.PORT || 80;
 
 app.listen(PORT, () => {
