@@ -18,7 +18,7 @@
 #container-top-middle {
     color: black;
     background-color: gray;
-    width: 40%;
+    width: 80%;
 }
 
 #container-top-right {
@@ -101,7 +101,7 @@ body {
 }
 
 #coin {
-    display: flex;
-    size: 50%;
-    align-items: stretch;
+    height: 40%;
+    width: 40%;
+    justify-content: center;
 }
