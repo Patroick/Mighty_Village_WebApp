@@ -4,7 +4,7 @@
     "description": "Web Demo Spiel für die Diplomarbeit \"Mighty Villagw\"",
     "main": "index.js",
     "scripts": {
-        "start": "npm run index.js",
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:dev": "nodemon index.js"
 
