@@ -1,28 +1,31 @@
 #row-top {
     background-color: yellow;
     width: 100%;
-    height: 15%;
+    height: 10vh;
     align-items: stretch;
     display: flex;
     text-align: center;
-    text-align: top;
     float: left;
     border: 2px solid black;
 }
 
 #container-top-left {
-    padding-top: 1%;
     color: black;
     background-color: gray;
     width: 80%;
     border-right: solid 2px black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #container-top-right {
-    padding-top: 1%;
     color: black;
     background-color: coral;
     width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #row-top:after {
@@ -37,7 +40,7 @@
 #row-middle {
     background-color: cornsilk;
     width: 100%;
-    height: 100%;
+    height: 86vh;
     display: flex;
     text-align: center;
     float: left;
@@ -51,12 +54,16 @@
     background-color: pink;
     width: 40%;
     border-right: 2px solid black;
+    overflow-y: scroll;
+    overflow-x: clip;
 }
 
 #container-middle {
     color: black;
     background-color: lightblue;
     width: 40%;
+    align-items: center;
+    overflow: hidden;
 }
 
 #container-middle-right {
@@ -64,6 +71,8 @@
     background-color: red;
     width: 20%;
     border-left: 2px solid black;
+    overflow-y: scroll;
+    overflow-x: clip;
 }
 
 #row-middle:after {
@@ -78,7 +87,7 @@
 .footer {
     background-color: cornsilk;
     width: 100%;
-    height: 3%;
+    height: 3vh;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -106,7 +115,7 @@ body {
 
 #coin {
     padding-top: 10%;
-    width: 40%;
+    width: 300px;
     justify-content: center;
 }
 
@@ -117,24 +126,26 @@ body {
     padding-left: 5%;
     text-align: left;
     display: flex;
-    height: 18%;
     border-bottom: 2px solid black;
     border-top: 2px solid black;
+    align-items: center;
+    justify-content: left;
+    gap: 50px;
 }
 
 #ressourceProductionContainer {
     padding-left: 5%;
     text-align: left;
     display: flex;
-    height: 18%;
     border-bottom: 2px solid black;
+    align-items: center;
+    justify-content: left;
+    gap: 50px;
 }
 
 #resourceIcon {
-    height: 26%;
-    width: 10%;
-    padding-top: 8%;
-    padding-right: 5%;
+    height: 40px;
+    width: 40px;
 }
 
 
@@ -144,22 +155,24 @@ body {
     padding-left: 5%;
     text-align: left;
     display: flex;
-    height: 12%;
     border-bottom: 2px solid black;
     border-top: 2px solid black;
+    align-items: center;
+    justify-content: left;
+    gap: 50px;
 }
 
 #buyRessourceProductionContainer {
     padding-left: 5%;
     text-align: left;
     display: flex;
-    height: 12%;
     border-bottom: 2px solid black;
+    align-items: center;
+    justify-content: left;
+    gap: 50px;
 }
 
 #resourceBuyIcon {
-    height: 20%;
-    width: 10%;
-    padding-top: 13%;
-    padding-right: 5%;
+    height: 40px;
+    width: 40px;
 }
