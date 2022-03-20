@@ -22,6 +22,10 @@ app.get('/webgame/pixijstest.html', (req, res) => {
     res.sendFile(path.join(__dirname, '/webgame/pixijstest.html'))
 });
 
+app.get('/webgame/test.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '/webgame/test.html'))
+});
+
 app.use('/webgame/pictures', express.static(path.join(__dirname, '/webgame/pictures')));
 
 let PORT = process.env.PORT || 80;

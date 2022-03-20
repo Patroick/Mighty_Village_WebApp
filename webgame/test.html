@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="icon" href="pictures/turm.png">
+    <script src="https://pixijs.download/release/pixi.js"></script>
+    <title>Mighty Village Idle Game</title>
+</head>
+
+<body>
+    <script>
+        let app = new PIXI.Application({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        app.renderer.view.style.position = "absolute";
+
+        // add eventListener für resize, App rendered nur dann mit wenn man die Seite ladet/neu ladet
+        document.body.appendChild(app.view);
+
+        // *----------------------------------------------------------------*
+        // *----------------------------------------------------------------*
+        // *----------------------------------------------------------------*
+
+        let containerAchievements = new PIXI.Container();
+        app.stage.addChild(containerAchievements);
+
+        let objTopLeft = new PIXI.Graphics();
+        objTopLeft.beginFill(0x7a7b79);
+        // drawRect (x,y,w,h) ---> Param 1 = x-Coordinate, Param 2 = y-Coordinate, Param 3 = width, Param 4 = height
+        objTopLeft.drawRect(0, 0, 1060, 80);
+        objTopLeft.endFill();
+        containerAchievements.addChild(objTopLeft);
+
+        // *----------------------------------------------------------------*
+
+        let containerUpgradeShop = new PIXI.Container();
+        app.stage.addChild(containerUpgradeShop);
+
+        let objTopRight = new PIXI.Graphics();
+        objTopRight.beginFill(0xf58952);
+        objTopRight.drawRect(1060, 0, 384, 80);
+        objTopRight.endFill();
+        containerUpgradeShop.addChild(objTopRight);
+
+        // *----------------------------------------------------------------*
+        // *----------------------------------------------------------------*
+        // *----------------------------------------------------------------*
+
+        let containerProduction = new PIXI.Container();
+        app.stage.addChild(containerProduction);
+
+        let objMiddleLeftTitle = new PIXI.Graphics();
+        objMiddleLeftTitle.beginFill(0xfffb12);
+        objMiddleLeftTitle.drawRect(0, 80, 530, 100);
+        objMiddleLeftTitle.endFill();
+        containerProduction.addChild(objMiddleLeftTitle);
+
+        let objMiddleLeft = new PIXI.Graphics();
+        objMiddleLeft.beginFill(0xffb8b8);
+        objMiddleLeft.drawRect(0, 180, 530, 740);
+        objMiddleLeft.endFill();
+        containerProduction.addChild(objMiddleLeft);
+
+        // *----------------------------------------------------------------*
+
+        let containerCoin = new PIXI.Container();
+        app.stage.addChild(containerCoin);
+
+        let objMiddle = new PIXI.Graphics();
+        objMiddle.beginFill(0xa4e5f9);
+        objMiddle.drawRect(530, 80, 530, 740);
+        objMiddle.endFill();
+        containerCoin.addChild(objMiddle);
+
+        // *----------------------------------------------------------------*
+
+        let containerShop = new PIXI.Container();
+        app.stage.addChild(containerShop);
+
+        let objMiddleRightTitle = new PIXI.Graphics();
+        objMiddleRightTitle.beginFill(0x39c107);
+        objMiddleRightTitle.drawRect(1060, 80, 384, 100);
+        objMiddleRightTitle.endFill();
+        containerShop.addChild(objMiddleRightTitle);
+
+        let objMiddleRight = new PIXI.Graphics();
+        objMiddleRight.beginFill(0xf63939);
+        objMiddleRight.drawRect(1060, 180, 384, 740);
+        objMiddleRight.endFill();
+        containerShop.addChild(objMiddleRight);
+
+        // *----------------------------------------------------------------*
+        // *----------------------------------------------------------------*
+        // *----------------------------------------------------------------*
+
+        let containerBottom = new PIXI.Container();
+        app.stage.addChild(containerBottom);
+
+        let objBottom = new PIXI.Graphics();
+        objBottom.beginFill(0xfefdc2);
+        objBottom.drawRect(0, 820, 1920, 30);
+        objBottom.endFill();
+        containerBottom.addChild(objBottom);
+
+
+    </script>
+
+</body>
+
+</html>
