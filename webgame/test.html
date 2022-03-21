@@ -16,6 +16,8 @@
         let app = new PIXI.Application({
                 width: window.innerWidth,
                 height: window.innerHeight,
+                resolution: window.devicePixelRatio,
+                resizeTo: window
             });
         app.renderer.view.style.position = "absolute";
 
@@ -68,6 +70,8 @@
         textProductionTitle.x = objMiddleLeftTitle.width / 2;
         textProductionTitle.y = objMiddleLeftTitle.height / 2;
         containerProduction.addChild(textProductionTitle);
+        textProductionTitle.interactive = true;
+        textProductionTitle.cursor = "text";
 
         let objMiddleLeft = new PIXI.Graphics();
         objMiddleLeft.beginFill(0xffb8b8);
@@ -87,6 +91,16 @@
         objMiddle.drawRect(0, 0, window.innerWidth - objMiddleLeftTitle.width - objTopRight.width, window.innerHeight - window.innerHeight/15);
         objMiddle.endFill();
         containerCoin.addChild(objMiddle);
+
+        let coin = new PIXI.Sprite.from("pictures/muenze.png");
+        coin.anchor.set(0.5);
+        coin.x = containerCoin.width / 2;
+        coin.y = containerCoin.height / 2;
+        containerCoin.addChild(coin);
+
+        coin.interactive = true;
+        coin.buttonMode = true;
+
 
         // // *----------------------------------------------------------------*
 
@@ -124,7 +138,10 @@
         objBottom.endFill();
         containerBottom.addChild(objBottom);
 
+        app.renderer.resize(window.innerWidth, window.innerHeight);
 
+
+        
     </script>
 
 </body>
