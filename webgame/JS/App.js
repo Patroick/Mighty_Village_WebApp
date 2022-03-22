@@ -1,8 +1,8 @@
-
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
-    resizeTo: window
+    resizeTo: window,
+    resolution: 1
 });
 app.renderer.view.style.position = "absolute";
 
@@ -31,6 +31,7 @@ let textUpgradeShop = new PIXI.Text('Upgrade Shop', { fontFamily: 'Helvetica', f
 textUpgradeShop.anchor.set(0.5, 0.5);
 textUpgradeShop.x = containerUpgradeShop.width / 2;
 textUpgradeShop.y = containerUpgradeShop.height / 2;
+textUpgradeShop.resolution = 2;
 containerUpgradeShop.addChild(textUpgradeShop);
 
 
@@ -56,6 +57,7 @@ textProductionTitle.x = objMiddleLeftTitle.width / 2;
 textProductionTitle.y = objMiddleLeftTitle.height / 2;
 containerProduction.addChild(textProductionTitle);
 textProductionTitle.interactive = true;
+textProductionTitle.resolution = 2;
 textProductionTitle.cursor = "text";
 
 let objMiddleLeft = new PIXI.Graphics();
@@ -81,12 +83,14 @@ let coin = new PIXI.Sprite.from("pictures/muenze.png");
 coin.anchor.set(0.5);
 coin.x = containerCoin.width / 2;
 coin.y = containerCoin.height / 2;
+coin.scale.x = 0.7;
+coin.scale.y = 0.7;
 containerCoin.addChild(coin);
 
 coin.interactive = true;
 coin.buttonMode = true;
-coin.on('pointerdown', onClick);
-
+coin.on('pointerdown', clickDown)
+    .on('pointerup', clickUp);
 let counter = 0;
 
 let textCounter = new PIXI.Text("Münzen: " + counter, { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
@@ -94,13 +98,20 @@ let textCounter = new PIXI.Text("Münzen: " + counter, { fontFamily: 'Helvetica'
 textCounter.anchor.set(0.5, 0.5);
 textCounter.x = containerCoin.width / 2;
 textCounter.y = containerCoin.height / 13;
+textCounter.resolution = 2;
 containerCoin.addChild(textCounter);
 
-function onClick(){  
+function clickDown(){  
     counter++;
+    coin.scale.x /= 1.1;
+    coin.scale.y /= 1.1;
     textCounter.text = "Münzen: " + counter;
 }
 
+function clickUp(){
+    coin.scale.x *= 1.1;
+    coin.scale.y *= 1.1;
+}
 
 
 // // *----------------------------------------------------------------*
