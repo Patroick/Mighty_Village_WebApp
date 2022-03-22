@@ -7,7 +7,6 @@
         "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "start:dev": "nodemon index.js"
-
     },
     "repository": {
         "type": "git",
@@ -20,7 +19,10 @@
     },
     "homepage": "https://github.com/FlorianJester/Mighty_Village_WebApp#readme",
     "dependencies": {
-        "express": "^4.17.2"
+        "express": "^4.17.2",
+        "pixi-scrollbox": "^2.3.1",
+        "pixi-viewport": "^4.34.4",
+        "pixi.js": "^6.2.2"
     },
     "devDependencies": {
         "nodemon": "^2.0.15"

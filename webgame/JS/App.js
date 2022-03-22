@@ -2,7 +2,6 @@
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
-    resolution: window.devicePixelRatio,
     resizeTo: window
 });
 app.renderer.view.style.position = "absolute";
@@ -86,6 +85,22 @@ containerCoin.addChild(coin);
 
 coin.interactive = true;
 coin.buttonMode = true;
+coin.on('pointerdown', onClick);
+
+let counter = 0;
+
+let textCounter = new PIXI.Text("Münzen: " + counter, { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+
+textCounter.anchor.set(0.5, 0.5);
+textCounter.x = containerCoin.width / 2;
+textCounter.y = containerCoin.height / 13;
+containerCoin.addChild(textCounter);
+
+function onClick(){  
+    counter++;
+    textCounter.text = "Münzen: " + counter;
+}
+
 
 
 // // *----------------------------------------------------------------*
