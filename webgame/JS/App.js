@@ -1,10 +1,21 @@
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
-    resizeTo: window,
-    resolution: 1
+    resolution: devicePixelRatio,
+    autoResize: true
 });
+
 app.renderer.view.style.position = "absolute";
+
+window.addEventListener("resize", resizeApp);
+
+function resizeApp()
+{
+    widthOutput = window.innerWidth;
+    heightOutput = window.innerHeight;
+    console.log(widthOutput + " " + heightOutput);
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+}
 
 // add eventListener für resize, App rendered nur dann mit wenn man die Seite ladet/neu ladet
 document.body.appendChild(app.view);
@@ -174,11 +185,39 @@ containerUpgrades.addChild(objMiddleRight);
 let containerUpgrade = new PIXI.Container();
 containerUpgrades.addChild(containerUpgrade);
 
-let objUpgrade = new PIXI.Graphics();
-objUpgrade.beginFill(0xfefdc2);
-objUpgrade.drawRect(objMiddleRight.width / 20, objMiddleRight.width/20, objMiddleRight.width/1.1, objMiddleRight.height/5);
-objUpgrade.endFill();
-containerUpgrade.addChild(objUpgrade);
+// drawRect (x,y,w,h) ---> Param 1 = x-Coordinate, Param 2 = y-Coordinate, Param 3 = width, Param 4 = height
+
+let objUpgrade1 = new PIXI.Graphics();
+objUpgrade1.beginFill(0xfefdc2);
+objUpgrade1.drawRect(objMiddleRight.width / 20, objMiddleRight.height/20, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade1.endFill();
+containerUpgrade.addChild(objUpgrade1);
+
+let objUpgrade2 = new PIXI.Graphics();
+objUpgrade2.beginFill(0xfffb12);
+objUpgrade2.drawRect(objMiddleRight.width / 20, objMiddleRight.height/3.5, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade2.endFill();
+containerUpgrade.addChild(objUpgrade2);
+
+let objUpgrade3 = new PIXI.Graphics();
+objUpgrade3.beginFill(0x03fce3);
+objUpgrade3.drawRect(objMiddleRight.width / 20, objMiddleRight.height/1.9, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade3.endFill();
+containerUpgrade.addChild(objUpgrade3);
+
+let objUpgrade4 = new PIXI.Graphics();
+objUpgrade4.beginFill(0x0324fc);
+objUpgrade4.drawRect(objMiddleRight.width / 20, objMiddleRight.height/1.31, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade4.endFill();
+containerUpgrade.addChild(objUpgrade4);
+
+let objUpgrade5 = new PIXI.Graphics();
+objUpgrade5.beginFill(0x9803fc);
+objUpgrade5.drawRect(objMiddleRight.width / 20, objMiddleRight.height/1212, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade5.endFill();
+containerUpgrade.addChild(objUpgrade5);
+
+// 0,175
 
 // // *----------------------------------------------------------------*
 // // *----------------------------------------------------------------*
