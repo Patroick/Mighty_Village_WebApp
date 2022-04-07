@@ -1,7 +1,7 @@
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
-    resolution: devicePixelRatio,
+    resolution: 1,
     autoResize: true
 });
 
