@@ -9,8 +9,7 @@ app.renderer.view.style.position = "absolute";
 
 window.addEventListener("resize", resizeApp);
 
-function resizeApp()
-{
+function resizeApp() {
     widthOutput = window.innerWidth;
     heightOutput = window.innerHeight;
     console.log(widthOutput + " " + heightOutput);
@@ -102,7 +101,10 @@ containerCoin.addChild(coin);
 coin.interactive = true;
 coin.buttonMode = true;
 coin.on('pointerdown', clickDown)
-    .on('pointerup', clickUp);
+    .on('pointerup', clickUp)
+    .on('pointerupoutside', clickUp)
+    .on('pointerover', clickUp)
+    .on('pointerout', hoverOver);
 let counter = 0;
 
 let textCounter = new PIXI.Text("Münzen: " + counter, { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
@@ -112,7 +114,8 @@ textCounter.x = containerCoin.width / 2;
 textCounter.y = containerCoin.height / 13;
 textCounter.resolution = 2;
 containerCoin.addChild(textCounter);
-// event.preventDefault prevents document scroll from scrolling when scrolling on the canvas
+
+
 document.body.addEventListener("wheel", function (event) {
     event.preventDefault()
 });
@@ -122,22 +125,16 @@ coin.on('scroll', (ev) => {
 });
 
 
-// cache a global mouse position to keep from 
-// creating a point every mousewheel event
 const mousePosition = new PIXI.Point();
 
-// Listen for global events on the <canvas> element
-// and convert those into scroll event
 app.view.addEventListener('wheel', (ev) => {
-    mousePosition.set(ev.clientX, ev.clientY); // get global position
+    mousePosition.set(ev.clientX, ev.clientY);
 
-    // returns element directly under mouse
     const found = app.renderer.plugins.interaction.hitTest(
         mousePosition,
         app.stage
     );
 
-    // Dispatch scroll event
     if (found) { found.emit('scroll', ev); }
 });
 
@@ -147,11 +144,17 @@ function clickDown() {
     coin.scale.x /= 1.1;
     coin.scale.y /= 1.1;
     textCounter.text = "Münzen: " + counter;
+
 }
 
 function clickUp() {
     coin.scale.x *= 1.1;
     coin.scale.y *= 1.1;
+}
+
+function hoverOver(){
+    coin.scale.x /= 1.1;
+    coin.scale.y /= 1.1;
 }
 
 
@@ -189,33 +192,28 @@ containerUpgrades.addChild(containerUpgrade);
 
 let objUpgrade1 = new PIXI.Graphics();
 objUpgrade1.beginFill(0xfefdc2);
-objUpgrade1.drawRect(objMiddleRight.width / 20, objMiddleRight.height/20, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade1.drawRect(objMiddleRight.width / 20, objMiddleRight.height / 20, objMiddleRight.width / 1.1, objMiddleRight.height / 5);
 objUpgrade1.endFill();
 containerUpgrade.addChild(objUpgrade1);
 
 let objUpgrade2 = new PIXI.Graphics();
 objUpgrade2.beginFill(0xfffb12);
-objUpgrade2.drawRect(objMiddleRight.width / 20, objMiddleRight.height/3.5, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade2.drawRect(objMiddleRight.width / 20, objMiddleRight.height / 3.5, objMiddleRight.width / 1.1, objMiddleRight.height / 5);
 objUpgrade2.endFill();
 containerUpgrade.addChild(objUpgrade2);
 
 let objUpgrade3 = new PIXI.Graphics();
 objUpgrade3.beginFill(0x03fce3);
-objUpgrade3.drawRect(objMiddleRight.width / 20, objMiddleRight.height/1.9, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade3.drawRect(objMiddleRight.width / 20, objMiddleRight.height / 1.9, objMiddleRight.width / 1.1, objMiddleRight.height / 5);
 objUpgrade3.endFill();
 containerUpgrade.addChild(objUpgrade3);
 
 let objUpgrade4 = new PIXI.Graphics();
 objUpgrade4.beginFill(0x0324fc);
-objUpgrade4.drawRect(objMiddleRight.width / 20, objMiddleRight.height/1.31, objMiddleRight.width/1.1, objMiddleRight.height/5);
+objUpgrade4.drawRect(objMiddleRight.width / 20, objMiddleRight.height / 1.31, objMiddleRight.width / 1.1, objMiddleRight.height / 5);
 objUpgrade4.endFill();
 containerUpgrade.addChild(objUpgrade4);
 
-let objUpgrade5 = new PIXI.Graphics();
-objUpgrade5.beginFill(0x9803fc);
-objUpgrade5.drawRect(objMiddleRight.width / 20, objMiddleRight.height/1212, objMiddleRight.width/1.1, objMiddleRight.height/5);
-objUpgrade5.endFill();
-containerUpgrade.addChild(objUpgrade5);
 
 // 0,175
 
