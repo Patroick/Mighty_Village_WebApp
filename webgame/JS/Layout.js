@@ -1,4 +1,5 @@
 
+
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -19,8 +20,8 @@ function resize() {
     setLayout();
 }
 
-function setup(){
 
+function setup(){
 
     // Upgrade Shop Text
 
@@ -43,24 +44,37 @@ function setup(){
     textProductionTitle.interactive = true;
     textProductionTitle.cursor = "text";
     textProductionTitle.resolution = 2;
-    objMiddleLeft = new PIXI.Graphics();
+    backgroundProduction = new PIXI.Graphics();
     
     app.stage.addChild(containerProduction);
     containerProduction.addChild(backgroundProductionTitle);
     containerProduction.addChild(textProductionTitle);
-    containerProduction.addChild(objMiddleLeft);
+    containerProduction.addChild(backgroundProduction);
 
     // Coin
 
     containerCoin = new PIXI.Container();
     backgroundCoin = new PIXI.Graphics();
 
+    counter = new Counter();
+    coin = new Coin.from("pictures/muenze.png");
+    coin.anchor.set(0.5);
+    coin.interactive = true;
+    coin.buttonMode= true;
+
     app.stage.addChild(containerCoin);
+    containerCoin.addChild(backgroundCoin);
+    containerCoin.addChild(coin);
 
     setLayout();
 }
 
 function setLayout(){
+
+    backgroundProductionTitle.clear();
+    backgroundProduction.clear();
+    backgroundUpgradeShopTitle.clear();
+    backgroundCoin.clear();
 
     // Upgrade Shop Text
 
@@ -81,13 +95,24 @@ function setLayout(){
     backgroundProductionTitle.endFill();
     textProductionTitle.x = backgroundProductionTitle.width / 2;
     textProductionTitle.y = backgroundProductionTitle.height / 2;
-    objMiddleLeft.beginFill(0xffb8b8);
-    objMiddleLeft.drawRect(0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
-    objMiddleLeft.endFill();
+    backgroundProduction.beginFill(0xffb8b8);
+    backgroundProduction.drawRect(0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
+    backgroundProduction.endFill();
 
     // Coin
 
     containerCoin.x = backgroundProductionTitle.width;
-    container.y = 0;
+    containerCoin.y = 0;
+    backgroundCoin.beginFill(0xa4e5f9);
+    backgroundCoin.drawRect(0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
+    backgroundCoin.endFill();
+
+    coin.x = containerCoin.width / 2;
+    coin.y = containerCoin.height / 2;
+
+}
+
+function gameLoop(){
+
 
 }
