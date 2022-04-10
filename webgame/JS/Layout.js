@@ -62,10 +62,15 @@ function setup(){
     coin.interactive = true;
     coin.buttonMode= true;
 
+    textCounter = new PIXI.Text("Münzen " + counter.counter, { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+    textCounter.anchor.set(0.5, 0.5);
+    textCounter.resolution = 2;
+
     app.stage.addChild(containerCoin);
     containerCoin.addChild(backgroundCoin);
     containerCoin.addChild(coin);
 
+    containerCoin.addChild(textCounter);
     setLayout();
 }
 
@@ -109,6 +114,11 @@ function setLayout(){
 
     coin.x = containerCoin.width / 2;
     coin.y = containerCoin.height / 2;
+    coin.scale.x = containerCoin.width/1000;
+    coin.scale.y = containerCoin.width/1000;
+
+    textCounter.x = containerCoin.width / 2;
+    textCounter.y = containerCoin.height / 13;
 
 }
 
