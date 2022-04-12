@@ -69,8 +69,20 @@ function setup(){
     app.stage.addChild(containerCoin);
     containerCoin.addChild(backgroundCoin);
     containerCoin.addChild(coin);
-
     containerCoin.addChild(textCounter);
+
+    // Shop
+
+    containerShop = new PIXI.Container();
+    backgroundUpgradeAmount = new PIXI.Graphics();
+    containerUpgrades = new PIXI.Container();
+    backgroundUpgrades = new PIXI.Graphics();
+
+    app.stage.addChild(containerShop);
+    containerShop.addChild(backgroundUpgradeAmount);
+    containerShop.addChild(containerUpgrades);
+    containerUpgrades.addChild(backgroundUpgrades);
+
     setLayout();
 }
 
@@ -80,6 +92,7 @@ function setLayout(){
     backgroundProduction.clear();
     backgroundUpgradeShopTitle.clear();
     backgroundCoin.clear();
+    backgroundUpgradeAmount.clear();
 
     // Upgrade Shop Text
 
@@ -120,6 +133,21 @@ function setLayout(){
     textCounter.x = containerCoin.width / 2;
     textCounter.y = containerCoin.height / 13;
 
+    // Shop
+
+    containerShop.x = (app.renderer.width - app.renderer.width / 5);
+    containerShop.y = backgroundUpgradeShopTitle.height;
+
+    backgroundUpgradeAmount.beginFill(0x39c107);
+    backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
+    backgroundUpgradeAmount.endFill();
+
+    containerUpgrades.x = 0;
+    containerUpgrades.y = backgroundUpgradeAmount.height;
+
+    backgroundUpgrades.beginFill(0xf63939);
+    backgroundUpgrades.drawRect(0, 0, app.renderer.width/5, app.renderer.height - backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
+    backgroundUpgrades.endFill();
 }
 
 function gameLoop(){
