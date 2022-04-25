@@ -127,7 +127,6 @@ function setup() {
         coin.y -= ev.wheelDelta;
     });
 
-
     const mousePosition = new PIXI.Point();
 
     app.view.addEventListener('wheel', (ev) => {
