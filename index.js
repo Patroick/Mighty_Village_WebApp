@@ -24,6 +24,9 @@ app.get('/webgame/test.html', (req, res) => {
 
 
 app.use('/webgame/pictures', express.static(path.join(__dirname, '/webgame/pictures')));
+app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Coing Logic')));
+app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Production')));
+app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Shop')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS')));
 
 

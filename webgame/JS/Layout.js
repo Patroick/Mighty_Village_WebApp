@@ -1,5 +1,3 @@
-
-
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -60,7 +58,7 @@ function setup(){
     coin = new Coin.from("pictures/muenze.png");
     coin.anchor.set(0.5);
     coin.interactive = true;
-    coin.buttonMode= true;
+    coin.buttonMode = true;
 
     textCounter = new PIXI.Text("Münzen " + counter.counter, { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
     textCounter.anchor.set(0.5, 0.5);
@@ -82,6 +80,14 @@ function setup(){
     containerShop.addChild(backgroundUpgradeAmount);
     containerShop.addChild(containerUpgrades);
     containerUpgrades.addChild(backgroundUpgrades);
+
+    // Bottom
+
+    containerBottom = new PIXI.Container();
+    backgroundBottom = new PIXI.Graphics();
+
+    app.stage.addChild(containerBottom);
+    containerBottom.addChild(backgroundBottom);
 
     setLayout();
 }
@@ -148,9 +154,23 @@ function setLayout(){
     backgroundUpgrades.beginFill(0xf63939);
     backgroundUpgrades.drawRect(0, 0, app.renderer.width/5, app.renderer.height - backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
     backgroundUpgrades.endFill();
+
+    // Bottom
+
+    containerBottom.x = 0;
+    containerBottom.y = app.renderer.height - app.renderer.height / 15;
+    backgroundBottom.beginFill(0xfefdc2);
+    backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
+    backgroundBottom.endFill();
+
+    gameLoop();
+
 }
 
 function gameLoop(){
 
+    producitonView = new ProductionView();
+
+    producitonView.test();
 
 }
