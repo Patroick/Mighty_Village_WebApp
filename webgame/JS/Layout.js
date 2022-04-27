@@ -19,6 +19,8 @@ function resize() {
 }
 
 
+gameLoop();
+
 function setup(){
 
     // Upgrade Shop Text
@@ -55,7 +57,7 @@ function setup(){
     backgroundCoin = new PIXI.Graphics();
 
     counter = new Counter();
-    coin = new Coin.from("pictures/muenze.png");
+    coin = new Coin("pictures/muenze.png");
     coin.anchor.set(0.5);
     coin.interactive = true;
     coin.buttonMode = true;
@@ -163,14 +165,18 @@ function setLayout(){
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
     backgroundBottom.endFill();
 
-    gameLoop();
-
 }
 
 function gameLoop(){
-
+/* 
     producitonView = new ProductionView();
 
-    producitonView.test();
+    producitonView.test(); */
 
+    coin.on('pointerdown', coin.clickDown)
+        .on('pointerup', coin.clickUp)
+        .on('pointerupoutside', coin.clickUp)
+        .on('pointerover', coin.clickUp)
+        .on('pointerout', hoverOver);
+    
 }
