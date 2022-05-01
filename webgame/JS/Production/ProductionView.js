@@ -17,7 +17,7 @@ class ProductionView {
             [new ProductionUpgrade("Juwelier", 3, 50, 1.2, 1.025), 1]);
 
         
-        this.productions.push(this.baseProductions);
+        this.productions = this.baseProductions;
     }
 
     // Wenn beim Laden vom Cookie schon etwas gespeichert wurde
@@ -40,20 +40,18 @@ class ProductionView {
 
             for(let i = 0; i < numberOfPurchases; i++) {
 
-                this.baseProductions.forEach(function(){
-                    
-                    // Ka JS will das if nicht nehmen, "this is undefined" :DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
-
-                    console.log("ah");
-                })
+                for(let j = 0; j < this.productions.length; j++){
+                    if(this.productions[j][0]["productionType"].localeCompare(this.type)){
+                        console.log(this.productions[j][1]);
+                    } else {
+                        console.log("ah");
+                    }
+                }
 
                 generatingValue += type.generatingValue * type.generationIncrease;
                 price += type.price * type.priceIncrease;
-                amount += 1;
 
             }
-
-            
 
         } else {
             console.log("Ihr guthaben ist zu wenig um " + numberOfPurchases + " Produktionsgebäude vom Typ " + type + " zu kaufen!");

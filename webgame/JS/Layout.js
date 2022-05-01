@@ -182,7 +182,8 @@ function productionUpgrades(){
 
     productionView = new ProductionView();
 
-    productionView.addProduction("test", 5000, 10);
+    productionView.addProduction("Farm", 5000, 10);
 
     productionView.get();
+
 }
