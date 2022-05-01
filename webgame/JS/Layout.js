@@ -18,6 +18,7 @@ function resize() {
     setLayout();
 }
 
+productionUpgrades();
 
 gameLoop();
 
@@ -168,15 +169,20 @@ function setLayout(){
 }
 
 function gameLoop(){
-/* 
-    producitonView = new ProductionView();
-
-    producitonView.test(); */
-
+/*
     coin.on('pointerdown', coin.clickDown)
         .on('pointerup', coin.clickUp)
         .on('pointerupoutside', coin.clickUp)
         .on('pointerover', coin.clickUp)
         .on('pointerout', hoverOver);
-    
+    */
+}
+
+function productionUpgrades(){
+
+    productionView = new ProductionView();
+
+    productionView.addProduction("test", 5000, 10);
+
+    productionView.get();
 }
