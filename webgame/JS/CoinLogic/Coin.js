@@ -11,14 +11,13 @@ class Coin extends PIXI.Sprite{
     }
 
     clickUp(counter){
-
+        this.scale.x *= 1.1;
+        this.scale.y *= 1.1;
     }
 
     hoverOver(){
-
+        this.scale.x /= 1.1;
+        this.scale.y /= 1.1;
     }
 
-    test(){
-        console.log("test")
-    }
 }

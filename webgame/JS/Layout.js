@@ -169,13 +169,13 @@ function setLayout(){
 }
 
 function gameLoop(){
-/*
+
     coin.on('pointerdown', coin.clickDown)
         .on('pointerup', coin.clickUp)
         .on('pointerupoutside', coin.clickUp)
         .on('pointerover', coin.clickUp)
-        .on('pointerout', hoverOver);
-    */
+        .on('pointerout', coin.hoverOver);
+    
 }
 
 function productionUpgrades(){
