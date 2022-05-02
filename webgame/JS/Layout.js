@@ -186,4 +186,21 @@ function productionUpgrades(){
 
     productionView.get();
 
+    this.productions = productionView.getContainers();
+    this.array = new Array();
+
+    for(let i = 0; i < this.productions.length; i++){
+        productionUpgrade = new PIXI.Container();
+        backgroundProductionContainer = new PIXI.Graphics();
+        textProduction = new PIXI.Text(productions[i][0]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+        textProduction.resolution = 2; //Bessere Lösung??? Sieht immernoch verpixelt aus
+        textProduction.anchor.set(0.5, 0.5);
+        containerProduction.addChild(productionUpgrade);
+        containerProduction.addChild(backgroundProductionContainer);
+        containerProduction.addChild(textProduction);
+        
+        productionUpgrade.y = 0;
+        textProduction.x = backgroundProduction.width / 2;
+        textProduction.y += backgroundProduction.width / (2 % i);
+    }
 }

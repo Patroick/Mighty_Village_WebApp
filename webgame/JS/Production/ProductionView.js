@@ -62,4 +62,8 @@ class ProductionView {
     get(){
         console.log(this.productions);
     }
+
+    getContainers(){
+        return this.productions;
+    }
 }
