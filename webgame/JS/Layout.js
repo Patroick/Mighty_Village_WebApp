@@ -20,7 +20,8 @@ function resize() {
 
 productionUpgrades();
 
-gameLoop();
+app.ticker.add(delta => gameLoop(delta));
+gameLoop(delta);
 
 function setup(){
 
@@ -71,6 +72,13 @@ function setup(){
     containerCoin.addChild(backgroundCoin);
     containerCoin.addChild(coin);
     containerCoin.addChild(textCounter);
+
+    coin.on('pointerdown', coin.clickDown)
+        .on('pointerup', coin.clickUp)
+        .on('pointerupoutside', coin.clickUp)
+        .on('pointerover', coin.clickUp)
+        .on('pointerout', coin.hoverOver);
+
 
     // Shop
 
@@ -168,13 +176,9 @@ function setLayout(){
 
 }
 
-function gameLoop(){
+function gameLoop(delta){
 
-    coin.on('pointerdown', coin.clickDown)
-        .on('pointerup', coin.clickUp)
-        .on('pointerupoutside', coin.clickUp)
-        .on('pointerover', coin.clickUp)
-        .on('pointerout', coin.hoverOver);
+    counter.increase(0.05);
     
 }
 

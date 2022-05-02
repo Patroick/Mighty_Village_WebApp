@@ -6,6 +6,6 @@ class Counter{
 
     increase(amount){
         this.counter += amount;
-        textCounter.text = "Münzen: " + counter.counter;
+        textCounter.text = "Münzen: " + Math.round(counter.counter);
     }
 }
