@@ -197,14 +197,22 @@ function productionUpgrades(){
         productionUpgrade = new PIXI.Container();
         backgroundProductionContainer = new PIXI.Graphics();
         textProduction = new PIXI.Text(productions[i][0]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
-        textProduction.resolution = 2; //Bessere Lösung??? Sieht immernoch verpixelt aus
+        textProduction.resolution = 2; 
         textProduction.anchor.set(0.5, 0.5);
         containerProduction.addChild(productionUpgrade);
         containerProduction.addChild(backgroundProductionContainer);
         containerProduction.addChild(textProduction);
-        
-        productionUpgrade.y = 0;
+        if(i % 2 == 0){
+            backgroundProductionContainer.beginFill(0xff5733);
+        } else{
+            backgroundProductionContainer.beginFill(0x8aff33);
+        }
+        backgroundProductionContainer.drawRect(0, backgroundProductionTitle.height + (app.renderer.height / 15) * i, containerProduction.width, backgroundProductionTitle.height + (app.renderer.height / this.productions.length));
+        backgroundProductionContainer.endFill();
+
+        console.log(this.productions.length);
+       
         textProduction.x = backgroundProduction.width / 2;
-        textProduction.y += backgroundProduction.width / (2 % i);
+        textProduction.y += backgroundProductionContainer.y + containerProduction.width / this.productions.length;
     }
 }
