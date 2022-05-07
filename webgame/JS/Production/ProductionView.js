@@ -14,7 +14,8 @@ class ProductionView {
             [new ProductionUpgrade("Erz-Mine", 3, 50, 1.2, 1.025), 1],
             [new ProductionUpgrade("Schmied", 3, 50, 1.2, 1.025), 1],
             [new ProductionUpgrade("Edlestein-Mine", 3, 50, 1.2, 1.025), 1],
-            [new ProductionUpgrade("Juwelier", 3, 50, 1.2, 1.025), 1]);
+            [new ProductionUpgrade("Juwelier", 3, 50, 1.2, 1.025), 1],
+            [new ProductionUpgrade("Testiest", 3, 50, 1.2, 1.025), 1]);
 
         
         this.productions = this.baseProductions;
