@@ -8,6 +8,11 @@ class PlayerUpgradeView {
 
     }
 
+    // Wenn upgrade gekauft wurde wird es nicht mehr im Shop displayed
+    removeUpgrade() {
+
+    }
+
     getUpgrades() {
 
     }
@@ -17,11 +22,13 @@ class PlayerUpgradeView {
     }
 
     generateUpgrades() {
-        this.baseUpgrades = new Array();
+        this.baseUpgrades = new Array(
+            new PlayerUpgrade(1.1, 100, 0)
+        );
     }
 
-    unlockNewUpgrade() {
-        
+    unlockNewUpgrade(balance) {
+        // überprüft mit balance welches upgrade freigeschalten wird.
     }
 }
 
