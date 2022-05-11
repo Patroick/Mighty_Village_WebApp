@@ -18,8 +18,6 @@ function resize() {
     setLayout();
 }
 
-productionUpgrades();
-
 app.ticker.add(delta => gameLoop(delta));
 gameLoop(delta);
 
@@ -174,6 +172,8 @@ function setLayout(){
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
     backgroundBottom.endFill();
 
+    productionUpgrades();
+
 }
 
 function gameLoop(delta){
@@ -185,10 +185,6 @@ function gameLoop(delta){
 function productionUpgrades(){
 
     productionView = new ProductionView();
-
-    productionView.addProduction("Farm", 5000, 10);
-
-    productionView.get();
 
     this.productions = productionView.getContainers();
     this.array = new Array();
@@ -209,7 +205,7 @@ function productionUpgrades(){
             0, 
             backgroundProductionTitle.height + (app.renderer.height / 8) * i, 
             containerProduction.width, 
-            backgroundProductionTitle.height + (app.renderer.height / this.productions.length)
+            backgroundProductionTitle.height + (app.renderer.height / this.productions.length) / 25
                                                 );
         backgroundProductionContainer.endFill();
        
@@ -220,4 +216,12 @@ function productionUpgrades(){
         containerProduction.addChild(backgroundProductionContainer);
         containerProduction.addChild(textProduction);
     }
+}
+
+function shopUpgrade() {
+
+}
+
+function playerUpgrade() {
+    
 }
