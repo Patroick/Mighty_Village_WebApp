@@ -179,6 +179,15 @@ function setLayout(){
 function gameLoop(delta){
 
     counter.increase(0.05);
+
+    if(coin.text != null){
+        coin.text.y -= 10  
+        coin.text.alpha -= 0.03;
+        if(coin.text.y < coin.y / 3){
+            containerCoin.removeChild(coin.text);
+        }  
+    }
+    
     
 }
 

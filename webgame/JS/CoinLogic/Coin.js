@@ -8,7 +8,22 @@ class Coin extends PIXI.Sprite{
         });
     }
 
-    clickDown(){
+    clickDown(e){
+
+        // Klick Indikator
+
+        if(this.text != null){
+            this.removeText();
+        }
+        this.text = new PIXI.Text("+ " + this.increment);
+        this.text.anchor.set(0.5, 0.5);
+        this.text.resolution = 2;
+        this.text.x = e.data.global.x -coin.x / 20 + Math.floor(Math.random() * coin.x/ 10); // e.data.global zum einlesen der Zeigerposition
+        this.text.y = e.data.global.y;
+        app.stage.addChild(this.text); // Der Text wird hier der app stage hinzugefügt da die globale Zeigerposition abgefragt wird
+
+        // Counter erhöhung 
+
         counter.increase(this.increment);
         this.scale.x /= 1.1;
         this.scale.y /= 1.1;
@@ -25,4 +40,9 @@ class Coin extends PIXI.Sprite{
         this.scale.y /= 1.1;
     }
 
+    removeText(){
+        if(this.text != null){
+            this.text.destroy();
+        }
+    }
 }
