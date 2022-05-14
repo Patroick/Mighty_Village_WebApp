@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/FlorianJester/Mighty_Village_WebApp#readme",
     "dependencies": {
+        "@pixi/sound": "^4.2.0",
         "express": "^4.17.2",
         "pixi-scrollbox": "^2.3.1",
         "pixi-viewport": "^4.34.4",

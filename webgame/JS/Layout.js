@@ -57,7 +57,7 @@ function setup(){
     backgroundCoin = new PIXI.Graphics();
 
     counter = new Counter();
-    coin = new Coin("pictures/muenze.png");
+    coin = new Coin("pictures/muenze.png", "audio/coin.wav");
     coin.anchor.set(0.5);
     coin.interactive = true;
     coin.buttonMode = true;
