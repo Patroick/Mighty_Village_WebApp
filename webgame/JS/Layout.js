@@ -19,7 +19,7 @@ function resize() {
 }
 
 app.ticker.add(delta => gameLoop(delta));
-gameLoop(delta);
+
 
 function setup(){
 
