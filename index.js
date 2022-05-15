@@ -14,6 +14,7 @@ app.get('/webgame/css/style.css', (req, res) => {
     res.sendFile(path.join(__dirname, '/webgame/css/style.css'))
 })
 
+
 app.get('/infoseite/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '/infoseite/index.html'))
 });
@@ -24,7 +25,6 @@ app.get('/webgame/test.html', (req, res) => {
 
 
 app.use('/webgame/pictures', express.static(path.join(__dirname, '/webgame/pictures')));
-app.use('/webgame/audio', express.static(path.join(__dirname, '/webgame/audio')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Coing Logic')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Production')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Shop')));

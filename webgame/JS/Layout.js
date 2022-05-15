@@ -55,6 +55,7 @@ function setup(){
 
     containerCoin = new PIXI.Container();
     backgroundCoin = new PIXI.Graphics();
+    coinLine = new PIXI.Graphics();
 
     counter = new Counter();
     coin = new Coin("pictures/muenze.png", "audio/coin.wav");
@@ -62,7 +63,7 @@ function setup(){
     coin.interactive = true;
     coin.buttonMode = true;
 
-    textCounter = new PIXI.Text("Münzen " + counter.counter, { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+    textCounter = new PIXI.Text("Münzen " + counter.counter, { fontFamily: "pixel", fontSize: 52, fill: 0x000000 });
     textCounter.anchor.set(0.5, 0.5);
     textCounter.resolution = 2;
 
@@ -70,6 +71,7 @@ function setup(){
     containerCoin.addChild(backgroundCoin);
     containerCoin.addChild(coin);
     containerCoin.addChild(textCounter);
+    containerCoin.addChild(coinLine);
 
     coin.on('pointerdown', coin.clickDown)
         .on('pointerup', coin.clickUp)
@@ -84,6 +86,8 @@ function setup(){
     backgroundUpgradeAmount = new PIXI.Graphics();
     containerUpgrades = new PIXI.Container();
     backgroundUpgrades = new PIXI.Graphics();
+    backgroundUpgrades.interactive = true;
+    backgroundUpgrades.buttonMode = true;
 
     app.stage.addChild(containerShop);
     containerShop.addChild(backgroundUpgradeAmount);
@@ -140,13 +144,15 @@ function setLayout(){
     backgroundCoin.drawRect(0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
     backgroundCoin.endFill();
 
-    coin.x = containerCoin.width / 2;
-    coin.y = containerCoin.height / 2;
+    coin.x = backgroundCoin.width / 2;
+    coin.y = backgroundCoin.height / 2;
+    coinLine.x = 0;
+    coinLine.y = backgroundCoin.height - backgroundCoin.height / 10;
     coin.scale.x = containerCoin.width/1000;
     coin.scale.y = containerCoin.width/1000;
 
-    textCounter.x = containerCoin.width / 2;
-    textCounter.y = containerCoin.height / 13;
+    textCounter.x = backgroundCoin.width / 2;
+    textCounter.y = backgroundCoin.height / 13;
 
     // Shop
 
@@ -187,7 +193,17 @@ function gameLoop(delta){
             containerCoin.removeChild(coin.text);
         }  
     }
-    
+
+    coinLine.lineStyle(2, 0xFFFF00);
+    coinLine.bezierCurveTo(
+        backgroundCoin.width / 3, -100,
+        backgroundCoin.width / 2 ,100,
+        backgroundCoin.width, -50);
+    coinLine.lineTo(backgroundCoin.height, backgroundCoin.width);
+    coinLine.lineTo(0, backgroundCoin.height);
+    coinLine.lineTo(0,0)
+
+    coinLine.beginFill(0xFFFF00);
     
 }
 

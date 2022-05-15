@@ -7,7 +7,7 @@ class Counter{
     increase(amount){
         this.counter += amount;
 
-        textCounter.text = "Münzen: " + convertNumber(this.counter);
+        textCounter.text = convertNumber(this.counter) + " Münzen";
     }
 }
 

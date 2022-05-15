@@ -15,7 +15,7 @@ class Coin extends PIXI.Sprite{
         if(this.text != null){
             this.removeText();
         }
-        this.text = new PIXI.Text("+ " + convertNumber(this.increment));
+        this.text = new PIXI.Text("+ " + convertNumber(this.increment) ,{ fontFamily: "pixel"});
         this.text.anchor.set(0.5, 0.5);
         this.text.resolution = 2;
         this.text.x = e.data.global.x -coin.x / 20 + Math.floor(Math.random() * coin.x/ 10); // e.data.global zum einlesen der Zeigerposition
