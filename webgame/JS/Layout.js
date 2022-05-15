@@ -23,6 +23,8 @@ app.ticker.add(delta => gameLoop(delta));
 
 function setup(){
 
+    gameData = new GameData();
+
     // Upgrade Shop Text
 
     containerUpgradeShop = new PIXI.Container();
@@ -82,17 +84,9 @@ function setup(){
 
     // Shop
 
-    containerShop = new PIXI.Container();
-    backgroundUpgradeAmount = new PIXI.Graphics();
-    containerUpgrades = new PIXI.Container();
-    backgroundUpgrades = new PIXI.Graphics();
-    backgroundUpgrades.interactive = true;
-    backgroundUpgrades.buttonMode = true;
+    containerShop = new ShopProduction();
 
     app.stage.addChild(containerShop);
-    containerShop.addChild(backgroundUpgradeAmount);
-    containerShop.addChild(containerUpgrades);
-    containerUpgrades.addChild(backgroundUpgrades);
 
     // Bottom
 
@@ -111,7 +105,7 @@ function setLayout(){
     backgroundProduction.clear();
     backgroundUpgradeShopTitle.clear();
     backgroundCoin.clear();
-    backgroundUpgradeAmount.clear();
+    containerShop.backgroundUpgradeAmount.clear();
 
     // Upgrade Shop Text
 
@@ -159,16 +153,16 @@ function setLayout(){
     containerShop.x = (app.renderer.width - app.renderer.width / 5);
     containerShop.y = backgroundUpgradeShopTitle.height;
 
-    backgroundUpgradeAmount.beginFill(0x39c107);
-    backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
-    backgroundUpgradeAmount.endFill();
+    containerShop.backgroundUpgradeAmount.beginFill(0x39c107);
+    containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
+    containerShop.backgroundUpgradeAmount.endFill();
 
-    containerUpgrades.x = 0;
-    containerUpgrades.y = backgroundUpgradeAmount.height;
+    containerShop.backgroundUpgrades.x = 0;
+    containerShop.backgroundUpgrades.y = containerShop.backgroundUpgradeAmount.height;
 
-    backgroundUpgrades.beginFill(0xf63939);
-    backgroundUpgrades.drawRect(0, 0, app.renderer.width/5, app.renderer.height - backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
-    backgroundUpgrades.endFill();
+    containerShop.backgroundUpgrades.beginFill(0xf63939);
+    containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width/5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
+    containerShop.backgroundUpgrades.endFill();
 
     // Bottom
 
@@ -194,7 +188,7 @@ function gameLoop(delta){
         }  
     }
 
-    coinLine.lineStyle(2, 0xFFFF00);
+    /* coinLine.lineStyle(2, 0xFFFF00);
     coinLine.bezierCurveTo(
         backgroundCoin.width / 3, -100,
         backgroundCoin.width / 2 ,100,
@@ -203,15 +197,13 @@ function gameLoop(delta){
     coinLine.lineTo(0, backgroundCoin.height);
     coinLine.lineTo(0,0)
 
-    coinLine.beginFill(0xFFFF00);
+    coinLine.beginFill(0xFFFF00); */
     
 }
 
 function productionUpgrades(){
 
-    productionView = new ProductionView();
-
-    this.productions = productionView.getContainers();
+    this.productions = gameData.productions;
     this.array = new Array();
 
     for(let i = 0; i < this.productions.length; i++){
@@ -241,7 +233,30 @@ function productionUpgrades(){
         containerProduction.addChild(backgroundProductionContainer);
         containerProduction.addChild(textProduction);
     }
-}
+
+    // fürs Scrollen, das Coin durch den Container ersetzen
+
+    // document.body.addEventListener("wheel", function (event) {
+    //     event.preventDefault()
+    // });
+
+    // coin.on('scroll', (ev) => {
+    //     coin.y -= ev.wheelDelta;
+    // });
+
+    // const mousePosition = new PIXI.Point();
+
+    // app.view.addEventListener('wheel', (ev) => {
+    //     mousePosition.set(ev.clientX, ev.clientY);
+
+    //     const found = app.renderer.plugins.interaction.hitTest(
+    //         mousePosition,
+    //         app.stage
+    //     );
+
+    //     if (found) { found.emit('scroll', ev); }
+    // });
+} 
 
 function shopUpgrade() {
 
