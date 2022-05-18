@@ -178,7 +178,7 @@ function setLayout(){
 
 function gameLoop(delta){
 
-    counter.increase(0.05);
+    counter.increase(calculateProduction()/100);
 
     if(coin.text != null){
         coin.text.y -= 10  
@@ -264,4 +264,16 @@ function shopUpgrade() {
 
 function playerUpgrade() {
     
+}
+
+function calculateProduction(){
+
+    let value = 0;
+
+    for(let i = 0; i < gameData.productions.length; i++){
+        value += gameData.productions[i][0]["generatingValue"] * gameData.productions[i][1];
+    }
+
+    return value;
+
 }
