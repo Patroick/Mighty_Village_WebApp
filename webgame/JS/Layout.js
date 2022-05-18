@@ -23,6 +23,7 @@ app.ticker.add(delta => gameLoop(delta));
 
 function setup(){
 
+    counter = new Counter();
     gameData = new GameData();
 
     // Upgrade Shop Text
@@ -59,7 +60,6 @@ function setup(){
     backgroundCoin = new PIXI.Graphics();
     coinLine = new PIXI.Graphics();
 
-    counter = new Counter();
     coin = new Coin("pictures/muenze.png", "audio/coin.wav");
     coin.anchor.set(0.5);
     coin.interactive = true;
@@ -172,7 +172,9 @@ function setLayout(){
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
     backgroundBottom.endFill();
 
-    productionUpgrades();
+    displayProductions();
+    displayShopButtons();
+    displayShopUpgrades();
 
 }
 
@@ -201,15 +203,14 @@ function gameLoop(delta){
     
 }
 
-function productionUpgrades(){
+function displayProductions(){
 
     this.productions = gameData.productions;
-    this.array = new Array();
 
     for(let i = 0; i < this.productions.length; i++){
         productionUpgrade = new PIXI.Container();
         backgroundProductionContainer = new PIXI.Graphics();
-        textProduction = new PIXI.Text(productions[i][0]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
         textProduction.resolution = 2; 
         textProduction.anchor.set(0.5, 0.5);
         
@@ -258,11 +259,39 @@ function productionUpgrades(){
     // });
 } 
 
-function shopUpgrade() {
+function displayShopButtons() {
+    this.shop = gameData.productions;
+    for (let i = 0; i < this.shop.length; i++){
+        upgradeButton = new PIXI.Container();
+        backgroundUpgradeButton = new PIXI.Graphics();
+        textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+        textUpgradeButton.resolution = 2;
+        textUpgradeButton.anchor.set(0.5, 0.5);
 
+        if (i % 2 == 0) {
+            backgroundUpgradeButton.beginFill(0xff5733);
+        } else {
+            backgroundUpgradeButton.beginFill(0xFF00FF);
+        }
+
+        backgroundUpgradeButton.drawRect(
+            backgroundProductionTitle.width + backgroundCoin.width,
+            backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i,
+            backgroundUpgradeShopTitle.width,
+            backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height + (app.renderer.height / this.productions.length) / 25
+        );
+
+        backgroundUpgradeButton.endFill();
+        textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2;
+        textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 1.25;
+    
+        containerShop.addChild(upgradeButton);
+        containerShop.addChild(backgroundUpgradeButton);
+        containerShop.addChild(textUpgradeButton);
+    }
 }
 
-function playerUpgrade() {
+function displayShopUpgrades() {
     
 }
 
@@ -271,7 +300,7 @@ function calculateProduction(){
     let value = 0;
 
     for(let i = 0; i < gameData.productions.length; i++){
-        value += gameData.productions[i][0]["generatingValue"] * gameData.productions[i][1];
+        value += gameData.productions[i].getProductionValue();
     }
 
     return value;

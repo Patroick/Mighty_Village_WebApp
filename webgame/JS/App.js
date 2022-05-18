@@ -1,3 +1,4 @@
+/*
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -236,3 +237,4 @@ function setup() {
     containerBottom.addChild(objBottom);
 
 }
+*/

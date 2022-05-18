@@ -6,7 +6,15 @@ class Counter{
 
     increase(amount){
         this.counter += amount;
+        this.update();
+    }
 
+    decrease(amount){
+        this.counter -= amount;
+        this.update();
+    }
+
+    update(){
         textCounter.text = convertNumber(this.counter) + " Münzen";
     }
 }
