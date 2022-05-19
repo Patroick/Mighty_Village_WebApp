@@ -15,6 +15,11 @@ class Counter{
     }
 
     update(){
+
+        // Anzeige Conversion zu Mio / Bio / etc... hier 
+        //https://github.com/Trixter9994/Cookie-Clicker-Source-Code/blob/master/main.js
+        // Zeile 106
+
         textCounter.text = convertNumber(this.counter) + " Münzen";
     }
 }
