@@ -30,7 +30,7 @@ app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Coing Lo
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Production')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Shop')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS')));
-
+app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 
 let PORT = process.env.PORT || 80;
 

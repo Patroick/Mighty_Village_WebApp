@@ -4,6 +4,7 @@ let app = new PIXI.Application({
     resolution: 1,
 });
 
+
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 app.renderer.autoDensity = true;
