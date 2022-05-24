@@ -25,6 +25,7 @@ function setup(){
 
     counter = new Counter();
     gameData = new GameData();
+    font = new PIXI.TextStyle({ fontFamily: "pixel", fontSize: 52, fill: 0x000000 })
 
     // Upgrade Shop Text
 
@@ -65,7 +66,8 @@ function setup(){
     coin.interactive = true;
     coin.buttonMode = true;
 
-    textCounter = new PIXI.Text("Münzen " + counter.counter, { fontFamily: "pixel", fontSize: 52, fill: 0x000000 });
+    textCounter = new PIXI.Text("Münzen " + counter.counter);
+    textCounter.style = font;
     textCounter.anchor.set(0.5, 0.5);
     textCounter.resolution = 2;
 
@@ -269,19 +271,22 @@ function displayShopButtons() {
         textUpgradeButton.anchor.set(0.5, 0.5);
 
         if (i % 2 == 0) {
-            backgroundUpgradeButton.beginFill(0xff5733);
+            backgroundUpgradeButton.beginFill(0x3f888f);
         } else {
             backgroundUpgradeButton.beginFill(0xFF00FF);
         }
 
+        backgroundUpgradeButton.y -= containerShop.backgroundUpgradeAmount.height
+
         backgroundUpgradeButton.drawRect(
-            backgroundProductionTitle.width + backgroundCoin.width,
-            backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i,
+            0,
+            backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height / 0.8 + (app.renderer.height / 8) * i,
             backgroundUpgradeShopTitle.width,
             backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height + (app.renderer.height / this.productions.length) / 25
         );
 
         backgroundUpgradeButton.endFill();
+
         textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2;
         textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 1.25;
     
@@ -292,7 +297,20 @@ function displayShopButtons() {
 }
 
 function displayShopUpgrades() {
+    containerShop.backgroundUpgradeAmount.interactive = true;
+
+    containerShop.backgroundUpgradeAmount.on('pointerover', function(){
+        containerShop.backgroundUpgradeAmount.beginFill(0x0000FF);
+        containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, (app.renderer.height / 6) * 2);
+        containerShop.backgroundUpgradeAmount.endFill();
+
+    });
     
+    containerShop.backgroundUpgradeAmount.on('pointerout', function(){
+        containerShop.backgroundUpgradeAmount.beginFill(0xFFFF00);
+        containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
+        containerShop.backgroundUpgradeAmount.endFill();
+    });
 }
 
 function calculateProduction(){
