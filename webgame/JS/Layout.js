@@ -179,6 +179,23 @@ function setLayout(){
     displayShopButtons();
     displayShopUpgrades();
 
+    if (containerShop.getChildAt(1)){
+        test = new PIXI.Graphics();
+        test = containerShop.getChildAt(1);
+        containerShop.removeChildAt(1);
+        test.beginFill(0x3f888f);
+        test.drawRect(
+            test.x,
+            test.y,
+            test.width,
+            test.height
+        )
+        test.endFill();
+        containerCoin.addChildAt(test, 1);
+    }
+
+    console.log(containerShop.getChildAt(1));
+
 }
 
 function gameLoop(delta){
