@@ -1,6 +1,6 @@
 class GameData{
     
-constructor(){
+    constructor(){
 
     this.productions = new Array(
         new ProductionUpgrade("Farm", 1, 10),

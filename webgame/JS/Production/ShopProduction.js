@@ -4,12 +4,12 @@ class ShopProduction extends PIXI.Container {
         this.productions = gameData;
         this.backgroundUpgradeAmount = new PIXI.Graphics();
         this.backgroundUpgrades = new PIXI.Graphics();
-        this.backgroundUpgrades.interactive = true;
-        this.backgroundUpgrades.buttonMode = true;
+        //this.backgroundUpgrades.interactive = true;
+        //this.backgroundUpgrades.buttonMode = true;
 
         this.addChild(this.backgroundUpgradeAmount);
         this.addChild(this.backgroundUpgrades);
-        this.backgroundUpgrades.on('pointerdown', this.clickDown)
+        //this.backgroundUpgrades.on('pointerdown', this.clickDown)
     }
 
     clickDown() {

@@ -26,6 +26,7 @@ function setup(){
 
     counter = new Counter();
     gameData = new GameData();
+    buttonLogic = new ButtonLogic();
     font = new PIXI.TextStyle({ fontFamily: "pixel", fontSize: 52, fill: 0x000000 })
 
     // Upgrade Shop Text
@@ -114,7 +115,7 @@ function setLayout(){
 
     containerUpgradeShop.x = (app.renderer.width - app.renderer.width / 5);
     containerUpgradeShop.y = 0;
-    backgroundUpgradeShopTitle.beginFill(0xf58952);
+    backgroundUpgradeShopTitle.beginFill(0xf00457);
     backgroundUpgradeShopTitle.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 8);
     backgroundUpgradeShopTitle.endFill();
     textUpgradeShopTitle.x = backgroundUpgradeShopTitle.width / 2;
@@ -156,6 +157,10 @@ function setLayout(){
     containerShop.x = (app.renderer.width - app.renderer.width / 5);
     containerShop.y = backgroundUpgradeShopTitle.height;
 
+
+    containerShop.backgroundUpgrades.width = app.renderer.width / 5;
+    containerShop.backgroundUpgrades.height = app.renderer.height / 6;
+
     containerShop.backgroundUpgradeAmount.beginFill(0x39c107);
     containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
     containerShop.backgroundUpgradeAmount.endFill();
@@ -163,7 +168,7 @@ function setLayout(){
     containerShop.backgroundUpgrades.x = 0;
     containerShop.backgroundUpgrades.y = containerShop.backgroundUpgradeAmount.height;
 
-    containerShop.backgroundUpgrades.beginFill(0xf63939);
+    containerShop.backgroundUpgrades.beginFill(0xf000043);
     containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width/5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
     containerShop.backgroundUpgrades.endFill();
 
@@ -178,23 +183,6 @@ function setLayout(){
     displayProductions();
     displayShopButtons();
     displayShopUpgrades();
-
-    if (containerShop.getChildAt(1)){
-        test = new PIXI.Graphics();
-        test = containerShop.getChildAt(1);
-        containerShop.removeChildAt(1);
-        test.beginFill(0x3f888f);
-        test.drawRect(
-            test.x,
-            test.y,
-            test.width,
-            test.height
-        )
-        test.endFill();
-        containerCoin.addChildAt(test, 1);
-    }
-
-    console.log(containerShop.getChildAt(1));
 
 }
 
@@ -242,8 +230,8 @@ function displayProductions(){
         backgroundProductionContainer.drawRect(
             0, 
             backgroundProductionTitle.height + (app.renderer.height / 8) * i, 
-            containerProduction.width, 
-            backgroundProductionTitle.height + (app.renderer.height / this.productions.length) / 25
+            app.renderer.width / 4,
+            app.renderer.height / 8
                                                 );
         backgroundProductionContainer.endFill();
        
@@ -299,18 +287,27 @@ function displayShopButtons() {
         backgroundUpgradeButton.drawRect(
             0,
             backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height / 0.8 + (app.renderer.height / 8) * i,
-            backgroundUpgradeShopTitle.width,
-            backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height + (app.renderer.height / this.productions.length) / 25
+            app.renderer.width / 5,
+            app.renderer.height / 8
         );
 
         backgroundUpgradeButton.endFill();
 
         textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2;
-        textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 1.25;
+        textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.55;
     
         containerShop.addChild(upgradeButton);
         containerShop.addChild(backgroundUpgradeButton);
         containerShop.addChild(textUpgradeButton);
+
+        
+        if(i == 0){
+            buttonLogic.applyButtonBehavior(containerShop, 1);
+        } else {
+            buttonLogic.applyButtonBehavior(containerShop, 1 + 3 * i);
+        }
+        
+        
     }
 }
 
@@ -319,7 +316,7 @@ function displayShopUpgrades() {
 
     containerShop.backgroundUpgradeAmount.on('pointerover', function(){
         containerShop.backgroundUpgradeAmount.beginFill(0x0000FF);
-        containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, (app.renderer.height / 6) * 2);
+        containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
         containerShop.backgroundUpgradeAmount.endFill();
 
     });
