@@ -2,30 +2,14 @@ class ButtonLogic {
 
     constructor(){}
 
-    applyButtonBehavior(pixiParentContainer, index) {
+    applyButtonBehavior(pixiParentContainer, index, name) {
         if (pixiParentContainer.getChildAt(index)) {
             var test = new PIXI.Graphics();
             test = pixiParentContainer.getChildAt(index);
             pixiParentContainer.removeChildAt(index);
-            /*
-            var i = 0;
-            if(i % 2 == 0){
-                test.beginFill(0x3f888f);
-                i++;
-            } else {
-                test.beginFill(0x581010);
-                i++;
-            }
-            //test.beginFill(0x3f888f);
-            
-            test.drawRect(
-                test.x,
-                0,
-                test.width,
-                test.height
-            )
-            test.endFill();
-            */
+            test.name = name;
+
+            console.log();
 
             test.interactive = true;
             test.buttonMode = true;
@@ -39,7 +23,7 @@ class ButtonLogic {
     }
 
     onButtonDown() {
-        alert("Button Down");
+        alert("hilfe");
         
     }
 

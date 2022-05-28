@@ -22,7 +22,7 @@ function resize() {
 app.ticker.add(delta => gameLoop(delta));
 
 
-function setup(){
+function setup() {
 
     counter = new Counter();
     gameData = new GameData();
@@ -36,7 +36,7 @@ function setup(){
     textUpgradeShopTitle = new PIXI.Text('Upgrade Shop', { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
     textUpgradeShopTitle.resolution = 2; //Bessere Lösung??? Sieht immernoch verpixelt aus
     textUpgradeShopTitle.anchor.set(0.5, 0.5);
-    
+
     app.stage.addChild(containerUpgradeShop);
     containerUpgradeShop.addChild(backgroundUpgradeShopTitle);
     containerUpgradeShop.addChild(textUpgradeShopTitle);
@@ -51,7 +51,7 @@ function setup(){
     textProductionTitle.cursor = "text";
     textProductionTitle.resolution = 2;
     backgroundProduction = new PIXI.Graphics();
-    
+
     app.stage.addChild(containerProduction);
     containerProduction.addChild(backgroundProductionTitle);
     containerProduction.addChild(textProductionTitle);
@@ -103,7 +103,7 @@ function setup(){
     setLayout();
 }
 
-function setLayout(){
+function setLayout() {
 
     backgroundProductionTitle.clear();
     backgroundProduction.clear();
@@ -146,8 +146,8 @@ function setLayout(){
     coin.y = backgroundCoin.height / 2;
     coinLine.x = 0;
     coinLine.y = backgroundCoin.height - backgroundCoin.height / 10;
-    coin.scale.x = containerCoin.width/1000;
-    coin.scale.y = containerCoin.width/1000;
+    coin.scale.x = containerCoin.width / 1000;
+    coin.scale.y = containerCoin.width / 1000;
 
     textCounter.x = backgroundCoin.width / 2;
     textCounter.y = backgroundCoin.height / 13;
@@ -162,14 +162,14 @@ function setLayout(){
     containerShop.backgroundUpgrades.height = app.renderer.height / 6;
 
     containerShop.backgroundUpgradeAmount.beginFill(0x39c107);
-    containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
+    containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
     containerShop.backgroundUpgradeAmount.endFill();
 
     containerShop.backgroundUpgrades.x = 0;
     containerShop.backgroundUpgrades.y = containerShop.backgroundUpgradeAmount.height;
 
     containerShop.backgroundUpgrades.beginFill(0xf000043);
-    containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width/5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
+    containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width / 5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
     containerShop.backgroundUpgrades.endFill();
 
     // Bottom
@@ -186,16 +186,16 @@ function setLayout(){
 
 }
 
-function gameLoop(delta){
+function gameLoop(delta) {
 
-    counter.increase(calculateProduction()/100);
+    counter.increase(calculateProduction() / 100);
 
-    if(coin.text != null){
-        coin.text.y -= 10  
+    if (coin.text != null) {
+        coin.text.y -= 10
         coin.text.alpha -= 0.03;
-        if(coin.text.y < coin.y / 3){
+        if (coin.text.y < coin.y / 3) {
             containerCoin.removeChild(coin.text);
-        }  
+        }
     }
 
     /* coinLine.lineStyle(2, 0xFFFF00);
@@ -208,33 +208,33 @@ function gameLoop(delta){
     coinLine.lineTo(0,0)
 
     coinLine.beginFill(0xFFFF00); */
-    
+
 }
 
-function displayProductions(){
+function displayProductions() {
 
     this.productions = gameData.productions;
 
-    for(let i = 0; i < this.productions.length; i++){
+    for (let i = 0; i < this.productions.length; i++) {
         productionUpgrade = new PIXI.Container();
         backgroundProductionContainer = new PIXI.Graphics();
         textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
-        textProduction.resolution = 2; 
+        textProduction.resolution = 2;
         textProduction.anchor.set(0.5, 0.5);
-        
-        if(i % 2 == 0){
+
+        if (i % 2 == 0) {
             backgroundProductionContainer.beginFill(0xff5733);
-        } else{
+        } else {
             backgroundProductionContainer.beginFill(0x8aff33);
         }
         backgroundProductionContainer.drawRect(
-            0, 
-            backgroundProductionTitle.height + (app.renderer.height / 8) * i, 
+            0,
+            backgroundProductionTitle.height + (app.renderer.height / 8) * i,
             app.renderer.width / 4,
             app.renderer.height / 8
-                                                );
+        );
         backgroundProductionContainer.endFill();
-       
+
         textProduction.x = backgroundProduction.width / 2;
         textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.5;
 
@@ -265,11 +265,11 @@ function displayProductions(){
 
     //     if (found) { found.emit('scroll', ev); }
     // });
-} 
+}
 
 function displayShopButtons() {
     this.shop = gameData.productions;
-    for (let i = 0; i < this.shop.length; i++){
+    for (let i = 0; i < this.shop.length - 3; i++) {
         upgradeButton = new PIXI.Container();
         backgroundUpgradeButton = new PIXI.Graphics();
         textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
@@ -295,44 +295,47 @@ function displayShopButtons() {
 
         textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2;
         textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.55;
-    
+
         containerShop.addChild(upgradeButton);
         containerShop.addChild(backgroundUpgradeButton);
         containerShop.addChild(textUpgradeButton);
 
-        
-        if(i == 0){
-            buttonLogic.applyButtonBehavior(containerShop, 1);
+        var name = "hello i am Container nr. " + i;
+
+        // Irgendwas mit dem Container 0 stimmt noch nicht, muss ich mir noch anschauen
+
+        if (i == 0) {
+            buttonLogic.applyButtonBehavior(containerShop, 1, name);
         } else {
-            buttonLogic.applyButtonBehavior(containerShop, 1 + 3 * i);
+            buttonLogic.applyButtonBehavior(containerShop, 1 + 3 * i, name);
         }
-        
-        
+
+
     }
 }
 
 function displayShopUpgrades() {
     containerShop.backgroundUpgradeAmount.interactive = true;
 
-    containerShop.backgroundUpgradeAmount.on('pointerover', function(){
+    containerShop.backgroundUpgradeAmount.on('pointerover', function () {
         containerShop.backgroundUpgradeAmount.beginFill(0x0000FF);
-        containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
+        containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
         containerShop.backgroundUpgradeAmount.endFill();
 
     });
-    
-    containerShop.backgroundUpgradeAmount.on('pointerout', function(){
+
+    containerShop.backgroundUpgradeAmount.on('pointerout', function () {
         containerShop.backgroundUpgradeAmount.beginFill(0xFFFF00);
-        containerShop.backgroundUpgradeAmount.drawRect(0,0, app.renderer.width / 5, app.renderer.height / 6);
+        containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
         containerShop.backgroundUpgradeAmount.endFill();
     });
 }
 
-function calculateProduction(){
+function calculateProduction() {
 
     let value = 0;
 
-    for(let i = 0; i < gameData.productions.length; i++){
+    for (let i = 0; i < gameData.productions.length; i++) {
         value += gameData.productions[i].getProductionValue();
     }
 
