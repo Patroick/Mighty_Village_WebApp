@@ -26,4 +26,8 @@ class ProductionUpgrade {
         return buyingPrice;
     }
 
+    getAmount() {
+        return this.amount;
+    }
+
 }

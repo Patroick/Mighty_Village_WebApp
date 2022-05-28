@@ -218,9 +218,15 @@ function displayProductions() {
     for (let i = 0; i < this.productions.length; i++) {
         productionUpgrade = new PIXI.Container();
         backgroundProductionContainer = new PIXI.Graphics();
-        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'left'});
         textProduction.resolution = 2;
-        textProduction.anchor.set(0.5, 0.5);
+        textProduction.anchor.set(0, 1);
+
+        textAmountProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'right' });
+        textAmountProduction.resolution = 2;
+        textAmountProduction.anchor.set(0, 1.5);
+
+        //textGenerationOfProduction
 
         if (i % 2 == 0) {
             backgroundProductionContainer.beginFill(0xff5733);
@@ -235,12 +241,14 @@ function displayProductions() {
         );
         backgroundProductionContainer.endFill();
 
-        textProduction.x = backgroundProduction.width / 2;
-        textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.5;
+        //textProduction.x = backgroundProduction.width / 2;
+        textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.25;
+        textAmountProduction.y = textProduction.y
 
         containerProduction.addChild(productionUpgrade);
-        containerProduction.addChild(backgroundProductionContainer);
-        containerProduction.addChild(textProduction);
+        productionUpgrade.addChild(backgroundProductionContainer);
+        productionUpgrade.addChild(textProduction);
+        productionUpgrade.addChild(textAmountProduction);
     }
 
     // fürs Scrollen, das Coin durch den Container ersetzen
@@ -297,20 +305,10 @@ function displayShopButtons() {
         textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.55;
 
         containerShop.addChild(upgradeButton);
-        containerShop.addChild(backgroundUpgradeButton);
-        containerShop.addChild(textUpgradeButton);
+        upgradeButton.addChild(backgroundUpgradeButton);
+        upgradeButton.addChild(textUpgradeButton);
 
-        var name = "hello i am Container nr. " + i;
-
-        // Irgendwas mit dem Container 0 stimmt noch nicht, muss ich mir noch anschauen
-
-        if (i == 0) {
-            buttonLogic.applyButtonBehavior(containerShop, 4, name);
-        } else {
-            buttonLogic.applyButtonBehavior(containerShop, 4 + 3 * i, name);
-        }
-
-
+        buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
 }
 
