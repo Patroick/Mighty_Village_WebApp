@@ -269,7 +269,7 @@ function displayProductions() {
 
 function displayShopButtons() {
     this.shop = gameData.productions;
-    for (let i = 0; i < this.shop.length - 3; i++) {
+    for (let i = 0; i < this.shop.length; i++) {
         upgradeButton = new PIXI.Container();
         backgroundUpgradeButton = new PIXI.Graphics();
         textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
@@ -305,9 +305,9 @@ function displayShopButtons() {
         // Irgendwas mit dem Container 0 stimmt noch nicht, muss ich mir noch anschauen
 
         if (i == 0) {
-            buttonLogic.applyButtonBehavior(containerShop, 1, name);
+            buttonLogic.applyButtonBehavior(containerShop, 4, name);
         } else {
-            buttonLogic.applyButtonBehavior(containerShop, 1 + 3 * i, name);
+            buttonLogic.applyButtonBehavior(containerShop, 4 + 3 * i, name);
         }
 
 

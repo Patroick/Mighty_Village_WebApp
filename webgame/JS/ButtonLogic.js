@@ -1,6 +1,6 @@
 class ButtonLogic {
 
-    constructor(){}
+    constructor() { }
 
     applyButtonBehavior(pixiParentContainer, index, name) {
         if (pixiParentContainer.getChildAt(index)) {
@@ -15,16 +15,19 @@ class ButtonLogic {
             test.buttonMode = true;
 
             test
-                .on('pointerdown', this.onButtonDown)
-                .on('pointerover', this.onButtonOver);
+                .on('pointerdown', (event) => {
+                    // hier dann buy function aufrufen
+                    alert(test.name);
+                })
+                .on('pointerover', (event) => {
+                    console.log("skrrr");
+                })
+                .on('pointerout', (event) => {
+                    console.log("ahhh");
+                });
 
             pixiParentContainer.addChildAt(test, index);
         }
-    }
-
-    onButtonDown() {
-        alert("hilfe");
-        
     }
 
     onButtonOver() {
