@@ -3,7 +3,7 @@ class GameData{
     constructor(){
 
     this.productions = new Array(
-        // newProductionUpgrade(Name, )
+        // newProductionUpgrade(Name, ProductionAmount, Price)
         new ProductionUpgrade("Farm", 1, 10),
         new ProductionUpgrade("Holzfäller", 3, 50),
         new ProductionUpgrade("Erz-Mine", 3, 50),
