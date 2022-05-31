@@ -20,10 +20,10 @@ class ButtonLogic {
                     alert(test.name);
                 })
                 .on('pointerover', (event) => {
-                    console.log("skrrr");
+                    //console.log("skrrr");
                 })
                 .on('pointerout', (event) => {
-                    console.log("ahhh");
+                    //console.log("ahhh");
                 });
 
             pixiParentContainer.addChildAt(test, index);

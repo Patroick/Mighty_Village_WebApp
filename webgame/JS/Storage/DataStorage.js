@@ -7,11 +7,11 @@ class DataStorage {
     //Implementierung folgt
 
     saveData() {
-        document.cookie = this.dataArray;
+        document.cookie = JSON.stringify(this.dataArray);
     }
 
     loadData() {
-        let x = document.cookie;
+        let x = JSON.parse(document.cookie);
     }
 
     collectData(data) {

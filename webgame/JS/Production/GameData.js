@@ -24,4 +24,11 @@ class GameData{
             }
         }
     }
+
+    getAllGameData() {
+        // Hier die ganze derzeitige GameData zurück geben.
+        // Bsp. Array mit allen Produktionsgebäuden mit allen Values
+
+        return "GameData"
+    }
 }

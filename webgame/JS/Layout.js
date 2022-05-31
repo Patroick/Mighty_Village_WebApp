@@ -184,6 +184,11 @@ function setLayout() {
     displayShopButtons();
     displayShopUpgrades();
 
+    dataStore = new DataStorage();
+
+    dataStore.collectData(gameData.getAllGameData());
+    dataStore.saveData();
+
 }
 
 function gameLoop(delta) {
@@ -218,7 +223,7 @@ function displayProductions() {
     for (let i = 0; i < this.productions.length; i++) {
         productionUpgrade = new PIXI.Container();
         backgroundProductionContainer = new PIXI.Graphics();
-        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'left'});
+        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'left' });
         textProduction.resolution = 2;
         textProduction.anchor.set(0, 1);
 
