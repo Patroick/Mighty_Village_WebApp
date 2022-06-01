@@ -227,9 +227,9 @@ function displayProductions() {
         textProduction.resolution = 2;
         textProduction.anchor.set(-0.05, 0.5);
 
-        textGenerationPerSecond = new PIXI.Text("Münzen pro Sekunde: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        textGenerationPerSecond = new PIXI.Text("Münzen/sec: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textGenerationPerSecond.resolution = 2;
-        textGenerationPerSecond.anchor.set(-0.04, -1.5);
+        textGenerationPerSecond.anchor.set(-0.07, -1.5);
 
         textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textAmountProduction.resolution = 2;
