@@ -225,11 +225,15 @@ function displayProductions() {
         backgroundProductionContainer = new PIXI.Graphics();
         textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'right' });
         textProduction.resolution = 2;
-        textProduction.anchor.set(-0.05, 0.3);
+        textProduction.anchor.set(-0.05, 0.5);
+
+        textGenerationPerSecond = new PIXI.Text("Münzen pro Sekunde: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        textGenerationPerSecond.resolution = 2;
+        textGenerationPerSecond.anchor.set(-0.04, -1.5);
 
         textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textAmountProduction.resolution = 2;
-        textAmountProduction.anchor.set(-0.1, -2.5);
+        textAmountProduction.anchor.set(-0.1, -3);
 
         productionIcon = new PIXI.Sprite.from(pictures[i]);
         productionIcon.anchor.set(-0.05, 0.3);
@@ -254,7 +258,8 @@ function displayProductions() {
 
         //textProduction.x = backgroundProduction.width / 2;
         textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.25;
-        textAmountProduction.y = textProduction.y
+        textAmountProduction.y = textProduction.y;
+        textGenerationPerSecond.y = textAmountProduction.y;
 
         productionIcon.x += backgroundProductionContainer.width / 1.3;
         productionIcon.y += textProduction.y + backgroundProductionContainer.height / 9;
@@ -263,6 +268,7 @@ function displayProductions() {
         productionUpgrade.addChild(backgroundProductionContainer);
         productionUpgrade.addChild(textProduction);
         productionUpgrade.addChild(textAmountProduction);
+        productionUpgrade.addChild(textGenerationPerSecond);
         productionUpgrade.addChild(productionIcon);
     }
 
