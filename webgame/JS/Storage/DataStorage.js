@@ -11,11 +11,15 @@ class DataStorage {
     }
 
     loadData() {
-        let x = JSON.parse(document.cookie);
+        return JSON.parse(document.cookie);
     }
 
     collectData(data) {
         this.dataArray.push(data);
+    }
+
+    clearData(){
+        this.dataArray.clear();
     }
 
 }

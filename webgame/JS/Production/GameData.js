@@ -1,4 +1,11 @@
 class GameData{
+
+    productions;
+    currencyCount;
+    upgrades;
+    achievements;
+
+    gameDataArray = new Array();
     
     constructor(){
 
@@ -11,6 +18,14 @@ class GameData{
         new ProductionUpgrade("Edelstein-Mine", 3, 50),
         new ProductionUpgrade("Juwelier", 3, 50),
         new ProductionUpgrade("Testiest", 3, 50));
+
+    this.currencyCount = 0;
+
+    this.upgrades = new Array();
+
+    this.achievements = new Array();
+
+    this.gameDataArray = new Array();
 
     }
 
@@ -25,10 +40,24 @@ class GameData{
         }
     }
 
+    fetchGameData(){
+        gameDataArray.push(this.productions);
+        gameDataArray.push(this.currencyCount);
+        gameDataArray.push(this.upgrades);
+        gameDataArray.push(this.achievements);
+    }
+
     getAllGameData() {
         // Hier die ganze derzeitige GameData zurück geben.
         // Bsp. Array mit allen Produktionsgebäuden mit allen Values
 
-        return "GameData"
+        return this.gameDataArray;
+    }
+
+    overrideGameData(gameDataArray){
+        this.productions = gameDataArray.productions;
+        this.currencyCount = gameDataArray.currencyCount;
+        this.upgrades = gameDataArray.upgrades;
+        this.achievements = gameDataArray.achievements;
     }
 }
