@@ -5,6 +5,17 @@ class GameData{
     upgrades;
     achievements;
 
+    pictures = [
+        "pictures/bauernhof.png",
+        "pictures/holzhutte.png",
+        "pictures/mine.png",
+        "pictures/schmied.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png"
+    ];
+
     gameDataArray = new Array();
     
     constructor(){

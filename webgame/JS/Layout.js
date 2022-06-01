@@ -219,17 +219,23 @@ function gameLoop(delta) {
 function displayProductions() {
 
     this.productions = gameData.productions;
-
+    this.pictures = gameData.pictures;
     for (let i = 0; i < this.productions.length; i++) {
         productionUpgrade = new PIXI.Container();
         backgroundProductionContainer = new PIXI.Graphics();
-        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'left' });
+        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'right' });
         textProduction.resolution = 2;
-        textProduction.anchor.set(0, 1);
+        textProduction.anchor.set(-0.05, 0.3);
 
-        textAmountProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'right' });
+        textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textAmountProduction.resolution = 2;
-        textAmountProduction.anchor.set(0, 1.5);
+        textAmountProduction.anchor.set(-0.1, -2.5);
+
+        productionIcon = new PIXI.Sprite.from(pictures[i]);
+        productionIcon.anchor.set(-0.05, 0.3);
+
+        productionIcon.scale.x *= 0.15;
+        productionIcon.scale.y *= 0.15;
 
         //textGenerationOfProduction
 
@@ -250,10 +256,14 @@ function displayProductions() {
         textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.25;
         textAmountProduction.y = textProduction.y
 
+        productionIcon.x += backgroundProductionContainer.width / 1.3;
+        productionIcon.y += textProduction.y + backgroundProductionContainer.height / 9;
+
         containerProduction.addChild(productionUpgrade);
         productionUpgrade.addChild(backgroundProductionContainer);
         productionUpgrade.addChild(textProduction);
         productionUpgrade.addChild(textAmountProduction);
+        productionUpgrade.addChild(productionIcon);
     }
 
     // fürs Scrollen, das Coin durch den Container ersetzen
