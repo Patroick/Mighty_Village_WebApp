@@ -194,6 +194,7 @@ function setLayout() {
 function gameLoop(delta) {
 
     counter.increase(calculateProduction() / 100);
+    updateDisplayProduction();
 
     if (coin.text != null) {
         coin.text.y -= 10
@@ -295,6 +296,18 @@ function displayProductions() {
     //     if (found) { found.emit('scroll', ev); }
     // });
 }
+
+function updateDisplayProduction() {
+
+    for(let i = 0; i < productions.length; i++) {
+
+
+        containerProduction.getChildAt(i+3).getChildAt(2).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet 
+        containerProduction.getChildAt(i+3).getChildAt(3).text = "Münzen/sec: " + productions[i].getProductionValue();
+    }
+
+}
+
 
 function displayShopButtons() {
     this.shop = gameData.productions;

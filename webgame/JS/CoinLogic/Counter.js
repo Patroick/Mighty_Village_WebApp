@@ -34,9 +34,11 @@ class Counter{
                 counter /= 1000;
                 suffixIndex++;
             }   
+        } else {
+            counter = Math.round(counter);
         }
 
-        counter = Math.round(counter * 1000) / 1000 + this.suffix[suffixIndex]; // Runden auf 3 Nachkommastellen
+        counter = Math.round(counter * 100) / 100 + this.suffix[suffixIndex]; // Runden auf 3 Nachkommastellen
 
         textCounter.style = font;
         textCounter.text = counter + " Münzen";

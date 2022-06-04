@@ -17,7 +17,7 @@ class ButtonLogic {
             test
                 .on('pointerdown', (event) => {
                     // hier dann buy function aufrufen
-                    alert(test.name);
+                    gameData.buyProduction(name, 1);
                 })
                 .on('pointerover', (event) => {
                     //console.log("skrrr");
