@@ -196,6 +196,8 @@ function gameLoop(delta) {
     counter.increase(calculateProduction() / 100);
     updateDisplayProduction();
 
+    gameData.checkAchievements();
+
     if (coin.text != null) {
         coin.text.y -= 10
         coin.text.alpha -= 0.03;
