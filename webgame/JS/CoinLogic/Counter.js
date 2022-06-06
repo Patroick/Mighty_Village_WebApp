@@ -17,6 +17,10 @@ class Counter{
         this.update();
     }
 
+    set(amount){
+        this.counter = amount;
+    }
+
 
     update(){
 

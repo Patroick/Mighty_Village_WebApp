@@ -199,8 +199,8 @@ function setLayout() {
 
     dataStore = new DataStorage();
 
-    dataStore.collectData(gameData.getAllGameData());
-    dataStore.saveData();
+    //dataStore.collectData(gameData.getAllGameData());
+    //dataStore.saveData();
 
 }
 
@@ -211,6 +211,7 @@ function gameLoop(delta) {
     updateDisplayShopButtons();
 
     gameData.checkAchievements();
+    gameData.getCurrentCurrencyCount(this.counter.counter);
 
     if (coin.text != null) {
         coin.text.y -= 10
@@ -513,6 +514,9 @@ function displayBuyAmountButtons() {
     buyFiveBackground.on('pointerdown', (event) => {
         this.buyAmount = 5;
 
+        dataStore.collectData(gameData.getAllGameData());
+        dataStore.saveData();
+
         buyOneBackground.clear();
         buyOneBackground.beginFill(0x89CFF0);
         buyOneBackground.drawRect(
@@ -546,6 +550,8 @@ function displayBuyAmountButtons() {
 
     buyTenBackground.on('pointerdown', (event) => {
         this.buyAmount = 10;
+
+        gameData.overrideGameData(dataStore.loadData());
 
         buyOneBackground.clear();
         buyOneBackground.beginFill(0x89CFF0);

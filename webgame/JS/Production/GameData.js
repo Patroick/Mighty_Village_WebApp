@@ -2,7 +2,6 @@ class GameData {
 
     productions;
     currencyCount;
-    upgrades;
     achievements;
     pictures = [
         "pictures/bauernhof.png",
@@ -15,7 +14,7 @@ class GameData {
         "pictures/spitzhacke.png"
     ];
 
-    gameDataArray = new Array();
+    gameDataArray;
 
     constructor() {
 
@@ -29,15 +28,13 @@ class GameData {
             new ProductionUpgrade("Juwelier", 2000, 200000),
             new ProductionUpgrade("Testiest", 5000, 500000));
         this.currencyCount = 0;
-        this.upgrades = new Array();
         this.achievements = new Array(new Achievement("1k Gold", 1000, "pictures/gem.png"),
             new Achievement("10k Gold", 10000, "pictures/purplegem.png"),
             new Achievement("100k Gold", 100000, "pictures/ruby.png"),
             new Achievement("1M Gold", 1000000, "pictures/diamond.png"),
             new Achievement("10M Gold", 10000000, "pictures/golddiamond.png"),
             new Achievement("100M Gold", 100000000, "pictures/pinkdiamond.png"));
-        this.gameDataArray = new Array();
-
+        this.gameDataArray = new Array(this.productions, this.currencyCount, this.achievements);
     }
 
     buyProduction(productionName, amount) {
@@ -61,28 +58,71 @@ class GameData {
 
     checkAchievements() {
         for (let i = 0; i < this.achievements.length; i++) {
-            this.achievements[i].check();
+            this.achievements[i].check;
         }
     }
 
+    getCurrentCurrencyCount(currencyCount){
+        this.currencyCount = currencyCount;
+    }
+
     fetchGameData() {
-        gameDataArray.push(this.productions);
-        gameDataArray.push(this.currencyCount);
-        gameDataArray.push(this.upgrades);
-        gameDataArray.push(this.achievements);
+
+        var tempProductions = this.productions;
+        var tempCurrencyCount = this.currencyCount;
+        var tempAchievements = this.achievements;
+
+        this.gameDataArray = [];
+        this.productions = [];
+        this.currencyCount = 0;
+        this.achievements = [];
+
+        for (let i = 0; i < tempProductions.length; i++){
+            this.productions[i] = new ProductionUpgrade(
+                tempProductions[i].productionType,
+                tempProductions[i].generatingValue,
+                tempProductions[i].price
+            );
+            this.productions[i].amount = tempProductions[i].amount;
+        }
+        this.gameDataArray.push(this.productions);
+        this.gameDataArray.push(tempCurrencyCount);
+        this.gameDataArray.push(tempAchievements);
+
+        this.overrideGameData(this.gameDataArray);
+
+        this.currencyCount = tempCurrencyCount;
+        this.achievements = tempAchievements;
     }
 
     getAllGameData() {
         // Hier die ganze derzeitige GameData zurück geben.
         // Bsp. Array mit allen Produktionsgebäuden mit allen Values
 
+        this.fetchGameData();
+        
         return this.gameDataArray;
     }
 
     overrideGameData(gameDataArray) {
-        this.productions = gameDataArray.productions;
-        this.currencyCount = gameDataArray.currencyCount;
-        this.upgrades = gameDataArray.upgrades;
-        this.achievements = gameDataArray.achievements;
+
+        var productionsArrayLength = this.productions.length;
+        var tempProductions = gameDataArray[0];
+
+        this.productions = [];
+        this.currencyCount = 0;
+        this.achievements = [];
+
+        for(var i = 0; i < productionsArrayLength; i++){
+            this.productions[i] = new ProductionUpgrade(
+                tempProductions[i].productionType,
+                tempProductions[i].generatingValue,
+                tempProductions[i].price
+            );
+            this.productions[i].amount = tempProductions[i].amount;
+        }
+        this.currencyCount = gameDataArray[1];
+        counter.counter = this.currencyCount;
+        this.achievements = gameDataArray[2];
     }
 }
