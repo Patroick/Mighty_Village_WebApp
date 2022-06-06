@@ -419,7 +419,7 @@ function displayBuyAmountButtons() {
     buyTenText.anchor.set(0.5, 0.5);
 
     buyAmountText.x = backgroundUpgradeShopTitle.width / 2;
-    buyAmountText.y = backgroundUpgradeShopTitle.height / 4;
+    buyAmountText.y = backgroundUpgradeShopTitle.height / 3;
 
     buyOneBackground.beginFill(0x89CFF0);
     buyOneBackground.drawRect(
@@ -430,7 +430,7 @@ function displayBuyAmountButtons() {
     );
     buyOneBackground.endFill();
 
-    buyFiveBackground.beginFill(0x088F8F);
+    buyFiveBackground.beginFill(0x40B5AD);
     buyFiveBackground.drawRect(
         backgroundUpgradeShopTitle.width / 2.4,
         backgroundUpgradeShopTitle.height / 1.5,
@@ -438,8 +438,8 @@ function displayBuyAmountButtons() {
         backgroundUpgradeShopTitle.height / 3
     );
     buyFiveBackground.endFill();
-
-    buyTenBackground.beginFill(0x40B5AD);
+    
+    buyTenBackground.beginFill(0x088F8F);
     buyTenBackground.drawRect(
         backgroundUpgradeShopTitle.width / 1.5,
         backgroundUpgradeShopTitle.height / 1.5,
@@ -478,14 +478,104 @@ function displayBuyAmountButtons() {
 
     buyOneBackground.on('pointerdown', (event) => {
         this.buyAmount = 1;
+
+        buyOneBackground.clear();
+        buyOneBackground.beginFill(0x6490A4);
+        buyOneBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 6,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyOneBackground.endFill();
+
+        buyFiveBackground.clear();
+        buyFiveBackground.beginFill(0x40B5AD);
+        buyFiveBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 2.4,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyFiveBackground.endFill();
+
+        buyTenBackground.clear();
+        buyTenBackground.beginFill(0x088F8F);
+        buyTenBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 1.5,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyTenBackground.endFill();
     });
 
     buyFiveBackground.on('pointerdown', (event) => {
         this.buyAmount = 5;
+
+        buyOneBackground.clear();
+        buyOneBackground.beginFill(0x89CFF0);
+        buyOneBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 6,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyOneBackground.endFill();
+
+        buyFiveBackground.clear();
+        buyFiveBackground.beginFill(0x2A746F);
+        buyFiveBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 2.4,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyFiveBackground.endFill();
+
+        buyTenBackground.clear();
+        buyTenBackground.beginFill(0x088F8F);
+        buyTenBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 1.5,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyTenBackground.endFill();
     });
 
     buyTenBackground.on('pointerdown', (event) => {
         this.buyAmount = 10;
+
+        buyOneBackground.clear();
+        buyOneBackground.beginFill(0x89CFF0);
+        buyOneBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 6,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyOneBackground.endFill();
+
+        buyFiveBackground.clear();
+        buyFiveBackground.beginFill(0x40B5AD);
+        buyFiveBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 2.4,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyFiveBackground.endFill();
+
+        buyTenBackground.clear();
+        buyTenBackground.beginFill(0x085B5B);
+        buyTenBackground.drawRect(
+            backgroundUpgradeShopTitle.width / 1.5,
+            backgroundUpgradeShopTitle.height / 1.5,
+            backgroundUpgradeShopTitle.width / 5.5,
+            backgroundUpgradeShopTitle.height / 3
+        );
+        buyTenBackground.endFill();
     });
 }
 
