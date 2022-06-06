@@ -423,38 +423,38 @@ function displayBuyAmountButtons() {
 
     buyOneBackground.beginFill(0x89CFF0);
     buyOneBackground.drawRect(
-        20,
+        backgroundUpgradeShopTitle.width / 6,
         backgroundUpgradeShopTitle.height / 1.5,
-        60,
-        40
+        backgroundUpgradeShopTitle.width / 5.5,
+        backgroundUpgradeShopTitle.height / 3
     );
     buyOneBackground.endFill();
 
     buyFiveBackground.beginFill(0x088F8F);
     buyFiveBackground.drawRect(
-        90,
+        backgroundUpgradeShopTitle.width / 2.4,
         backgroundUpgradeShopTitle.height / 1.5,
-        60,
-        40
+        backgroundUpgradeShopTitle.width / 5.5,
+        backgroundUpgradeShopTitle.height / 3
     );
     buyFiveBackground.endFill();
 
     buyTenBackground.beginFill(0x40B5AD);
     buyTenBackground.drawRect(
-        160,
+        backgroundUpgradeShopTitle.width / 1.5,
         backgroundUpgradeShopTitle.height / 1.5,
-        60,
-        40
+        backgroundUpgradeShopTitle.width / 5.5,
+        backgroundUpgradeShopTitle.height / 3
     );
     buyTenBackground.endFill();
 
-    buyOneText.x = backgroundUpgradeShopTitle.width / 4.9;
+    buyOneText.x = backgroundUpgradeShopTitle.width / 3.9;
     buyOneText.y = backgroundUpgradeShopTitle.height * 0.825;
 
     buyFiveText.x = backgroundUpgradeShopTitle.width / 2;
     buyFiveText.y = backgroundUpgradeShopTitle.height * 0.825;
 
-    buyTenText.x = backgroundUpgradeShopTitle.width / 1.275;
+    buyTenText.x = backgroundUpgradeShopTitle.width / 1.325;
     buyTenText.y = backgroundUpgradeShopTitle.height * 0.825;
 
     containerShop.addChild(buyOne);
