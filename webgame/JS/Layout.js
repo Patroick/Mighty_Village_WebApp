@@ -24,6 +24,8 @@ app.ticker.add(delta => gameLoop(delta));
 
 function setup() {
 
+    buyAmount = 1;
+
     counter = new Counter();
     gameData = new GameData();
     buttonLogic = new ButtonLogic();
@@ -97,8 +99,15 @@ function setup() {
     containerBottom = new PIXI.Container();
     backgroundBottom = new PIXI.Graphics();
 
+    achievementText = new PIXI.Text("Nächstes Achievement: ");
+    achievementText.font = font;
+    achievementText.resolution = 2;
+
     app.stage.addChild(containerBottom);
     containerBottom.addChild(backgroundBottom);
+
+
+    containerBottom.addChild(achievementText);
 
     setLayout();
 }
@@ -161,7 +170,7 @@ function setLayout() {
     containerShop.backgroundUpgrades.width = app.renderer.width / 5;
     containerShop.backgroundUpgrades.height = app.renderer.height / 6;
 
-    containerShop.backgroundUpgradeAmount.beginFill(0x39c107);
+    containerShop.backgroundUpgradeAmount.beginFill(0xFFA500);
     containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
     containerShop.backgroundUpgradeAmount.endFill();
 
@@ -180,9 +189,13 @@ function setLayout() {
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
     backgroundBottom.endFill();
 
+    achievementText.x = 0;
+    achievementText.y = backgroundBottom.height / 3;
+
     displayProductions();
     displayShopButtons();
-    displayShopUpgrades();
+    displayBuyAmountButtons();
+    //displayShopUpgrades();
 
     dataStore = new DataStorage();
 
@@ -195,6 +208,7 @@ function gameLoop(delta) {
 
     counter.increase(calculateProduction() / 100);
     updateDisplayProduction();
+    updateDisplayShopButtons();
 
     gameData.checkAchievements();
 
@@ -301,13 +315,17 @@ function displayProductions() {
 
 function updateDisplayProduction() {
 
-    for(let i = 0; i < productions.length; i++) {
-
-
-        containerProduction.getChildAt(i+3).getChildAt(2).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet 
-        containerProduction.getChildAt(i+3).getChildAt(3).text = "Münzen/sec: " + productions[i].getProductionValue();
+    for (let i = 0; i < productions.length; i++) {
+        containerProduction.getChildAt(i + 3).getChildAt(2).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet 
+        containerProduction.getChildAt(i + 3).getChildAt(3).text = "Münzen/sec: " + productions[i].getProductionValue();
     }
 
+}
+
+function updateDisplayShopButtons() {
+    for (let i = 0; i < productions.length; i++) {
+        containerShop.getChildAt(i + 2).getChildAt(2).text = "Preis: " + Math.round(productions[i].getBuyingPrice(buyAmount));
+    }
 }
 
 
@@ -319,6 +337,10 @@ function displayShopButtons() {
         textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
         textUpgradeButton.resolution = 2;
         textUpgradeButton.anchor.set(0.5, 0.5);
+
+        textPriceUpgrade = new PIXI.Text("Preis: " + Math.round(productions[i].getBuyingPrice(1)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        textPriceUpgrade.resolution = 2;
+        textPriceUpgrade.anchor.set(-0.07, -1.5);
 
         if (i % 2 == 0) {
             backgroundUpgradeButton.beginFill(0x3f888f);
@@ -338,16 +360,21 @@ function displayShopButtons() {
         backgroundUpgradeButton.endFill();
 
         textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2;
-        textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.55;
+        textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65;
+
+        textPriceUpgrade.x = textUpgradeButton.x / 15;
+        textPriceUpgrade.y = textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5;
 
         containerShop.addChild(upgradeButton);
         upgradeButton.addChild(backgroundUpgradeButton);
         upgradeButton.addChild(textUpgradeButton);
+        upgradeButton.addChild(textPriceUpgrade)
 
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
 }
 
+/*
 function displayShopUpgrades() {
     containerShop.backgroundUpgradeAmount.interactive = true;
 
@@ -364,6 +391,103 @@ function displayShopUpgrades() {
         containerShop.backgroundUpgradeAmount.endFill();
     });
 }
+*/
+
+function displayBuyAmountButtons() {
+    buyOne = new PIXI.Container();
+    buyFive = new PIXI.Container();
+    buyTen = new PIXI.Container();
+
+    buyOneBackground = new PIXI.Graphics();
+    buyFiveBackground = new PIXI.Graphics();
+    buyTenBackground = new PIXI.Graphics();
+
+    buyAmountText = new PIXI.Text("Menge", { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+    buyAmountText.resolution = 2;
+    buyAmountText.anchor.set(0.5, 0.5);
+
+    buyOneText = new PIXI.Text("x1", { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000 });
+    buyOneText.resolution = 2;
+    buyOneText.anchor.set(0.5, 0.5);
+
+    buyFiveText = new PIXI.Text("x5", { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000 });
+    buyFiveText.resolution = 2;
+    buyFiveText.anchor.set(0.5, 0.5);
+
+    buyTenText = new PIXI.Text("x10", { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000 });
+    buyTenText.resolution = 2;
+    buyTenText.anchor.set(0.5, 0.5);
+
+    buyAmountText.x = backgroundUpgradeShopTitle.width / 2;
+    buyAmountText.y = backgroundUpgradeShopTitle.height / 4;
+
+    buyOneBackground.beginFill(0x89CFF0);
+    buyOneBackground.drawRect(
+        20,
+        backgroundUpgradeShopTitle.height / 1.5,
+        60,
+        40
+    );
+    buyOneBackground.endFill();
+
+    buyFiveBackground.beginFill(0x088F8F);
+    buyFiveBackground.drawRect(
+        90,
+        backgroundUpgradeShopTitle.height / 1.5,
+        60,
+        40
+    );
+    buyFiveBackground.endFill();
+
+    buyTenBackground.beginFill(0x40B5AD);
+    buyTenBackground.drawRect(
+        160,
+        backgroundUpgradeShopTitle.height / 1.5,
+        60,
+        40
+    );
+    buyTenBackground.endFill();
+
+    buyOneText.x = backgroundUpgradeShopTitle.width / 4.9;
+    buyOneText.y = backgroundUpgradeShopTitle.height * 0.825;
+
+    buyFiveText.x = backgroundUpgradeShopTitle.width / 2;
+    buyFiveText.y = backgroundUpgradeShopTitle.height * 0.825;
+
+    buyTenText.x = backgroundUpgradeShopTitle.width / 1.275;
+    buyTenText.y = backgroundUpgradeShopTitle.height * 0.825;
+
+    containerShop.addChild(buyOne);
+    containerShop.addChild(buyFive);
+    containerShop.addChild(buyTen);
+    containerShop.addChild(buyAmountText);
+    buyOne.addChild(buyOneBackground);
+    buyFive.addChild(buyFiveBackground);
+    buyTen.addChild(buyTenBackground);
+    buyOne.addChild(buyOneText);
+    buyFive.addChild(buyFiveText);
+    buyTen.addChild(buyTenText);
+
+    buyOneBackground.interactive = true;
+    buyFiveBackground.interactive = true;
+    buyTenBackground.interactive = true;
+
+    buyOneBackground.buttonMode = true;
+    buyFiveBackground.buttonMode = true;
+    buyTenBackground.buttonMode = true;
+
+    buyOneBackground.on('pointerdown', (event) => {
+        this.buyAmount = 1;
+    });
+
+    buyFiveBackground.on('pointerdown', (event) => {
+        this.buyAmount = 5;
+    });
+
+    buyTenBackground.on('pointerdown', (event) => {
+        this.buyAmount = 10;
+    });
+}
 
 function calculateProduction() {
 
@@ -376,3 +500,28 @@ function calculateProduction() {
     return value;
 
 }
+
+/*
+    Scrolling
+
+  document.body.addEventListener("wheel", function (event) {
+        event.preventDefault()
+    });
+
+    coin.on('scroll', (ev) => {
+        coin.y -= ev.wheelDelta;
+    });
+
+    const mousePosition = new PIXI.Point();
+
+    app.view.addEventListener('wheel', (ev) => {
+        mousePosition.set(ev.clientX, ev.clientY);
+
+        const found = app.renderer.plugins.interaction.hitTest(
+            mousePosition,
+            app.stage
+        );
+
+        if (found) { found.emit('scroll', ev); }
+    });
+*/

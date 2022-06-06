@@ -21,13 +21,13 @@ class GameData {
 
         this.productions = new Array(
             // newProductionUpgrade(Name, ProductionAmount, Price)
-            new ProductionUpgrade("Farm", 1, 10),
-            new ProductionUpgrade("Holzfäller", 3, 50),
-            new ProductionUpgrade("Erz-Mine", 3, 50),
-            new ProductionUpgrade("Schmied", 3, 50),
-            new ProductionUpgrade("Edelstein-Mine", 3, 50),
-            new ProductionUpgrade("Juwelier", 3, 50),
-            new ProductionUpgrade("Testiest", 3, 50));
+            new ProductionUpgrade("Farm", 1, 100),
+            new ProductionUpgrade("Holzfäller", 5, 500),
+            new ProductionUpgrade("Erz-Mine", 30, 3000),
+            new ProductionUpgrade("Schmied", 100, 10000),
+            new ProductionUpgrade("Edelstein-Mine", 500, 50000),
+            new ProductionUpgrade("Juwelier", 2000, 200000),
+            new ProductionUpgrade("Testiest", 5000, 500000));
         this.currencyCount = 0;
         this.upgrades = new Array();
         this.achievements = new Array(new Achievement("1k Gold", 1000, "pictures/gem.png"),
@@ -47,6 +47,14 @@ class GameData {
                     counter.decrease(this.productions[i].getBuyingPrice(amount));
                     this.productions[i].addProduction(amount);
                 }
+            }
+        }
+    }
+
+    getCurrentProductionUpgradePrice(productionName){
+        for (let i = 0; i < this.productions.length; i++) {
+            if (this.productions[i].productionType == productionName) {
+                return this.productions[i].getBuyingPrice(1);
             }
         }
     }

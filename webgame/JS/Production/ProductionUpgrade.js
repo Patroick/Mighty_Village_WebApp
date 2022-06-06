@@ -20,7 +20,7 @@ class ProductionUpgrade {
         let buyingPrice = 0;
 
         for(let i = 0; i < amount; i++) {
-            buyingPrice += this.price * 1.15 ** (this.amount + amount);
+            buyingPrice += this.price * 1.15 ** (this.amount + amount - 1);
         }
 
         return buyingPrice;

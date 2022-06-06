@@ -17,7 +17,9 @@ class ButtonLogic {
             test
                 .on('pointerdown', (event) => {
                     // hier dann buy function aufrufen
-                    gameData.buyProduction(name, 1);
+
+                    // 1 durch buyAmount ersetzen für Menge kaufen, im Layout buyAmount setzen
+                    gameData.buyProduction(name, buyAmount);
                 })
                 .on('pointerover', (event) => {
                     //console.log("skrrr");
