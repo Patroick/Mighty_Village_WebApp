@@ -147,7 +147,7 @@ class GameData {
         //this.achievements = gameDataArray[2];
 
         for (let i = 0; i < this.achievements.length; i++) {
-            this.achievements[i].amount = gameDataArray[2][i].amount;
+            this.achievements[i].status = gameDataArray[2][i].status;
         }
     }
 }
