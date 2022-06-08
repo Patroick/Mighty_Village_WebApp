@@ -9,8 +9,6 @@ class ButtonLogic {
             pixiParentContainer.removeChildAt(index);
             test.name = name;
 
-            console.log();
-
             test.interactive = true;
             test.buttonMode = true;
 

@@ -58,9 +58,34 @@ class GameData {
 
     checkAchievements() {
         for (let i = 0; i < this.achievements.length; i++) {
-            this.achievements[i].check;
+            this.achievements[i].check();
         }
     }
+
+    getNextAchievementName(){
+        for (let i = 0; i < this.achievements.length; i++) {
+            if(this.achievements[i].status == false){
+                return "Nächstes Achievement: " + this.achievements[i].name;
+            } else if(i == this.achievements.length- 1){
+            return "Keine Achievements mehr";
+            }
+        }
+    }
+
+    getCurrentAchievement(){
+        for (let i = 0; i < this.achievements.length; i++) {
+            if(this.achievements[i].status == false){
+                if(i == 0){
+                    return this.achievements[i];
+                } else
+                return this.achievements[i - 1];
+            } else if(i == this.achievements.length- 1){
+
+            return this.achievements[this.achievements.length - 1];
+            }
+        }
+    }
+
 
     getCurrentCurrencyCount(currencyCount){
         this.currencyCount = currencyCount;
@@ -74,8 +99,6 @@ class GameData {
 
         this.gameDataArray = [];
         this.productions = [];
-        this.currencyCount = 0;
-        this.achievements = [];
 
         for (let i = 0; i < tempProductions.length; i++){
             this.productions[i] = new ProductionUpgrade(
@@ -89,10 +112,9 @@ class GameData {
         this.gameDataArray.push(tempCurrencyCount);
         this.gameDataArray.push(tempAchievements);
 
+
         this.overrideGameData(this.gameDataArray);
 
-        this.currencyCount = tempCurrencyCount;
-        this.achievements = tempAchievements;
     }
 
     getAllGameData() {
@@ -111,7 +133,6 @@ class GameData {
 
         this.productions = [];
         this.currencyCount = 0;
-        this.achievements = [];
 
         for(var i = 0; i < productionsArrayLength; i++){
             this.productions[i] = new ProductionUpgrade(
@@ -123,6 +144,10 @@ class GameData {
         }
         this.currencyCount = gameDataArray[1];
         counter.counter = this.currencyCount;
-        this.achievements = gameDataArray[2];
+        //this.achievements = gameDataArray[2];
+
+        for (let i = 0; i < this.achievements.length; i++) {
+            this.achievements[i].amount = gameDataArray[2][i].amount;
+        }
     }
 }

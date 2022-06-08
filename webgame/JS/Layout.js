@@ -87,7 +87,6 @@ function setup() {
         .on('pointerover', coin.clickUp)
         .on('pointerout', coin.hoverOver);
 
-
     // Shop
 
     containerShop = new ShopProduction();
@@ -105,7 +104,6 @@ function setup() {
 
     app.stage.addChild(containerBottom);
     containerBottom.addChild(backgroundBottom);
-
 
     containerBottom.addChild(achievementText);
 
@@ -220,6 +218,10 @@ function gameLoop(delta) {
             containerCoin.removeChild(coin.text);
         }
     }
+
+    achievementText.text = gameData.getNextAchievementName();
+    gameData.getCurrentAchievement().setSkin();
+
 
     /* coinLine.lineStyle(2, 0xFFFF00);
     coinLine.bezierCurveTo(
