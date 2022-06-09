@@ -109,10 +109,28 @@ function setup() {
     achievementText.font = font;
     achievementText.resolution = 2;
 
+    containerResetButton = new PIXI.Container();
+    backgroundResetButton = new PIXI.Graphics();
+
+    resetButtonTextFirst = new PIXI.Text("Spielstand", { fontFamily: 'Helvetica', fontSize: 22, fill: 0x000000 });
+    resetButtonTextFirst.font = font;
+    resetButtonTextFirst.resolution = 2;
+
+    resetButtonTextSecond = new PIXI.Text("\nzurücksetzen", { fontFamily: 'Helvetica', fontSize: 22, fill: 0x000000 });
+    resetButtonTextSecond.font = font;
+    resetButtonTextSecond.resolution = 2;
+
     app.stage.addChild(containerBottom);
     containerBottom.addChild(backgroundBottom);
 
     containerBottom.addChild(achievementText);
+
+    containerBottom.addChild(containerResetButton);
+    containerResetButton.addChild(backgroundResetButton);
+    containerResetButton.addChild(resetButtonTextFirst);
+    containerResetButton.addChild(resetButtonTextSecond);
+
+    buttonLogic.applyResetButtonBehavior(containerResetButton, 0);
 
     setLayout();
 }
@@ -124,6 +142,7 @@ function setLayout() {
     backgroundUpgradeShopTitle.clear();
     backgroundCoin.clear();
     containerShop.backgroundUpgradeAmount.clear();
+    backgroundResetButton.clear();
 
     // Upgrade Shop Text
 
@@ -197,6 +216,19 @@ function setLayout() {
     achievementText.x = 0;
     achievementText.y = backgroundBottom.height / 3;
 
+    containerResetButton.x = app.renderer.width * 0.865;
+    containerResetButton.y = containerBottom.height / 6;
+
+    backgroundResetButton.beginFill(0x800303);
+    backgroundResetButton.drawRect(0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
+    backgroundResetButton.endFill();
+
+    resetButtonTextFirst.x = containerResetButton.width / 7;
+    resetButtonTextFirst.y = containerResetButton.y * 0.3;
+
+    resetButtonTextSecond.x = containerResetButton.width / 15;
+    resetButtonTextSecond.y = containerResetButton.y * 0.01;
+
     displayProductions();
     displayShopButtons();
     displayBuyAmountButtons();
@@ -228,9 +260,9 @@ function gameLoop(delta) {
     achievementText.text = gameData.getNextAchievementName();
     gameData.getCurrentAchievement().setSkin();
 
+    
     dataStore.collectData(gameData.getAllGameData());
     dataStore.saveData();
-
 
     /* coinLine.lineStyle(2, 0xFFFF00);
     coinLine.bezierCurveTo(

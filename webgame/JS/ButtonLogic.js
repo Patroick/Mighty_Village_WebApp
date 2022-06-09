@@ -4,34 +4,38 @@ class ButtonLogic {
 
     applyButtonBehavior(pixiParentContainer, index, name) {
         if (pixiParentContainer.getChildAt(index)) {
-            var test = new PIXI.Graphics();
-            test = pixiParentContainer.getChildAt(index);
+            //var childContainer = new PIXI.Graphics();
+
+            var childContainer = pixiParentContainer.getChildAt(index);
             pixiParentContainer.removeChildAt(index);
-            test.name = name;
 
-            test.interactive = true;
-            test.buttonMode = true;
+            childContainer.name = name;
+            childContainer.interactive = true;
+            childContainer.buttonMode = true;
 
-            test
+            childContainer
                 .on('pointerdown', (event) => {
                     // hier dann buy function aufrufen
 
                     // 1 durch buyAmount ersetzen für Menge kaufen, im Layout buyAmount setzen
                     gameData.buyProduction(name, buyAmount);
-                })
-                .on('pointerover', (event) => {
-                    //console.log("skrrr");
-                })
-                .on('pointerout', (event) => {
-                    //console.log("ahhh");
                 });
 
-            pixiParentContainer.addChildAt(test, index);
+            pixiParentContainer.addChildAt(childContainer, index);
         }
     }
 
-    onButtonOver() {
-        //alert("Button Over");
+    applyResetButtonBehavior(pixiParentContainer, index) {
+
+        var childContainer = pixiParentContainer.getChildAt(index);
+
+        childContainer.interactive = true;
+        childContainer.buttonMode = true;
+
+        childContainer
+            .on('pointerdown', (event) => {
+                gameData.eraseAllGameData();
+            });
     }
 
 }
