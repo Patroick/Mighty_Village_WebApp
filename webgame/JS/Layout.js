@@ -92,7 +92,8 @@ function setup() {
         .on('pointerup', coin.clickUp)
         .on('pointerupoutside', coin.clickUp)
         .on('pointerover', coin.clickUp)
-        .on('pointerout', coin.hoverOver);
+        .on('pointerout', coin.hoverOver)
+        .on('pointercancel', coin.cancel);
 
     // Shop
 
@@ -417,6 +418,37 @@ function displayShopButtons() {
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
 }
+
+shopMask = new PIXI.Graphics();
+shopMask.beginFill(0x000000);
+shopMask.drawRect(0, 0, app.renderer.width / 5, containerShop.backgroundUpgrades.height + containerShop.backgroundUpgradeAmount.height);
+shopMask.endFill();
+
+containerShop.mask = shopMask;
+containerShop.addChild(shopMask);
+
+for (let i = 0; i < productions.length; i++) {
+    containerShop.getChildAt(i+ 2).getChildAt(0).on('scroll', (ev) => {
+        for (let i = 0; i < productions.length; i++) {
+            containerShop.getChildAt(i+2).y -= ev.wheelDelta;
+        }
+        shopMask.interactive = false;
+    });
+}
+
+
+const mousePosition = new PIXI.Point();
+
+app.view.addEventListener('wheel', (ev) => {
+    mousePosition.set(ev.clientX, ev.clientY);
+
+    const found = app.renderer.plugins.interaction.hitTest(
+        mousePosition,
+        app.stage
+    );
+
+    if (found) { found.emit('scroll', ev); }
+});
 
 /*
 function displayShopUpgrades() {
