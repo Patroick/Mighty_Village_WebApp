@@ -144,8 +144,7 @@ class GameData {
         }
         this.currencyCount = gameDataArray[1];
         counter.counter = this.currencyCount;
-        //this.achievements = gameDataArray[2];
-
+        
         for (let i = 0; i < this.achievements.length; i++) {
             this.achievements[i].status = gameDataArray[2][i].status;
         }

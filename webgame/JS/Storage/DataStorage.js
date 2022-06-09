@@ -11,7 +11,7 @@ class DataStorage {
     //Implementierung folgt
 
     saveData() {
-        document.cookie = JSON.stringify(this.dataArray);
+        document.cookie = JSON.stringify(this.dataArray) + ";expires=Thu, 18 Dec 2100 12:00:00 UTC;";
     }
 
     loadData() {

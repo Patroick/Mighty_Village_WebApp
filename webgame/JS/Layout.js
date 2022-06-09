@@ -19,6 +19,8 @@ function resize() {
     setLayout();
 }
 
+
+
 app.ticker.add(delta => gameLoop(delta));
 
 
@@ -26,10 +28,15 @@ function setup() {
 
     buyAmount = 1;
 
+    dataStore = new DataStorage();
     counter = new Counter();
     gameData = new GameData();
     buttonLogic = new ButtonLogic();
     font = new PIXI.TextStyle({ fontFamily: "pixel", fontSize: 52, fill: 0x000000 })
+
+    if(document.cookie){
+        gameData.overrideGameData(dataStore.loadData());
+    }
 
     // Upgrade Shop Text
 
@@ -195,7 +202,6 @@ function setLayout() {
     displayBuyAmountButtons();
     //displayShopUpgrades();
 
-    dataStore = new DataStorage();
 
     //dataStore.collectData(gameData.getAllGameData());
     //dataStore.saveData();
@@ -221,6 +227,9 @@ function gameLoop(delta) {
 
     achievementText.text = gameData.getNextAchievementName();
     gameData.getCurrentAchievement().setSkin();
+
+    dataStore.collectData(gameData.getAllGameData());
+    dataStore.saveData();
 
 
     /* coinLine.lineStyle(2, 0xFFFF00);
@@ -516,9 +525,6 @@ function displayBuyAmountButtons() {
     buyFiveBackground.on('pointerdown', (event) => {
         this.buyAmount = 5;
 
-        dataStore.collectData(gameData.getAllGameData());
-        dataStore.saveData();
-
         buyOneBackground.clear();
         buyOneBackground.beginFill(0x89CFF0);
         buyOneBackground.drawRect(
@@ -552,8 +558,6 @@ function displayBuyAmountButtons() {
 
     buyTenBackground.on('pointerdown', (event) => {
         this.buyAmount = 10;
-
-        gameData.overrideGameData(dataStore.loadData());
 
         buyOneBackground.clear();
         buyOneBackground.beginFill(0x89CFF0);
