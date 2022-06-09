@@ -3,26 +3,21 @@ class ButtonLogic {
     constructor() { }
 
     applyButtonBehavior(pixiParentContainer, index, name) {
-        if (pixiParentContainer.getChildAt(index)) {
-            //var childContainer = new PIXI.Graphics();
 
-            var childContainer = pixiParentContainer.getChildAt(index);
-            pixiParentContainer.removeChildAt(index);
+        var childContainer = pixiParentContainer.getChildAt(index);
+        pixiParentContainer.removeChildAt(index);
 
-            childContainer.name = name;
-            childContainer.interactive = true;
-            childContainer.buttonMode = true;
+        childContainer.name = name;
+        childContainer.interactive = true;
+        childContainer.buttonMode = true;
 
-            childContainer
-                .on('pointerdown', (event) => {
-                    // hier dann buy function aufrufen
+        childContainer
+            .on('pointerdown', (event) => {
+                gameData.buyProduction(name, buyAmount);
+            });
 
-                    // 1 durch buyAmount ersetzen für Menge kaufen, im Layout buyAmount setzen
-                    gameData.buyProduction(name, buyAmount);
-                });
+        pixiParentContainer.addChildAt(childContainer, index);
 
-            pixiParentContainer.addChildAt(childContainer, index);
-        }
     }
 
     applyResetButtonBehavior(pixiParentContainer, index) {

@@ -31,12 +31,7 @@ class DataStorage {
     }
 
     collectData(data) {
-        this.clearData();
         this.dataArray = data;
-    }
-
-    clearData(){
-        this.dataArray = [];
     }
 
 }
