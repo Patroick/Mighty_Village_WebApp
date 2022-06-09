@@ -430,7 +430,11 @@ containerShop.addChild(shopMask);
 for (let i = 0; i < productions.length; i++) {
     containerShop.getChildAt(i+ 2).getChildAt(0).on('scroll', (ev) => {
         for (let i = 0; i < productions.length; i++) {
+            if(containerShop.getChildAt(i+2).y <= 0){
+                if(containerShop.getChildAt(i+2).y-ev.wheelDelta <= 0){
             containerShop.getChildAt(i+2).y -= ev.wheelDelta;
+                }
+            }
         }
         shopMask.interactive = false;
     });
