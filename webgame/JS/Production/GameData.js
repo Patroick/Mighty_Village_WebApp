@@ -48,7 +48,7 @@ class GameData {
         }
     }
 
-    getCurrentProductionUpgradePrice(productionName){
+    getCurrentProductionUpgradePrice(productionName) {
         for (let i = 0; i < this.productions.length; i++) {
             if (this.productions[i].productionType == productionName) {
                 return this.productions[i].getBuyingPrice(1);
@@ -62,51 +62,49 @@ class GameData {
         }
     }
 
-    getNextAchievementName(){
+    getNextAchievementName() {
         for (let i = 0; i < this.achievements.length; i++) {
-            if(this.achievements[i].status == false){
+            if (this.achievements[i].status == false) {
                 return "Nächstes Achievement: " + this.achievements[i].name;
-            } else if(i == this.achievements.length- 1){
-            return "Keine Achievements mehr";
+            } else if (i == this.achievements.length - 1) {
+                return "Keine Achievements mehr";
             }
         }
     }
 
-    getCurrentAchievement(){
+    getCurrentAchievement() {
+
         for (let i = 0; i < this.achievements.length; i++) {
-            if(this.achievements[i].status == false){
-                if(i == 0){
+
+            if (this.achievements[i].status == false) {
+                if (i == 0) {
                     return this.achievements[i];
                 } else
-                return this.achievements[i - 1];
-            } else if(i == this.achievements.length- 1){
+                    return this.achievements[i - 1];
+            } else if (i == this.achievements.length - 1) {
 
-            return this.achievements[this.achievements.length - 1];
+                return this.achievements[this.achievements.length - 1];
             }
         }
     }
 
 
-    getCurrentCurrencyCount(currencyCount){
+    getCurrentCurrencyCount(currencyCount) {
         this.currencyCount = currencyCount;
     }
 
     getAllGameData() {
-        // Hier die ganze derzeitige GameData zurück geben.
-        // Bsp. Array mit allen Produktionsgebäuden mit allen Values
 
-        this.gameDataArray = [];
+        this.gameDataArray[0] = this.productions;
+        this.gameDataArray[1] = this.currencyCount;
+        this.gameDataArray[2] = this.achievements;
 
-        this.gameDataArray.push(this.productions);
-        this.gameDataArray.push(this.currencyCount);
-        this.gameDataArray.push(this.achievements);
-        
         return this.gameDataArray;
     }
 
     overrideGameData(gameDataArray) {
 
-        for (var i = 0; i < this.productions.length; i++){
+        for (var i = 0; i < this.productions.length; i++) {
             this.productions[i] = new ProductionUpgrade(
                 gameDataArray[0][i].productionType,
                 gameDataArray[0][i].generatingValue,
@@ -114,16 +112,18 @@ class GameData {
             );
             this.productions[i].amount = gameDataArray[0][i].amount;
         }
+
         this.currencyCount = gameDataArray[1];
+
         counter.counter = this.currencyCount;
-        
+
         for (let i = 0; i < this.achievements.length; i++) {
             this.achievements[i].status = gameDataArray[2][i].status;
         }
     }
 
-    eraseAllGameData(){
-       
+    eraseAllGameData() {
+
         for (let i = 0; i < this.productions.length; i++) {
             this.productions[i].amount = 0;
         }
@@ -131,10 +131,15 @@ class GameData {
         for (let i = 0; i < this.achievements.length; i++) {
             this.achievements[i].status = false;
         }
-    
+
         this.currencyCount = 0;
-        this.gameDataArray = new Array(this.productions, this.currencyCount, this.achievements);
+
+        this.gameDataArray[0] = this.productions;
+        this.gameDataArray[1] = this.currencyCount;
+        this.gameDataArray[2] = this.achievements;
+
         counter.counter = 0;
+
         coin.texture = new PIXI.Texture.from("pictures/muenze.png");
     }
 }
