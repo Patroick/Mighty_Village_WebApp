@@ -7,7 +7,6 @@ let app = new PIXI.Application({
 
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
-app.renderer.autoDensity = true;
 document.body.appendChild(app.view);
 
 setup();
@@ -34,7 +33,7 @@ function setup() {
     buttonLogic = new ButtonLogic();
     font = new PIXI.TextStyle({ fontFamily: "pixel", fontSize: 52, fill: 0x000000 })
 
-    if(document.cookie){
+    if (document.cookie) {
         gameData.overrideGameData(dataStore.loadData());
     }
 
@@ -132,6 +131,8 @@ function setup() {
     containerResetButton.addChild(resetButtonTextSecond);
 
     buttonLogic.applyResetButtonBehavior(containerResetButton, 0);
+
+
 
     setLayout();
 }
@@ -261,7 +262,7 @@ function gameLoop(delta) {
     achievementText.text = gameData.getNextAchievementName();
     gameData.getCurrentAchievement().setSkin();
 
-    
+
     dataStore.collectData(gameData.getAllGameData());
     dataStore.saveData();
 
@@ -317,6 +318,8 @@ function displayProductions() {
             app.renderer.height / 8
         );
         backgroundProductionContainer.endFill();
+
+        backgroundProductionContainer.interactive = true;
 
         //textProduction.x = backgroundProduction.width / 2;
         textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.25;
@@ -419,40 +422,7 @@ function displayShopButtons() {
     }
 }
 
-shopMask = new PIXI.Graphics();
-shopMask.beginFill(0x000000);
-shopMask.drawRect(0, 0, app.renderer.width / 5, containerShop.backgroundUpgrades.height + containerShop.backgroundUpgradeAmount.height);
-shopMask.endFill();
 
-containerShop.mask = shopMask;
-containerShop.addChild(shopMask);
-
-for (let i = 0; i < productions.length; i++) {
-    containerShop.getChildAt(i+ 2).getChildAt(0).on('scroll', (ev) => {
-        for (let i = 0; i < productions.length; i++) {
-            if(containerShop.getChildAt(i+2).y <= 0){
-                if(containerShop.getChildAt(i+2).y-ev.wheelDelta <= 0){
-            containerShop.getChildAt(i+2).y -= ev.wheelDelta;
-                }
-            }
-        }
-        shopMask.interactive = false;
-    });
-}
-
-
-const mousePosition = new PIXI.Point();
-
-app.view.addEventListener('wheel', (ev) => {
-    mousePosition.set(ev.clientX, ev.clientY);
-
-    const found = app.renderer.plugins.interaction.hitTest(
-        mousePosition,
-        app.stage
-    );
-
-    if (found) { found.emit('scroll', ev); }
-});
 
 /*
 function displayShopUpgrades() {
@@ -518,7 +488,7 @@ function displayBuyAmountButtons() {
         backgroundUpgradeShopTitle.height / 3
     );
     buyFiveBackground.endFill();
-    
+
     buyTenBackground.beginFill(0x088F8F);
     buyTenBackground.drawRect(
         backgroundUpgradeShopTitle.width / 1.5,
@@ -671,16 +641,33 @@ function calculateProduction() {
 
 }
 
-/*
-    Scrolling
+scrollingContainer(containerShop);
 
-  document.body.addEventListener("wheel", function (event) {
-        event.preventDefault()
-    });
+function scrollingContainer(container) {
+    shopMask = new PIXI.Graphics();
+    shopMask.beginFill(0x000000);
+    shopMask.drawRect(0, 0, app.renderer.width / 5, container.backgroundUpgrades.height + container.backgroundUpgradeAmount.height);
+    shopMask.endFill();
 
-    coin.on('scroll', (ev) => {
-        coin.y -= ev.wheelDelta;
-    });
+    container.mask = shopMask;
+    container.addChild(shopMask);
+
+    for (let i = 0; i < gameData.productions.length; i++) {
+        container.getChildAt(i + 2).getChildAt(0).on('scroll', (ev) => {
+            var scrollSpeed = ev.wheelDelta ;
+                if (container.getChildAt(2).y <= 0 && container.height + container.getChildAt(2).y >= container.mask.height) {
+                    console.log(scrollSpeed)
+                    if (container.getChildAt(2).y - scrollSpeed <= 0 && container.height + container.getChildAt(2).y - scrollSpeed * 2>= container.mask.height ) {
+                        for (let i = 0; i < productions.length; i++) {
+                            container.getChildAt(i + 2).y -= scrollSpeed;
+                        }
+                    }
+                }
+
+            shopMask.interactive = false;
+        });
+    }
+
 
     const mousePosition = new PIXI.Point();
 
@@ -694,4 +681,4 @@ function calculateProduction() {
 
         if (found) { found.emit('scroll', ev); }
     });
-*/
+}
