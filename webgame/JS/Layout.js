@@ -60,10 +60,14 @@ function setup() {
     textProductionTitle.resolution = 2;
     backgroundProduction = new PIXI.Graphics();
 
+    containerProductions = new PIXI.Container();
+
     app.stage.addChild(containerProduction);
     containerProduction.addChild(backgroundProductionTitle);
     containerProduction.addChild(textProductionTitle);
     containerProduction.addChild(backgroundProduction);
+
+    containerProduction.addChild(containerProductions);
 
     // Coin
 
@@ -174,6 +178,8 @@ function setLayout() {
     backgroundProduction.drawRect(0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
     backgroundProduction.endFill();
 
+    containerProductions.y += backgroundProductionTitle.height;
+
     // Coin
 
     containerCoin.x = backgroundProductionTitle.width;
@@ -255,7 +261,7 @@ function setLayout() {
 function gameLoop(delta) {
 
     counter.increase(calculateProduction() / 100);
-    //updateDisplayProduction();
+    updateDisplayProduction();
     updateDisplayShopButtons();
 
     gameData.checkAchievements();
@@ -294,27 +300,31 @@ function displayProductions() {
     this.productions = gameData.productions;
     this.pictures = gameData.pictures;
     for (let i = 0; i < this.productions.length; i++) {
-        productionUpgrade = new PIXI.Container();
-        backgroundProductionContainer = new PIXI.Graphics();
-        textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'right' });
+        let productionUpgrade = new PIXI.Container();
+        let backgroundProductionContainer = new PIXI.Graphics();
+        backgroundProductionContainer.x = 30
+        let textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'right' });
         textProduction.resolution = 2;
-        textProduction.anchor.set(-0.05, 0.5);
+        textProduction.y = 10
+        textProduction.x = 10;
 
-        textGenerationPerSecond = new PIXI.Text("Münzen/sec: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        let textGenerationPerSecond = new PIXI.Text("Münzen/sec: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textGenerationPerSecond.resolution = 2;
-        textGenerationPerSecond.anchor.set(-0.07, -1.5);
+        textGenerationPerSecond.y = 50;
+        textGenerationPerSecond.x = 10;
 
-        textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        let textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textAmountProduction.resolution = 2;
-        textAmountProduction.anchor.set(-0.1, -3);
+        textAmountProduction.y = 70;
+        textAmountProduction.x = 10;
 
-        productionIcon = new PIXI.Sprite.from(pictures[i]);
-        productionIcon.anchor.set(-0.05, 0.3);
+        let productionIcon = new PIXI.Sprite.from(pictures[i]);
 
         productionIcon.scale.x *= 0.15;
         productionIcon.scale.y *= 0.15;
+        productionIcon.anchor.set(0.5);
 
-        //textGenerationOfProduction
+        backgroundProductionContainer.y = (app.renderer.height / 8) * i;
 
         if (i % 2 == 0) {
             backgroundProductionContainer.beginFill(0xff5733);
@@ -322,60 +332,31 @@ function displayProductions() {
             backgroundProductionContainer.beginFill(0x8aff33);
         }
         backgroundProductionContainer.drawRect(
-            30,
-            backgroundProductionTitle.height + (app.renderer.height / 8) * i,
-            app.renderer.width / 4,
+            0,
+            0,
+            app.renderer.width / 4 - 30,
             app.renderer.height / 8
         );
         backgroundProductionContainer.endFill();
 
-        backgroundProductionContainer.interactive = true;
+        productionIcon.y = backgroundProductionContainer.height / 2 - productionIcon.height;
+        productionIcon.x = backgroundProductionContainer.width - 50;
 
-        //textProduction.x = backgroundProduction.width / 2;
-        textProduction.y += backgroundProductionTitle.height * i + backgroundProductionTitle.height * 1.25;
-        textAmountProduction.y = textProduction.y;
-        textGenerationPerSecond.y = textAmountProduction.y;
-
-        productionIcon.x += backgroundProductionContainer.width / 1.3;
-        productionIcon.y += textProduction.y + backgroundProductionContainer.height / 9;
-
-        containerProduction.addChild(productionUpgrade);
+        backgroundProductionContainer.addChild(textProduction);
+        backgroundProductionContainer.addChild(textAmountProduction);
+        backgroundProductionContainer.addChild(textGenerationPerSecond);
+        backgroundProductionContainer.addChild(productionIcon);
         productionUpgrade.addChild(backgroundProductionContainer);
-        productionUpgrade.addChild(textProduction);
-        productionUpgrade.addChild(textAmountProduction);
-        productionUpgrade.addChild(textGenerationPerSecond);
-        productionUpgrade.addChild(productionIcon);
+        containerProductions.addChild(productionUpgrade);
+
     }
-
-    // fürs Scrollen, das Coin durch den Container ersetzen
-
-    // document.body.addEventListener("wheel", function (event) {
-    //     event.preventDefault()
-    // });
-
-    // coin.on('scroll', (ev) => {
-    //     coin.y -= ev.wheelDelta;
-    // });
-
-    // const mousePosition = new PIXI.Point();
-
-    // app.view.addEventListener('wheel', (ev) => {
-    //     mousePosition.set(ev.clientX, ev.clientY);
-
-    //     const found = app.renderer.plugins.interaction.hitTest(
-    //         mousePosition,
-    //         app.stage
-    //     );
-
-    //     if (found) { found.emit('scroll', ev); }
-    // });
 }
 
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
-        containerProductions.getChildAt(i).getChildAt(2).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet
-        containerProductions.getChildAt(i).getChildAt(3).text = "Münzen/sec: " + productions[i].getProductionValue();
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + productions[i].getProductionValue();
     }
 
 }
@@ -391,13 +372,13 @@ function displayShopButtons() {
     this.shop = gameData.productions;
 
     for (let i = 0; i < this.shop.length; i++) {
-        upgradeButton = new PIXI.Container();
-        backgroundUpgradeButton = new PIXI.Graphics();
-        textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
+        let upgradeButton = new PIXI.Container();
+        let backgroundUpgradeButton = new PIXI.Graphics();
+        let textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
         textUpgradeButton.resolution = 2;
         textUpgradeButton.anchor.set(0.5, 0.5);
 
-        textPriceUpgrade = new PIXI.Text("Preis: " + Math.round(productions[i].getBuyingPrice(1)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        let textPriceUpgrade = new PIXI.Text("Preis: " + Math.round(productions[i].getBuyingPrice(1)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
         textPriceUpgrade.resolution = 2;
         textPriceUpgrade.anchor.set(-0.07, -1.5);
 
@@ -653,7 +634,7 @@ function calculateProduction() {
 }
 
 scrollingContainer(containerProductionShop, "right",app.renderer.width / 5, app.renderer.height - backgroundUpgradeShopTitle.height - containerShop.backgroundUpgradeAmount.height - app.renderer.height / 15);
-//scrollingContainer(containerProductions, "left", app.renderer.width / 4, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
+scrollingContainer(containerProductions, "left", app.renderer.width / 4, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
 
 function scrollingContainer(container, position, width, height) {
     let mask = new PIXI.Graphics();
@@ -667,7 +648,7 @@ function scrollingContainer(container, position, width, height) {
     let scrollBar = new PIXI.Graphics();
     scrollBar.beginFill(0x255255255);
     let x;
-    if(position = "right"){
+    if(position == "right"){
         x = container.width
     } else {
         x = 0
