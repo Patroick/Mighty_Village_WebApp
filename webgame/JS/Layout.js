@@ -100,6 +100,10 @@ function setup() {
 
     app.stage.addChild(containerShop);
 
+
+    containerProductionShop = new PIXI.Container();
+    containerShop.addChild(containerProductionShop)
+
     // Bottom
 
     containerBottom = new PIXI.Container();
@@ -131,6 +135,7 @@ function setup() {
     containerResetButton.addChild(resetButtonTextSecond);
 
     buttonLogic.applyResetButtonBehavior(containerResetButton, 0);
+
 
 
 
@@ -207,6 +212,9 @@ function setLayout() {
     containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width / 5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
     containerShop.backgroundUpgrades.endFill();
 
+
+    containerProductionShop.y += containerShop.backgroundUpgradeAmount.height;
+
     // Bottom
 
     containerBottom.x = 0;
@@ -231,6 +239,8 @@ function setLayout() {
     resetButtonTextSecond.x = containerResetButton.width / 15;
     resetButtonTextSecond.y = containerResetButton.y * 0.01;
 
+
+
     displayProductions();
     displayShopButtons();
     displayBuyAmountButtons();
@@ -245,7 +255,7 @@ function setLayout() {
 function gameLoop(delta) {
 
     counter.increase(calculateProduction() / 100);
-    updateDisplayProduction();
+    //updateDisplayProduction();
     updateDisplayShopButtons();
 
     gameData.checkAchievements();
@@ -312,7 +322,7 @@ function displayProductions() {
             backgroundProductionContainer.beginFill(0x8aff33);
         }
         backgroundProductionContainer.drawRect(
-            0,
+            30,
             backgroundProductionTitle.height + (app.renderer.height / 8) * i,
             app.renderer.width / 4,
             app.renderer.height / 8
@@ -364,21 +374,22 @@ function displayProductions() {
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
-        containerProduction.getChildAt(i + 3).getChildAt(2).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet 
-        containerProduction.getChildAt(i + 3).getChildAt(3).text = "Münzen/sec: " + productions[i].getProductionValue();
+        containerProductions.getChildAt(i).getChildAt(2).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet
+        containerProductions.getChildAt(i).getChildAt(3).text = "Münzen/sec: " + productions[i].getProductionValue();
     }
 
 }
 
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
-        containerShop.getChildAt(i + 2).getChildAt(2).text = "Preis: " + Math.round(productions[i].getBuyingPrice(buyAmount));
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + Math.round(productions[i].getBuyingPrice(buyAmount));
     }
 }
 
 
 function displayShopButtons() {
     this.shop = gameData.productions;
+
     for (let i = 0; i < this.shop.length; i++) {
         upgradeButton = new PIXI.Container();
         backgroundUpgradeButton = new PIXI.Graphics();
@@ -400,8 +411,8 @@ function displayShopButtons() {
 
         backgroundUpgradeButton.drawRect(
             0,
-            backgroundUpgradeShopTitle.height + containerShop.backgroundUpgradeAmount.height / 0.8 + (app.renderer.height / 8) * i,
-            app.renderer.width / 5,
+            containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i,
+            app.renderer.width / 5 - 30,
             app.renderer.height / 8
         );
 
@@ -413,10 +424,10 @@ function displayShopButtons() {
         textPriceUpgrade.x = textUpgradeButton.x / 15;
         textPriceUpgrade.y = textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5;
 
-        containerShop.addChild(upgradeButton);
+        containerProductionShop.addChild(upgradeButton);
         upgradeButton.addChild(backgroundUpgradeButton);
-        upgradeButton.addChild(textUpgradeButton);
-        upgradeButton.addChild(textPriceUpgrade)
+        backgroundUpgradeButton.addChild(textUpgradeButton);
+        backgroundUpgradeButton.addChild(textPriceUpgrade)
 
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
@@ -641,24 +652,69 @@ function calculateProduction() {
 
 }
 
-scrollingContainer(containerShop);
+scrollingContainer(containerProductionShop, "right",app.renderer.width / 5, app.renderer.height - backgroundUpgradeShopTitle.height - containerShop.backgroundUpgradeAmount.height - app.renderer.height / 15);
+//scrollingContainer(containerProductions, "left", app.renderer.width / 4, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
 
-function scrollingContainer(container) {
-    shopMask = new PIXI.Graphics();
-    shopMask.beginFill(0x000000);
-    shopMask.drawRect(0, 0, app.renderer.width / 5, container.backgroundUpgrades.height + container.backgroundUpgradeAmount.height);
-    shopMask.endFill();
+function scrollingContainer(container, position, width, height) {
+    let mask = new PIXI.Graphics();
+    mask.beginFill(0x000000);
+    mask.drawRect(0, 0, width , height);
+    mask.endFill();
 
-    container.mask = shopMask;
-    container.addChild(shopMask);
+    container.mask = mask;
+    container.addChild(mask);
 
-    for (let i = 0; i < gameData.productions.length; i++) {
+    let scrollBar = new PIXI.Graphics();
+    scrollBar.beginFill(0x255255255);
+    let x;
+    if(position = "right"){
+        x = container.width
+    } else {
+        x = 0
+    }
+    scrollBar.drawRect(x, 0, 30, mask.height - (container.height - mask.height));
+    scrollBar.interactive = true;
+    container.addChild(scrollBar);
+
+    let oldPosition;
+    let newPosition;
+    let dragging = false;
+
+    scrollBar
+        .on('pointerdown', (ev) =>{
+            oldPosition = ev.data.getLocalPosition(container);
+            dragging = true;
+        })
+        .on('pointerup', (ev) =>{
+            dragging = false;
+        })
+        .on('pointerout', (ev) =>{
+            dragging = false;
+        })
+        .on('pointermove', (ev) =>{
+            if(dragging == true) {
+                newPosition = ev.data.getLocalPosition(container);
+                let distance = newPosition.y - oldPosition.y
+                if (scrollBar.y + distance >= -1 && scrollBar.y + scrollBar.height + distance <= container.mask.height) {
+                    scrollBar.y += distance;
+                    for (let i = 0; i < productions.length; i++) {
+                        container.getChildAt(i).y -= newPosition.y - oldPosition.y;
+                    }
+                    oldPosition = ev.data.getLocalPosition(container);
+                }
+            }
+        });
+}
+
+/* Scrolling
+for (let i = 0; i < gameData.productions.length; i++) {
         container.getChildAt(i + 2).getChildAt(0).on('scroll', (ev) => {
             var scrollSpeed = ev.wheelDelta ;
                 if (container.getChildAt(2).y <= 0 && container.height + container.getChildAt(2).y >= container.mask.height) {
                     console.log(scrollSpeed)
                     if (container.getChildAt(2).y - scrollSpeed <= 0 && container.height + container.getChildAt(2).y - scrollSpeed * 2>= container.mask.height ) {
                         for (let i = 0; i < productions.length; i++) {
+
                             container.getChildAt(i + 2).y -= scrollSpeed;
                         }
                     }
@@ -681,4 +737,4 @@ function scrollingContainer(container) {
 
         if (found) { found.emit('scroll', ev); }
     });
-}
+ */
