@@ -466,7 +466,7 @@ function displayBuyAmountButtons() {
     buyAmountText.x = backgroundUpgradeShopTitle.width / 2;
     buyAmountText.y = backgroundUpgradeShopTitle.height / 3;
 
-    buyOneBackground.beginFill(0x89CFF0);
+    buyOneBackground.beginFill(0x6BB6D6);
     buyOneBackground.drawRect(
         backgroundUpgradeShopTitle.width / 6,
         backgroundUpgradeShopTitle.height / 1.5,
@@ -475,7 +475,7 @@ function displayBuyAmountButtons() {
     );
     buyOneBackground.endFill();
 
-    buyFiveBackground.beginFill(0x40B5AD);
+    buyFiveBackground.beginFill(0x6BB6D6);
     buyFiveBackground.drawRect(
         backgroundUpgradeShopTitle.width / 2.4,
         backgroundUpgradeShopTitle.height / 1.5,
@@ -484,7 +484,7 @@ function displayBuyAmountButtons() {
     );
     buyFiveBackground.endFill();
 
-    buyTenBackground.beginFill(0x088F8F);
+    buyTenBackground.beginFill(0x6BB6D6);
     buyTenBackground.drawRect(
         backgroundUpgradeShopTitle.width / 1.5,
         backgroundUpgradeShopTitle.height / 1.5,
@@ -535,7 +535,7 @@ function displayBuyAmountButtons() {
         buyOneBackground.endFill();
 
         buyFiveBackground.clear();
-        buyFiveBackground.beginFill(0x40B5AD);
+        buyFiveBackground.beginFill(0x6BB6D6);
         buyFiveBackground.drawRect(
             backgroundUpgradeShopTitle.width / 2.4,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -545,7 +545,7 @@ function displayBuyAmountButtons() {
         buyFiveBackground.endFill();
 
         buyTenBackground.clear();
-        buyTenBackground.beginFill(0x088F8F);
+        buyTenBackground.beginFill(0x6BB6D6);
         buyTenBackground.drawRect(
             backgroundUpgradeShopTitle.width / 1.5,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -559,7 +559,7 @@ function displayBuyAmountButtons() {
         this.buyAmount = 5;
 
         buyOneBackground.clear();
-        buyOneBackground.beginFill(0x89CFF0);
+        buyOneBackground.beginFill(0x6BB6D6);
         buyOneBackground.drawRect(
             backgroundUpgradeShopTitle.width / 6,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -569,7 +569,7 @@ function displayBuyAmountButtons() {
         buyOneBackground.endFill();
 
         buyFiveBackground.clear();
-        buyFiveBackground.beginFill(0x2A746F);
+        buyFiveBackground.beginFill(0x6490A4);
         buyFiveBackground.drawRect(
             backgroundUpgradeShopTitle.width / 2.4,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -579,7 +579,7 @@ function displayBuyAmountButtons() {
         buyFiveBackground.endFill();
 
         buyTenBackground.clear();
-        buyTenBackground.beginFill(0x088F8F);
+        buyTenBackground.beginFill(0x6BB6D6);
         buyTenBackground.drawRect(
             backgroundUpgradeShopTitle.width / 1.5,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -593,7 +593,7 @@ function displayBuyAmountButtons() {
         this.buyAmount = 10;
 
         buyOneBackground.clear();
-        buyOneBackground.beginFill(0x89CFF0);
+        buyOneBackground.beginFill(0x6BB6D6);
         buyOneBackground.drawRect(
             backgroundUpgradeShopTitle.width / 6,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -603,7 +603,7 @@ function displayBuyAmountButtons() {
         buyOneBackground.endFill();
 
         buyFiveBackground.clear();
-        buyFiveBackground.beginFill(0x40B5AD);
+        buyFiveBackground.beginFill(0x6BB6D6);
         buyFiveBackground.drawRect(
             backgroundUpgradeShopTitle.width / 2.4,
             backgroundUpgradeShopTitle.height / 1.5,
@@ -613,7 +613,7 @@ function displayBuyAmountButtons() {
         buyFiveBackground.endFill();
 
         buyTenBackground.clear();
-        buyTenBackground.beginFill(0x085B5B);
+        buyTenBackground.beginFill(0x6490A4);
         buyTenBackground.drawRect(
             backgroundUpgradeShopTitle.width / 1.5,
             backgroundUpgradeShopTitle.height / 1.5,
