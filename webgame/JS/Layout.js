@@ -167,12 +167,9 @@ function setLayout() {
 
     drawRectangle(backgroundCoin, 0xCEDDF0, 0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
 
-    coin.x = backgroundCoin.width / 2;
-    coin.y = backgroundCoin.height / 2;
-    coinLine.x = 0;
-    coinLine.y = backgroundCoin.height - backgroundCoin.height / 10;
-    coin.scale.x = containerCoin.width / 1000;
-    coin.scale.y = containerCoin.width / 1000;
+    setObjectCoordinates(coin, backgroundCoin.width / 2, backgroundCoin.height / 2);
+
+    setObjectScale(coin, containerCoin.width / 1000, containerCoin.width / 1000);
 
     setTextCoordinates(textCounter, backgroundCoin.width / 2, backgroundCoin.height / 13);
 
@@ -499,10 +496,10 @@ function convertToButton(background) {
     background.buttonMode = true;
 }
 
-function createNewText(text, size, x, y, anchorx, anchory) {
+function createNewText(text, size, x, y, anchorX, anchorY) {
     let tempText = new PIXI.Text(text, { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 });
     tempText.resolution = 2;
-    tempText.anchor.set(anchorx, anchory);
+    tempText.anchor.set(anchorX, anchorY);
     setTextCoordinates(tempText, x, y);
     return tempText;
 }
@@ -512,14 +509,24 @@ function setTextCoordinates(text, x, y) {
     text.y = y;
 }
 
-function createNewSprite(sprite, x, y, scalex, scaley, anchor) {
+function createNewSprite(sprite, x, y, scaleX, scaleY, anchor) {
     let tempSprite = new PIXI.Sprite.from(sprite);
     tempSprite.x = x;
     tempSprite.y= y;
-    tempSprite.scale.x *= scalex;
-    tempSprite.scale.y *= scaley;
+    tempSprite.scale.x *= scaleX;
+    tempSprite.scale.y *= scaleY;
     tempSprite.anchor.set(anchor);
     return tempSprite;
+}
+
+function setObjectCoordinates(object, x, y) {
+    object.x = x;
+    object.y = y;
+}
+
+function setObjectScale(object, scaleX, scaleY) {
+    object.scale.x = scaleX;
+    object.scale.y = scaleY;
 }
 
 /* Scrolling
