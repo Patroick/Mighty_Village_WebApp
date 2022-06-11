@@ -8,7 +8,8 @@ app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 document.body.appendChild(app.view);
 
-font = { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 };
+fontSize = 32;
+font = { fontFamily: 'Helvetica', fontSize: fontSize, fill: 0x000000, align: 'left' };
 
 setup();
 
@@ -159,10 +160,9 @@ function setLayout() {
 
     containerUpgradeShop.x = (app.renderer.width - app.renderer.width / 5);
     containerUpgradeShop.y = 0;
-    backgroundUpgradeShopTitle.line.alignment = 0;
-    backgroundUpgradeShopTitle.line.color = 0x000000;
-    backgroundUpgradeShopTitle.line.width = 2;
-    backgroundUpgradeShopTitle.line.visible = true;
+
+    drawContainerLine(backgroundUpgradeShopTitle, 2);
+
     backgroundUpgradeShopTitle.beginFill(0xD6862B);
     backgroundUpgradeShopTitle.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 8);
     backgroundUpgradeShopTitle.endFill();
@@ -174,10 +174,9 @@ function setLayout() {
 
     containerProduction.x = 0;
     containerProduction.y = 0;
-    backgroundProductionTitle.line.alignment = 0;
-    backgroundProductionTitle.line.color = 0x000000;
-    backgroundProductionTitle.line.width = 2;
-    backgroundProductionTitle.line.visible = true;
+
+    drawContainerLine(backgroundProductionTitle, 2);
+
     backgroundProductionTitle.beginFill(0x5B53B5);
     backgroundProductionTitle.drawRect(0, 0, app.renderer.width / 4, app.renderer.height / 8);
     backgroundProductionTitle.endFill();
@@ -193,10 +192,9 @@ function setLayout() {
 
     containerCoin.x = backgroundProductionTitle.width;
     containerCoin.y = 0;
-    backgroundCoin.line.alignment = 0;
-    backgroundCoin.line.color = 0x000000;
-    backgroundCoin.line.width = 2;
-    backgroundCoin.line.visible = true;
+
+    drawContainerLine(backgroundCoin, 2);
+
     backgroundCoin.beginFill(0xCEDDF0);
     backgroundCoin.drawRect(0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
     backgroundCoin.endFill();
@@ -220,10 +218,7 @@ function setLayout() {
     containerShop.backgroundUpgrades.width = app.renderer.width / 5;
     containerShop.backgroundUpgrades.height = app.renderer.height / 6;
 
-    containerShop.backgroundUpgradeAmount.line.alignment = 0;
-    containerShop.backgroundUpgradeAmount.line.color = 0x000000;
-    containerShop.backgroundUpgradeAmount.line.width = 2;
-    containerShop.backgroundUpgradeAmount.line.visible = true;
+    drawContainerLine(containerShop.backgroundUpgradeAmount, 2);
 
     containerShop.backgroundUpgradeAmount.beginFill(0xFCA00A);
     containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
@@ -244,10 +239,7 @@ function setLayout() {
     containerBottom.x = 0;
     containerBottom.y = app.renderer.height - app.renderer.height / 15;
 
-    backgroundBottom.line.alignment = 0;
-    backgroundBottom.line.color = 0x000000;
-    backgroundBottom.line.width = 2;
-    backgroundBottom.line.visible = true;
+    drawContainerLine(backgroundBottom,2);
 
     backgroundBottom.beginFill(0xD66D60);
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
@@ -259,10 +251,7 @@ function setLayout() {
     containerResetButton.x = app.renderer.width * 0.865;
     containerResetButton.y = containerBottom.height / 6;
 
-    backgroundResetButton.line.alignment = 0;
-    backgroundResetButton.line.color = 0x000000;
-    backgroundResetButton.line.width = 2;
-    backgroundResetButton.line.visible = true;
+    drawContainerLine(backgroundResetButton,2);
 
     backgroundResetButton.beginFill(0xD6443D);
     backgroundResetButton.drawRect(0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
@@ -331,21 +320,12 @@ function displayProductions() {
     for (let i = 0; i < this.productions.length; i++) {
         let productionUpgrade = new PIXI.Container();
         let backgroundProductionContainer = new PIXI.Graphics();
-        backgroundProductionContainer.x = 30
-        let textProduction = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000, align: 'right' });
-        textProduction.resolution = 2;
-        textProduction.y = 10
-        textProduction.x = 10;
+        backgroundProductionContainer.x = 30;
 
-        let textGenerationPerSecond = new PIXI.Text("Münzen/sec: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
-        textGenerationPerSecond.resolution = 2;
-        textGenerationPerSecond.y = 50;
-        textGenerationPerSecond.x = 10;
-
-        let textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
-        textAmountProduction.resolution = 2;
-        textAmountProduction.y = 70;
-        textAmountProduction.x = 10;
+        /*
+        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5);
+        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2);
+        */
 
         let productionIcon = new PIXI.Sprite.from(pictures[i]);
 
@@ -355,10 +335,7 @@ function displayProductions() {
 
         backgroundProductionContainer.y = (app.renderer.height / 8) * i;
 
-        backgroundProductionContainer.line.alignment = 0;
-        backgroundProductionContainer.line.color = 0x000000;
-        backgroundProductionContainer.line.width = 1;
-        backgroundProductionContainer.line.visible = true;
+        drawContainerLine(backgroundProductionContainer, 1);
 
         backgroundProductionContainer.beginFill(0x938FBD);
         
@@ -369,6 +346,21 @@ function displayProductions() {
             app.renderer.height / 8
         );
         backgroundProductionContainer.endFill();
+
+
+        let textGenerationPerSecond = new PIXI.Text("Münzen/sec: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        textGenerationPerSecond.resolution = 2;
+        textGenerationPerSecond.x = 10;
+        textGenerationPerSecond.y = 50;
+
+        let textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        textAmountProduction.resolution = 2;
+        textAmountProduction.x = 10;
+        textAmountProduction.y = 70;
+
+        let textProduction = createNewText(productions[i]["productionType"], 1, backgroundProductionContainer.width / 4, backgroundProductionContainer.height / 6, 0, 0.5);
+        //let textGenerationPerSecond = createNewText(productions[i]["productionType"], 1, backgroundProductionContainer.width / 4, backgroundProductionContainer.height / 4, 0, 0.5);
+        //let textAmountProduction = createNewText(productions[i]["productionType"], 1, backgroundProductionContainer.width / 4, backgroundProductionContainer.height / 3, 0, 0.5);
 
         productionIcon.y = backgroundProductionContainer.height / 2 - productionIcon.height;
         productionIcon.x = backgroundProductionContainer.width - 50;
@@ -401,49 +393,19 @@ function updateDisplayShopButtons() {
 
 
 function displayShopButtons() {
+    
     this.shop = gameData.productions;
 
     for (let i = 0; i < this.shop.length; i++) {
         let upgradeButton = new PIXI.Container();
         let backgroundUpgradeButton = new PIXI.Graphics();
-        let textUpgradeButton = new PIXI.Text(productions[i]["productionType"], { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
-        textUpgradeButton.resolution = 2;
-        textUpgradeButton.anchor.set(0.5, 0.5);
 
-        let textPriceUpgrade = new PIXI.Text("Preis: " + Math.round(productions[i].getBuyingPrice(1)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000});
-        textPriceUpgrade.resolution = 2;
-        textPriceUpgrade.anchor.set(0.5, 0.5);
+        drawContainerLine(backgroundUpgradeButton, 1);
+        drawMultipleRectangle(backgroundUpgradeButton, 0xFFCD5D, backgroundUpgradeButton.x, containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i, app.renderer.width / 5 - 30, app.renderer.height / 8, containerShop.backgroundUpgradeAmount.height);
 
-        let textCoinProductionPerSecond = new PIXI.Text("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000});
-        textCoinProductionPerSecond.resolution = 2;
-        textCoinProductionPerSecond.anchor.set(0.5, 0.5);
-
-        backgroundUpgradeButton.line.alignment = 0;
-        backgroundUpgradeButton.line.color = 0x000000;
-        backgroundUpgradeButton.line.width = 1;
-        backgroundUpgradeButton.line.visible = true;
-
-        backgroundUpgradeButton.beginFill(0xFFCD5D);
-
-        backgroundUpgradeButton.y -= containerShop.backgroundUpgradeAmount.height
-
-        backgroundUpgradeButton.drawRect(
-            0,
-            containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i,
-            app.renderer.width / 5 - 30,
-            app.renderer.height / 8
-        );
-
-        backgroundUpgradeButton.endFill();
-
-        textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2.25;
-        textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65;
-
-        textPriceUpgrade.x = textUpgradeButton.x;
-        textPriceUpgrade.y = textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5;
-
-        textCoinProductionPerSecond.x = textUpgradeButton.x;
-        textCoinProductionPerSecond.y = textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2;
+        let textUpgradeButton = createNewText(productions[i]["productionType"], 1, backgroundUpgradeButton.width / 2, (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65, 0.5, 0.5);
+        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5, 0.5, 0.5);
+        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2, 0.5, 0.5);
 
         containerProductionShop.addChild(upgradeButton);
         upgradeButton.addChild(backgroundUpgradeButton);
@@ -477,6 +439,7 @@ function displayShopUpgrades() {
 */
 
 function displayBuyAmountButtons() {
+
     buyOne = new PIXI.Container();
     buyFive = new PIXI.Container();
     buyTen = new PIXI.Container();
@@ -485,65 +448,24 @@ function displayBuyAmountButtons() {
     buyFiveBackground = new PIXI.Graphics();
     buyTenBackground = new PIXI.Graphics();
 
-    buyAmountText = new PIXI.Text("Menge", { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
-    buyAmountText.resolution = 2;
-    buyAmountText.anchor.set(0.5, 0.5);
+    drawContainerLine(buyOneBackground, 1);
+    drawContainerLine(buyFiveBackground, 1);
+    drawContainerLine(buyTenBackground, 1);
 
-    buyOneText = new PIXI.Text("x1", { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000 });
-    buyOneText.resolution = 2;
-    buyOneText.anchor.set(0.5, 0.5);
+    buyAmountText = createNewText("Menge", 1, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 3, 0.5, 0.5);
+    buyOneText = createNewText("x1", 2, backgroundUpgradeShopTitle.width / 3.9, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
+    buyFiveText = createNewText("x5", 2, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
+    buyTenText = createNewText("x10", 2, backgroundUpgradeShopTitle.width / 1.325, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
 
-    buyFiveText = new PIXI.Text("x5", { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000 });
-    buyFiveText.resolution = 2;
-    buyFiveText.anchor.set(0.5, 0.5);
-
-    buyTenText = new PIXI.Text("x10", { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000 });
-    buyTenText.resolution = 2;
-    buyTenText.anchor.set(0.5, 0.5);
-
-    buyAmountText.x = backgroundUpgradeShopTitle.width / 2;
-    buyAmountText.y = backgroundUpgradeShopTitle.height / 3;
-
-    buyOneBackground.beginFill(0x6BB6D6);
-    buyOneBackground.drawRect(
-        backgroundUpgradeShopTitle.width / 6,
-        backgroundUpgradeShopTitle.height / 1.5,
-        backgroundUpgradeShopTitle.width / 5.5,
-        backgroundUpgradeShopTitle.height / 3
-    );
-    buyOneBackground.endFill();
-
-    buyFiveBackground.beginFill(0x6BB6D6);
-    buyFiveBackground.drawRect(
-        backgroundUpgradeShopTitle.width / 2.4,
-        backgroundUpgradeShopTitle.height / 1.5,
-        backgroundUpgradeShopTitle.width / 5.5,
-        backgroundUpgradeShopTitle.height / 3
-    );
-    buyFiveBackground.endFill();
-
-    buyTenBackground.beginFill(0x6BB6D6);
-    buyTenBackground.drawRect(
-        backgroundUpgradeShopTitle.width / 1.5,
-        backgroundUpgradeShopTitle.height / 1.5,
-        backgroundUpgradeShopTitle.width / 5.5,
-        backgroundUpgradeShopTitle.height / 3
-    );
-    buyTenBackground.endFill();
-
-    buyOneText.x = backgroundUpgradeShopTitle.width / 3.9;
-    buyOneText.y = backgroundUpgradeShopTitle.height * 0.825;
-
-    buyFiveText.x = backgroundUpgradeShopTitle.width / 2;
-    buyFiveText.y = backgroundUpgradeShopTitle.height * 0.825;
-
-    buyTenText.x = backgroundUpgradeShopTitle.width / 1.325;
-    buyTenText.y = backgroundUpgradeShopTitle.height * 0.825;
+    drawRectangle(buyOneBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 6, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+    drawRectangle(buyFiveBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 2.4, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+    drawRectangle(buyTenBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 1.5, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
 
     containerShop.addChild(buyOne);
     containerShop.addChild(buyFive);
     containerShop.addChild(buyTen);
     containerShop.addChild(buyAmountText);
+    
     buyOne.addChild(buyOneBackground);
     buyFive.addChild(buyFiveBackground);
     buyTen.addChild(buyTenBackground);
@@ -551,114 +473,29 @@ function displayBuyAmountButtons() {
     buyFive.addChild(buyFiveText);
     buyTen.addChild(buyTenText);
 
-    buyOneBackground.interactive = true;
-    buyFiveBackground.interactive = true;
-    buyTenBackground.interactive = true;
-
-    buyOneBackground.buttonMode = true;
-    buyFiveBackground.buttonMode = true;
-    buyTenBackground.buttonMode = true;
+    convertToButton(buyOneBackground);
+    convertToButton(buyFiveBackground);
+    convertToButton(buyTenBackground);
 
     buyOneBackground.on('pointerdown', (event) => {
         this.buyAmount = 1;
-
-        buyOneBackground.clear();
-        buyOneBackground.beginFill(0x6490A4);
-        buyOneBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 6,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyOneBackground.endFill();
-
-        buyFiveBackground.clear();
-        buyFiveBackground.beginFill(0x6BB6D6);
-        buyFiveBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 2.4,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyFiveBackground.endFill();
-
-        buyTenBackground.clear();
-        buyTenBackground.beginFill(0x6BB6D6);
-        buyTenBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 1.5,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyTenBackground.endFill();
+        drawRectangle(buyOneBackground, 0x6490A4, backgroundUpgradeShopTitle.width / 6, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+        drawRectangle(buyFiveBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 2.4, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+        drawRectangle(buyTenBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 1.5, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
     });
 
     buyFiveBackground.on('pointerdown', (event) => {
         this.buyAmount = 5;
-
-        buyOneBackground.clear();
-        buyOneBackground.beginFill(0x6BB6D6);
-        buyOneBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 6,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyOneBackground.endFill();
-
-        buyFiveBackground.clear();
-        buyFiveBackground.beginFill(0x6490A4);
-        buyFiveBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 2.4,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyFiveBackground.endFill();
-
-        buyTenBackground.clear();
-        buyTenBackground.beginFill(0x6BB6D6);
-        buyTenBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 1.5,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyTenBackground.endFill();
+        drawRectangle(buyOneBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 6, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+        drawRectangle(buyFiveBackground, 0x6490A4, backgroundUpgradeShopTitle.width / 2.4, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+        drawRectangle(buyTenBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 1.5, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
     });
 
     buyTenBackground.on('pointerdown', (event) => {
         this.buyAmount = 10;
-
-        buyOneBackground.clear();
-        buyOneBackground.beginFill(0x6BB6D6);
-        buyOneBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 6,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyOneBackground.endFill();
-
-        buyFiveBackground.clear();
-        buyFiveBackground.beginFill(0x6BB6D6);
-        buyFiveBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 2.4,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyFiveBackground.endFill();
-
-        buyTenBackground.clear();
-        buyTenBackground.beginFill(0x6490A4);
-        buyTenBackground.drawRect(
-            backgroundUpgradeShopTitle.width / 1.5,
-            backgroundUpgradeShopTitle.height / 1.5,
-            backgroundUpgradeShopTitle.width / 5.5,
-            backgroundUpgradeShopTitle.height / 3
-        );
-        buyTenBackground.endFill();
+        drawRectangle(buyOneBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 6, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+        drawRectangle(buyFiveBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 2.4, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
+        drawRectangle(buyTenBackground, 0x6490A4, backgroundUpgradeShopTitle.width / 1.5, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
     });
 }
 
@@ -729,6 +566,49 @@ function scrollingContainer(container, position, width, height) {
         });
 }
 
+function drawContainerLine(container, width) {
+    container.line.alignment = 0;
+    container.line.color = 0x000000;
+    container.line.width = width;
+    container.line.visible = true;
+}
+
+function drawRectangle(container, color, x, y, width, height) {
+    container.beginFill(color);
+    container.drawRect(
+        x,
+        y,
+        width,
+        height
+    );
+    container.endFill();
+}
+
+function drawMultipleRectangle(container, color, x, y, width, height, yChange) {
+    container.y -= yChange;
+    container.beginFill(color);
+    container.drawRect(
+        x,
+        y,
+        width,
+        height
+    );
+    container.endFill();
+}
+
+function convertToButton(background) {
+    background.interactive = true;
+    background.buttonMode = true;
+}
+
+function createNewText(text, size, x, y, anchorx, anchory) {
+    let tempText = new PIXI.Text(text, { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 });
+    tempText.resolution = 2;
+    tempText.anchor.set(0.5, 0.5);
+    tempText.x = x;
+    tempText.y = y;
+    return tempText;
+}
 
 /* Scrolling
 for (let i = 0; i < gameData.productions.length; i++) {
