@@ -159,7 +159,7 @@ function setLayout() {
 
     containerUpgradeShop.x = (app.renderer.width - app.renderer.width / 5);
     containerUpgradeShop.y = 0;
-    backgroundUpgradeShopTitle.beginFill(0xf00457);
+    backgroundUpgradeShopTitle.beginFill(0xD6862B);
     backgroundUpgradeShopTitle.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 8);
     backgroundUpgradeShopTitle.endFill();
     textUpgradeShopTitle.x = backgroundUpgradeShopTitle.width / 2;
@@ -170,12 +170,12 @@ function setLayout() {
 
     containerProduction.x = 0;
     containerProduction.y = 0;
-    backgroundProductionTitle.beginFill(0xfffb12);
+    backgroundProductionTitle.beginFill(0x5B53B5);
     backgroundProductionTitle.drawRect(0, 0, app.renderer.width / 4, app.renderer.height / 8);
     backgroundProductionTitle.endFill();
     textProductionTitle.x = backgroundProductionTitle.width / 2;
     textProductionTitle.y = backgroundProductionTitle.height / 2;
-    backgroundProduction.beginFill(0xffb8b8);
+    backgroundProduction.beginFill(0xE0E0DC);
     backgroundProduction.drawRect(0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
     backgroundProduction.endFill();
 
@@ -185,7 +185,7 @@ function setLayout() {
 
     containerCoin.x = backgroundProductionTitle.width;
     containerCoin.y = 0;
-    backgroundCoin.beginFill(0xa4e5f9);
+    backgroundCoin.beginFill(0xCEDDF0);
     backgroundCoin.drawRect(0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
     backgroundCoin.endFill();
 
@@ -208,14 +208,14 @@ function setLayout() {
     containerShop.backgroundUpgrades.width = app.renderer.width / 5;
     containerShop.backgroundUpgrades.height = app.renderer.height / 6;
 
-    containerShop.backgroundUpgradeAmount.beginFill(0xFFA500);
+    containerShop.backgroundUpgradeAmount.beginFill(0xFCA00A);
     containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
     containerShop.backgroundUpgradeAmount.endFill();
 
     containerShop.backgroundUpgrades.x = 0;
     containerShop.backgroundUpgrades.y = containerShop.backgroundUpgradeAmount.height;
 
-    containerShop.backgroundUpgrades.beginFill(0xf000043);
+    containerShop.backgroundUpgrades.beginFill(0xE0E0DC);
     containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width / 5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
     containerShop.backgroundUpgrades.endFill();
 
@@ -226,7 +226,7 @@ function setLayout() {
 
     containerBottom.x = 0;
     containerBottom.y = app.renderer.height - app.renderer.height / 15;
-    backgroundBottom.beginFill(0xfefdc2);
+    backgroundBottom.beginFill(0xD66D60);
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
     backgroundBottom.endFill();
 
@@ -236,7 +236,7 @@ function setLayout() {
     containerResetButton.x = app.renderer.width * 0.865;
     containerResetButton.y = containerBottom.height / 6;
 
-    backgroundResetButton.beginFill(0x800303);
+    backgroundResetButton.beginFill(0xD6443D);
     backgroundResetButton.drawRect(0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
     backgroundResetButton.endFill();
 
@@ -327,11 +327,8 @@ function displayProductions() {
 
         backgroundProductionContainer.y = (app.renderer.height / 8) * i;
 
-        if (i % 2 == 0) {
-            backgroundProductionContainer.beginFill(0xff5733);
-        } else {
-            backgroundProductionContainer.beginFill(0x8aff33);
-        }
+        backgroundProductionContainer.beginFill(0x938FBD);
+        
         backgroundProductionContainer.drawRect(
             0,
             0,
@@ -388,11 +385,7 @@ function displayShopButtons() {
         textCoinProductionPerSecond.resolution = 2;
         textCoinProductionPerSecond.anchor.set(0.5, 0.5);
 
-        if (i % 2 == 0) {
-            backgroundUpgradeButton.beginFill(0x3f888f);
-        } else {
-            backgroundUpgradeButton.beginFill(0xFF00FF);
-        }
+        backgroundUpgradeButton.beginFill(0xFFCD5D);
 
         backgroundUpgradeButton.y -= containerShop.backgroundUpgradeAmount.height
 
@@ -656,7 +649,7 @@ function scrollingContainer(container, position, width, height) {
     container.addChild(mask);
 
     let scrollBar = new PIXI.Graphics();
-    scrollBar.beginFill(0x255255255);
+    scrollBar.beginFill(0x999896);
     let x;
     if(position == "right"){
         x = container.width
