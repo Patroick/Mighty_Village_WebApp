@@ -50,7 +50,7 @@ class GameData {
             new Achievement("1M Gold", 1000000, "pictures/diamond.png"),
             new Achievement("10M Gold", 10000000, "pictures/golddiamond.png"),
             new Achievement("100M Gold", 100000000, "pictures/pinkdiamond.png")];
-        this.gameDataArray = new Array(this.productions, this.currencyCount, this.achievements);
+        this.gameDataArray = [this.productions, this.currencyCount, this.achievements];
     }
 
     buyProduction(productionName, amount) {
