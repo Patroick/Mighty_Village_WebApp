@@ -11,6 +11,22 @@ class GameData {
         "pictures/spitzhacke.png",
         "pictures/spitzhacke.png",
         "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
+        "pictures/spitzhacke.png",
         "pictures/spitzhacke.png"
     ];
 
@@ -26,7 +42,9 @@ class GameData {
             new ProductionUpgrade("Schmied", 100, 10000),
             new ProductionUpgrade("Edelstein-Mine", 500, 50000),
             new ProductionUpgrade("Juwelier", 2000, 200000),
-            new ProductionUpgrade("Testiest", 5000, 500000));
+            new ProductionUpgrade("Testiest", 5000, 500000),
+            new ProductionUpgrade("Testiest", 5000, 500000),
+            new ProductionUpgrade("Juwelier", 2000, 200000));
         this.currencyCount = 0;
         this.achievements = new Array(new Achievement("1k Gold", 1000, "pictures/gem.png"),
             new Achievement("10k Gold", 10000, "pictures/purplegem.png"),

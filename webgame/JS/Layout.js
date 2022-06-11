@@ -159,6 +159,10 @@ function setLayout() {
 
     containerUpgradeShop.x = (app.renderer.width - app.renderer.width / 5);
     containerUpgradeShop.y = 0;
+    backgroundUpgradeShopTitle.line.alignment = 0;
+    backgroundUpgradeShopTitle.line.color = 0x000000;
+    backgroundUpgradeShopTitle.line.width = 2;
+    backgroundUpgradeShopTitle.line.visible = true;
     backgroundUpgradeShopTitle.beginFill(0xD6862B);
     backgroundUpgradeShopTitle.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 8);
     backgroundUpgradeShopTitle.endFill();
@@ -170,6 +174,10 @@ function setLayout() {
 
     containerProduction.x = 0;
     containerProduction.y = 0;
+    backgroundProductionTitle.line.alignment = 0;
+    backgroundProductionTitle.line.color = 0x000000;
+    backgroundProductionTitle.line.width = 2;
+    backgroundProductionTitle.line.visible = true;
     backgroundProductionTitle.beginFill(0x5B53B5);
     backgroundProductionTitle.drawRect(0, 0, app.renderer.width / 4, app.renderer.height / 8);
     backgroundProductionTitle.endFill();
@@ -185,6 +193,10 @@ function setLayout() {
 
     containerCoin.x = backgroundProductionTitle.width;
     containerCoin.y = 0;
+    backgroundCoin.line.alignment = 0;
+    backgroundCoin.line.color = 0x000000;
+    backgroundCoin.line.width = 2;
+    backgroundCoin.line.visible = true;
     backgroundCoin.beginFill(0xCEDDF0);
     backgroundCoin.drawRect(0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
     backgroundCoin.endFill();
@@ -208,6 +220,11 @@ function setLayout() {
     containerShop.backgroundUpgrades.width = app.renderer.width / 5;
     containerShop.backgroundUpgrades.height = app.renderer.height / 6;
 
+    containerShop.backgroundUpgradeAmount.line.alignment = 0;
+    containerShop.backgroundUpgradeAmount.line.color = 0x000000;
+    containerShop.backgroundUpgradeAmount.line.width = 2;
+    containerShop.backgroundUpgradeAmount.line.visible = true;
+
     containerShop.backgroundUpgradeAmount.beginFill(0xFCA00A);
     containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
     containerShop.backgroundUpgradeAmount.endFill();
@@ -226,15 +243,26 @@ function setLayout() {
 
     containerBottom.x = 0;
     containerBottom.y = app.renderer.height - app.renderer.height / 15;
+
+    backgroundBottom.line.alignment = 0;
+    backgroundBottom.line.color = 0x000000;
+    backgroundBottom.line.width = 2;
+    backgroundBottom.line.visible = true;
+
     backgroundBottom.beginFill(0xD66D60);
     backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
     backgroundBottom.endFill();
 
-    achievementText.x = 0;
+    achievementText.x = containerBottom.width / 200;
     achievementText.y = backgroundBottom.height / 3;
 
     containerResetButton.x = app.renderer.width * 0.865;
     containerResetButton.y = containerBottom.height / 6;
+
+    backgroundResetButton.line.alignment = 0;
+    backgroundResetButton.line.color = 0x000000;
+    backgroundResetButton.line.width = 2;
+    backgroundResetButton.line.visible = true;
 
     backgroundResetButton.beginFill(0xD6443D);
     backgroundResetButton.drawRect(0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
@@ -327,6 +355,11 @@ function displayProductions() {
 
         backgroundProductionContainer.y = (app.renderer.height / 8) * i;
 
+        backgroundProductionContainer.line.alignment = 0;
+        backgroundProductionContainer.line.color = 0x000000;
+        backgroundProductionContainer.line.width = 1;
+        backgroundProductionContainer.line.visible = true;
+
         backgroundProductionContainer.beginFill(0x938FBD);
         
         backgroundProductionContainer.drawRect(
@@ -384,6 +417,11 @@ function displayShopButtons() {
         let textCoinProductionPerSecond = new PIXI.Text("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000});
         textCoinProductionPerSecond.resolution = 2;
         textCoinProductionPerSecond.anchor.set(0.5, 0.5);
+
+        backgroundUpgradeButton.line.alignment = 0;
+        backgroundUpgradeButton.line.color = 0x000000;
+        backgroundUpgradeButton.line.width = 1;
+        backgroundUpgradeButton.line.visible = true;
 
         backgroundUpgradeButton.beginFill(0xFFCD5D);
 
@@ -641,6 +679,7 @@ scrollingContainer(containerProductions, "left", app.renderer.width / 4, app.ren
 
 function scrollingContainer(container, position, width, height) {
     let mask = new PIXI.Graphics();
+
     mask.beginFill(0x000000);
     mask.drawRect(0, 0, width , height);
     mask.endFill();
@@ -689,6 +728,7 @@ function scrollingContainer(container, position, width, height) {
             }
         });
 }
+
 
 /* Scrolling
 for (let i = 0; i < gameData.productions.length; i++) {
