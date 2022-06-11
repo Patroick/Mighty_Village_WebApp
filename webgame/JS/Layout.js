@@ -227,7 +227,7 @@ function gameLoop(delta) {
     gameData.getCurrentCurrencyCount(this.counter.counter);
 
     for(let i = 0; i < coin.children.length; i++) {
-        coin.getChildAt(i).y -= 1
+        coin.getChildAt(i).y -= 2.5;
         coin.getChildAt(i).alpha -= 0.005;
         if(coin.getChildAt(i).alpha <= 0) {
             coin.removeChildAt(i);
