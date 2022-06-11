@@ -263,16 +263,9 @@ function setLayout() {
     resetButtonTextSecond.x = containerResetButton.width / 15;
     resetButtonTextSecond.y = containerResetButton.y * 0.01;
 
-
-
     displayProductions();
     displayShopButtons();
     displayBuyAmountButtons();
-    //displayShopUpgrades();
-
-
-    //dataStore.collectData(gameData.getAllGameData());
-    //dataStore.saveData();
 
 }
 
@@ -317,60 +310,27 @@ function displayProductions() {
 
     this.productions = gameData.productions;
     this.pictures = gameData.pictures;
+
     for (let i = 0; i < this.productions.length; i++) {
         let productionUpgrade = new PIXI.Container();
         let backgroundProductionContainer = new PIXI.Graphics();
         backgroundProductionContainer.x = 30;
 
-        /*
-        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5);
-        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2);
-        */
-
-        let productionIcon = new PIXI.Sprite.from(pictures[i]);
-
-        productionIcon.scale.x *= 0.15;
-        productionIcon.scale.y *= 0.15;
-        productionIcon.anchor.set(0.5);
-
-        backgroundProductionContainer.y = (app.renderer.height / 8) * i;
-
         drawContainerLine(backgroundProductionContainer, 1);
+        drawMultipleRectangle(backgroundProductionContainer, 0x938FBD, 0, 0, app.renderer.width / 4 - 30, app.renderer.height / 8, -(app.renderer.height / 8) * i);
 
-        backgroundProductionContainer.beginFill(0x938FBD);
-        
-        backgroundProductionContainer.drawRect(
-            0,
-            0,
-            app.renderer.width / 4 - 30,
-            app.renderer.height / 8
-        );
-        backgroundProductionContainer.endFill();
+        let textProduction = createNewText(productions[i]["productionType"], 1, 10, backgroundProductionContainer.height / 5, 0, 0.5);
+        let textGenerationPerSecond = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 2, 0, 0.5);
+        let textAmountProduction = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 1.5, 0, 0.5);
 
+        let productionIcon = createNewSprite(pictures[i], backgroundProductionContainer.width / 1.25, backgroundProductionContainer.height / 2 , 0.15, 0.15, 0.5);
 
-        let textGenerationPerSecond = new PIXI.Text("Münzen/sec: " + productions[i].getProductionValue(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
-        textGenerationPerSecond.resolution = 2;
-        textGenerationPerSecond.x = 10;
-        textGenerationPerSecond.y = 50;
-
-        let textAmountProduction = new PIXI.Text("Menge: " + productions[i].getAmount(), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
-        textAmountProduction.resolution = 2;
-        textAmountProduction.x = 10;
-        textAmountProduction.y = 70;
-
-        let textProduction = createNewText(productions[i]["productionType"], 1, backgroundProductionContainer.width / 4, backgroundProductionContainer.height / 6, 0, 0.5);
-        //let textGenerationPerSecond = createNewText(productions[i]["productionType"], 1, backgroundProductionContainer.width / 4, backgroundProductionContainer.height / 4, 0, 0.5);
-        //let textAmountProduction = createNewText(productions[i]["productionType"], 1, backgroundProductionContainer.width / 4, backgroundProductionContainer.height / 3, 0, 0.5);
-
-        productionIcon.y = backgroundProductionContainer.height / 2 - productionIcon.height;
-        productionIcon.x = backgroundProductionContainer.width - 50;
-
+        containerProductions.addChild(productionUpgrade);
+        productionUpgrade.addChild(backgroundProductionContainer);
         backgroundProductionContainer.addChild(textProduction);
         backgroundProductionContainer.addChild(textAmountProduction);
         backgroundProductionContainer.addChild(textGenerationPerSecond);
         backgroundProductionContainer.addChild(productionIcon);
-        productionUpgrade.addChild(backgroundProductionContainer);
-        containerProductions.addChild(productionUpgrade);
 
     }
 }
@@ -416,27 +376,6 @@ function displayShopButtons() {
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
 }
-
-
-
-/*
-function displayShopUpgrades() {
-    containerShop.backgroundUpgradeAmount.interactive = true;
-
-    containerShop.backgroundUpgradeAmount.on('pointerover', function () {
-        containerShop.backgroundUpgradeAmount.beginFill(0x0000FF);
-        containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
-        containerShop.backgroundUpgradeAmount.endFill();
-
-    });
-
-    containerShop.backgroundUpgradeAmount.on('pointerout', function () {
-        containerShop.backgroundUpgradeAmount.beginFill(0xFFFF00);
-        containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
-        containerShop.backgroundUpgradeAmount.endFill();
-    });
-}
-*/
 
 function displayBuyAmountButtons() {
 
@@ -604,10 +543,20 @@ function convertToButton(background) {
 function createNewText(text, size, x, y, anchorx, anchory) {
     let tempText = new PIXI.Text(text, { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 });
     tempText.resolution = 2;
-    tempText.anchor.set(0.5, 0.5);
+    tempText.anchor.set(anchorx, anchory);
     tempText.x = x;
     tempText.y = y;
     return tempText;
+}
+
+function createNewSprite(sprite, x, y, scalex, scaley, anchor) {
+    let tempSprite = new PIXI.Sprite.from(sprite);
+    tempSprite.x = x;
+    tempSprite.y= y;
+    tempSprite.scale.x *= scalex;
+    tempSprite.scale.y *= scaley;
+    tempSprite.anchor.set(anchor);
+    return tempSprite;
 }
 
 /* Scrolling
