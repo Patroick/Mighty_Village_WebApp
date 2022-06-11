@@ -365,6 +365,7 @@ function updateDisplayProduction() {
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + Math.round(productions[i].getBuyingPrice(buyAmount));
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount));
     }
 }
 
@@ -379,9 +380,13 @@ function displayShopButtons() {
         textUpgradeButton.resolution = 2;
         textUpgradeButton.anchor.set(0.5, 0.5);
 
-        let textPriceUpgrade = new PIXI.Text("Preis: " + Math.round(productions[i].getBuyingPrice(1)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000, align: 'left' });
+        let textPriceUpgrade = new PIXI.Text("Preis: " + Math.round(productions[i].getBuyingPrice(1)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000});
         textPriceUpgrade.resolution = 2;
-        textPriceUpgrade.anchor.set(-0.07, -1.5);
+        textPriceUpgrade.anchor.set(0.5, 0.5);
+
+        let textCoinProductionPerSecond = new PIXI.Text("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), { fontFamily: 'Helvetica', fontSize: 16, fill: 0x000000});
+        textCoinProductionPerSecond.resolution = 2;
+        textCoinProductionPerSecond.anchor.set(0.5, 0.5);
 
         if (i % 2 == 0) {
             backgroundUpgradeButton.beginFill(0x3f888f);
@@ -400,16 +405,20 @@ function displayShopButtons() {
 
         backgroundUpgradeButton.endFill();
 
-        textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2;
+        textUpgradeButton.x = backgroundUpgradeShopTitle.width / 2.25;
         textUpgradeButton.y += (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65;
 
-        textPriceUpgrade.x = textUpgradeButton.x / 15;
+        textPriceUpgrade.x = textUpgradeButton.x;
         textPriceUpgrade.y = textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5;
+
+        textCoinProductionPerSecond.x = textUpgradeButton.x;
+        textCoinProductionPerSecond.y = textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2;
 
         containerProductionShop.addChild(upgradeButton);
         upgradeButton.addChild(backgroundUpgradeButton);
         backgroundUpgradeButton.addChild(textUpgradeButton);
-        backgroundUpgradeButton.addChild(textPriceUpgrade)
+        backgroundUpgradeButton.addChild(textPriceUpgrade);
+        backgroundUpgradeButton.addChild(textCoinProductionPerSecond); 
 
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }

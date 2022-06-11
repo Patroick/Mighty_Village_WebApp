@@ -30,4 +30,8 @@ class ProductionUpgrade {
         return this.amount;
     }
 
+    getProductionAmount(amount) {
+        return this.generatingValue * amount;
+    }
+
 }
