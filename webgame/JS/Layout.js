@@ -22,8 +22,6 @@ function resize() {
 
 app.ticker.add(delta => gameLoop(delta));
 
-
-
 function setup() {
 
     buyAmount = 1;
@@ -41,9 +39,8 @@ function setup() {
 
     containerUpgradeShop = new PIXI.Container();
     backgroundUpgradeShopTitle = new PIXI.Graphics();
-    textUpgradeShopTitle = new PIXI.Text('Upgrade Shop', font);
-    textUpgradeShopTitle.resolution = 2;
-    textUpgradeShopTitle.anchor.set(0.5, 0.5);
+
+    textUpgradeShopTitle = createNewText("Upgrade Shop", 1, 0, 0, 0.5, 0.5);
 
     app.stage.addChild(containerUpgradeShop);
     containerUpgradeShop.addChild(backgroundUpgradeShopTitle);
@@ -53,13 +50,10 @@ function setup() {
 
     containerProduction = new PIXI.Container();
     backgroundProductionTitle = new PIXI.Graphics();
-    textProductionTitle = new PIXI.Text('Production', { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
-    textProductionTitle.anchor.set(0.5, 0.5);
-    textProductionTitle.interactive = true;
-    textProductionTitle.cursor = "text";
-    textProductionTitle.resolution = 2;
-    backgroundProduction = new PIXI.Graphics();
 
+    textProductionTitle = createNewText("Production", 1, 0, 0, 0.5, 0.5);
+
+    backgroundProduction = new PIXI.Graphics();
     containerProductions = new PIXI.Container();
 
     app.stage.addChild(containerProduction);
@@ -77,12 +71,9 @@ function setup() {
 
     coin = new Coin("pictures/muenze.png", "audio/coin.wav");
     coin.anchor.set(0.5);
-    coin.interactive = true;
-    coin.buttonMode = true;
-
-    textCounter = new PIXI.Text("Münzen " + counter.counter, font);
-    textCounter.anchor.set(0.5, 0.5);
-    textCounter.resolution = 2;
+    convertToButton(coin);
+    
+    textCounter = createNewText("Münzen " + counter.counter, 1, 0, 0, 0.5, 0.5);
 
     app.stage.addChild(containerCoin);
     containerCoin.addChild(backgroundCoin);
@@ -103,7 +94,6 @@ function setup() {
 
     app.stage.addChild(containerShop);
 
-
     containerProductionShop = new PIXI.Container();
     containerShop.addChild(containerProductionShop)
 
@@ -112,20 +102,14 @@ function setup() {
     containerBottom = new PIXI.Container();
     backgroundBottom = new PIXI.Graphics();
 
-    achievementText = new PIXI.Text("Nächstes Achievement: ");
-    achievementText.font = font;
-    achievementText.resolution = 2;
+    achievementText = createNewText("Nächstes Achievement: ", 1, 0, 0, 0, 0);
 
     containerResetButton = new PIXI.Container();
     backgroundResetButton = new PIXI.Graphics();
 
-    resetButtonTextFirst = new PIXI.Text("Spielstand", { fontFamily: 'Helvetica', fontSize: 22, fill: 0x000000 });
-    resetButtonTextFirst.font = font;
-    resetButtonTextFirst.resolution = 2;
+    resetButtonTextFirst = createNewText("Spielstand", 2, 0, 0, 0, 0);
 
-    resetButtonTextSecond = new PIXI.Text("\nzurücksetzen", { fontFamily: 'Helvetica', fontSize: 22, fill: 0x000000 });
-    resetButtonTextSecond.font = font;
-    resetButtonTextSecond.resolution = 2;
+    resetButtonTextSecond = createNewText("\nzurücksetzen", 2, 0, 0, 0, 0);
 
     app.stage.addChild(containerBottom);
     containerBottom.addChild(backgroundBottom);
@@ -139,15 +123,10 @@ function setup() {
 
     buttonLogic.applyResetButtonBehavior(containerResetButton, 0);
 
-
-
-
     setLayout();
 }
 
 function setLayout() {
-
-    font = { fontFamily: 'Helvetica', fontSize: app.renderer.width / 50, fill: 0x000000 };
 
     backgroundProductionTitle.clear();
     backgroundProduction.clear();
@@ -158,46 +137,35 @@ function setLayout() {
 
     // Upgrade Shop Text
 
-    containerUpgradeShop.x = (app.renderer.width - app.renderer.width / 5);
-    containerUpgradeShop.y = 0;
+    setContainerCoordinates(containerUpgradeShop, app.renderer.width - app.renderer.width / 5, 0);
 
     drawContainerLine(backgroundUpgradeShopTitle, 2);
 
-    backgroundUpgradeShopTitle.beginFill(0xD6862B);
-    backgroundUpgradeShopTitle.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 8);
-    backgroundUpgradeShopTitle.endFill();
-    textUpgradeShopTitle.x = backgroundUpgradeShopTitle.width / 2;
-    textUpgradeShopTitle.y = backgroundUpgradeShopTitle.height / 2;
-    textUpgradeShopTitle.style = font
+    drawRectangle(backgroundUpgradeShopTitle, 0xD6862B, 0, 0, app.renderer.width / 5, app.renderer.height / 8);
+
+    setTextCoordinates(textUpgradeShopTitle, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 2);
 
     // Produktionsanzeige
 
-    containerProduction.x = 0;
-    containerProduction.y = 0;
+    setContainerCoordinates(containerProduction, 0, 0);
 
     drawContainerLine(backgroundProductionTitle, 2);
 
-    backgroundProductionTitle.beginFill(0x5B53B5);
-    backgroundProductionTitle.drawRect(0, 0, app.renderer.width / 4, app.renderer.height / 8);
-    backgroundProductionTitle.endFill();
-    textProductionTitle.x = backgroundProductionTitle.width / 2;
-    textProductionTitle.y = backgroundProductionTitle.height / 2;
-    backgroundProduction.beginFill(0xE0E0DC);
-    backgroundProduction.drawRect(0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
-    backgroundProduction.endFill();
+    drawRectangle(backgroundProductionTitle, 0x5B53B5, 0, 0, app.renderer.width / 4, app.renderer.height / 8)
 
-    containerProductions.y += backgroundProductionTitle.height;
+    setTextCoordinates(textProductionTitle, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 2);
+
+    drawRectangle(backgroundProduction, 0xE0E0DC, 0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
+
+    setContainerCoordinates(containerProductions, containerProductions.x, backgroundProductionTitle.height);
 
     // Coin
 
-    containerCoin.x = backgroundProductionTitle.width;
-    containerCoin.y = 0;
+    setContainerCoordinates(containerCoin, backgroundProductionTitle.width, 0);
 
     drawContainerLine(backgroundCoin, 2);
 
-    backgroundCoin.beginFill(0xCEDDF0);
-    backgroundCoin.drawRect(0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
-    backgroundCoin.endFill();
+    drawRectangle(backgroundCoin, 0xCEDDF0, 0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
 
     coin.x = backgroundCoin.width / 2;
     coin.y = backgroundCoin.height / 2;
@@ -206,62 +174,45 @@ function setLayout() {
     coin.scale.x = containerCoin.width / 1000;
     coin.scale.y = containerCoin.width / 1000;
 
-    textCounter.x = backgroundCoin.width / 2;
-    textCounter.y = backgroundCoin.height / 13;
+    setTextCoordinates(textCounter, backgroundCoin.width / 2, backgroundCoin.height / 13);
 
     // Shop
 
-    containerShop.x = (app.renderer.width - app.renderer.width / 5);
-    containerShop.y = backgroundUpgradeShopTitle.height;
+    setContainerCoordinates(containerShop, app.renderer.width - app.renderer.width / 5, backgroundUpgradeShopTitle.height);
 
-
-    containerShop.backgroundUpgrades.width = app.renderer.width / 5;
-    containerShop.backgroundUpgrades.height = app.renderer.height / 6;
+    setContainerDimensions(containerShop.backgroundUpgrades, app.renderer.width / 5, app.renderer.height / 6)
 
     drawContainerLine(containerShop.backgroundUpgradeAmount, 2);
 
-    containerShop.backgroundUpgradeAmount.beginFill(0xFCA00A);
-    containerShop.backgroundUpgradeAmount.drawRect(0, 0, app.renderer.width / 5, app.renderer.height / 6);
-    containerShop.backgroundUpgradeAmount.endFill();
+    drawRectangle(containerShop.backgroundUpgradeAmount, 0xFCA00A, 0, 0, app.renderer.width / 5, app.renderer.height / 6);
 
-    containerShop.backgroundUpgrades.x = 0;
-    containerShop.backgroundUpgrades.y = containerShop.backgroundUpgradeAmount.height;
+    setContainerCoordinates(containerShop.backgroundUpgrades, 0, containerShop.backgroundUpgradeAmount.height);
 
-    containerShop.backgroundUpgrades.beginFill(0xE0E0DC);
-    containerShop.backgroundUpgrades.drawRect(0, 0, app.renderer.width / 5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
-    containerShop.backgroundUpgrades.endFill();
+    drawRectangle(containerShop.backgroundUpgrades, 0xE0E0DC, 0, 0, app.renderer.width / 5, app.renderer.height - containerShop.backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
 
-
-    containerProductionShop.y += containerShop.backgroundUpgradeAmount.height;
+    setContainerCoordinates(containerProductionShop, containerProductionShop.x, containerShop.backgroundUpgradeAmount.height);
 
     // Bottom
 
-    containerBottom.x = 0;
-    containerBottom.y = app.renderer.height - app.renderer.height / 15;
+    setContainerCoordinates(containerBottom, 0, app.renderer.height - app.renderer.height / 15);
 
-    drawContainerLine(backgroundBottom,2);
+    drawContainerLine(backgroundBottom, 2);
 
-    backgroundBottom.beginFill(0xD66D60);
-    backgroundBottom.drawRect(0, 0, app.renderer.width, app.renderer.height / 15);
-    backgroundBottom.endFill();
+    drawRectangle(backgroundBottom, 0xD66D60, 0, 0, app.renderer.width, app.renderer.height / 15);
 
-    achievementText.x = containerBottom.width / 200;
-    achievementText.y = backgroundBottom.height / 3;
+    setTextCoordinates(achievementText, containerBottom.width / 200, backgroundBottom.height / 3);
 
-    containerResetButton.x = app.renderer.width * 0.865;
-    containerResetButton.y = containerBottom.height / 6;
+    setContainerCoordinates(containerResetButton, app.renderer.width * 0.865, containerBottom.height / 6);
 
     drawContainerLine(backgroundResetButton,2);
 
-    backgroundResetButton.beginFill(0xD6443D);
-    backgroundResetButton.drawRect(0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
-    backgroundResetButton.endFill();
+    drawRectangle(backgroundResetButton, 0xD6443D, 0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
 
-    resetButtonTextFirst.x = containerResetButton.width / 7;
-    resetButtonTextFirst.y = containerResetButton.y * 0.3;
+    setTextCoordinates(resetButtonTextFirst, containerResetButton.width / 7, containerResetButton.y * 0.3);
 
-    resetButtonTextSecond.x = containerResetButton.width / 15;
-    resetButtonTextSecond.y = containerResetButton.y * 0.01;
+    setTextCoordinates(resetButtonTextSecond, containerResetButton.width / 15, containerResetButton.y * 0.01);
+
+    // Display Funktionen
 
     displayProductions();
     displayShopButtons();
@@ -319,9 +270,9 @@ function displayProductions() {
         drawContainerLine(backgroundProductionContainer, 1);
         drawMultipleRectangle(backgroundProductionContainer, 0x938FBD, 0, 0, app.renderer.width / 4 - 30, app.renderer.height / 8, -(app.renderer.height / 8) * i);
 
-        let textProduction = createNewText(productions[i]["productionType"], 1, 10, backgroundProductionContainer.height / 5, 0, 0.5);
-        let textGenerationPerSecond = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 2, 0, 0.5);
-        let textAmountProduction = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 1.5, 0, 0.5);
+        let textProduction = createNewText(productions[i]["productionType"], 0.75, 10, backgroundProductionContainer.height / 5, 0, 0.5);
+        let textGenerationPerSecond = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 1.8, 0, 0.5);
+        let textAmountProduction = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 1.4, 0, 0.5);
 
         let productionIcon = createNewSprite(pictures[i], backgroundProductionContainer.width / 1.25, backgroundProductionContainer.height / 2 , 0.15, 0.15, 0.5);
 
@@ -535,6 +486,16 @@ function drawMultipleRectangle(container, color, x, y, width, height, yChange) {
     container.endFill();
 }
 
+function setContainerCoordinates(container, x, y) {
+    container.x = x;
+    container.y = y;
+}
+
+function setContainerDimensions(container, width, height) {
+    container.width = width;
+    container.height = height;
+}
+
 function convertToButton(background) {
     background.interactive = true;
     background.buttonMode = true;
@@ -544,9 +505,13 @@ function createNewText(text, size, x, y, anchorx, anchory) {
     let tempText = new PIXI.Text(text, { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 });
     tempText.resolution = 2;
     tempText.anchor.set(anchorx, anchory);
-    tempText.x = x;
-    tempText.y = y;
+    setTextCoordinates(tempText, x, y);
     return tempText;
+}
+
+function setTextCoordinates(text, x, y) {
+    text.x = x;
+    text.y = y;
 }
 
 function createNewSprite(sprite, x, y, scalex, scaley, anchor) {
