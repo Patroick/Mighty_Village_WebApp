@@ -18,3 +18,7 @@ class Achievement {
         }
     }
 }
+
+try{
+module.exports = Achievement;
+}catch(e){}
