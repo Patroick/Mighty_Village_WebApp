@@ -407,9 +407,7 @@ scrollingContainer(containerProductions, "left", app.renderer.width / 4, app.ren
 function scrollingContainer(container, position, width, height) {
     let mask = new PIXI.Graphics();
 
-    mask.beginFill(0x000000);
-    mask.drawRect(0, 0, width , height);
-    mask.endFill();
+    drawRectangle(mask, 0x000000, 0, 0, width, height);
 
     container.mask = mask;
     container.addChild(mask);
