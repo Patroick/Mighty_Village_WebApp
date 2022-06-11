@@ -4,10 +4,11 @@ let app = new PIXI.Application({
     resolution: 1,
 });
 
-
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 document.body.appendChild(app.view);
+
+font = { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 };
 
 setup();
 
@@ -18,9 +19,8 @@ function resize() {
     setLayout();
 }
 
-
-
 app.ticker.add(delta => gameLoop(delta));
+
 
 
 function setup() {
@@ -31,7 +31,6 @@ function setup() {
     counter = new Counter();
     gameData = new GameData();
     buttonLogic = new ButtonLogic();
-    font = new PIXI.TextStyle({ fontFamily: "pixel", fontSize: 52, fill: 0x000000 })
 
     if (document.cookie) {
         gameData.overrideGameData(dataStore.loadData());
@@ -41,8 +40,8 @@ function setup() {
 
     containerUpgradeShop = new PIXI.Container();
     backgroundUpgradeShopTitle = new PIXI.Graphics();
-    textUpgradeShopTitle = new PIXI.Text('Upgrade Shop', { fontFamily: 'Helvetica', fontSize: 32, fill: 0x000000 });
-    textUpgradeShopTitle.resolution = 2; //Bessere Lösung??? Sieht immernoch verpixelt aus
+    textUpgradeShopTitle = new PIXI.Text('Upgrade Shop', font);
+    textUpgradeShopTitle.resolution = 2;
     textUpgradeShopTitle.anchor.set(0.5, 0.5);
 
     app.stage.addChild(containerUpgradeShop);
@@ -80,8 +79,7 @@ function setup() {
     coin.interactive = true;
     coin.buttonMode = true;
 
-    textCounter = new PIXI.Text("Münzen " + counter.counter);
-    textCounter.style = font;
+    textCounter = new PIXI.Text("Münzen " + counter.counter, font);
     textCounter.anchor.set(0.5, 0.5);
     textCounter.resolution = 2;
 
@@ -148,6 +146,8 @@ function setup() {
 
 function setLayout() {
 
+    font = { fontFamily: 'Helvetica', fontSize: app.renderer.width / 50, fill: 0x000000 };
+
     backgroundProductionTitle.clear();
     backgroundProduction.clear();
     backgroundUpgradeShopTitle.clear();
@@ -164,6 +164,7 @@ function setLayout() {
     backgroundUpgradeShopTitle.endFill();
     textUpgradeShopTitle.x = backgroundUpgradeShopTitle.width / 2;
     textUpgradeShopTitle.y = backgroundUpgradeShopTitle.height / 2;
+    textUpgradeShopTitle.style = font
 
     // Produktionsanzeige
 

@@ -42,7 +42,6 @@ class Counter{
 
         counter = Math.round(counter * 100) / 100 + this.suffix[suffixIndex]; // Runden auf 2 Nachkommastellen
 
-        textCounter.style = font;
         textCounter.text = counter + " Münzen";
     }
 }
