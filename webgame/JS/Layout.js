@@ -20,7 +20,36 @@ function resize() {
     setLayout();
 }
 
-app.ticker.add(delta => gameLoop(delta));
+ticker = app.ticker;
+ticker.minFPS = 1;
+app.ticker.maxFPS = 60;
+
+//let timeBlur;
+//let timeFocus;
+
+window.onblur = () => {
+    //timeBlur = Date.now();
+    //console.log(counter.counter);
+    ticker.stop();
+    setInterval(() => {
+        gameLoop(1);
+    }, 1000);
+}
+
+window.onfocus = () => {
+    //timeFocus = Date.now();
+    //console.log(counter.counter);
+    //console.log((timeFocus - timeBlur) / 1000);
+    clearInterval();
+    ticker.start();
+}
+
+if (ticker.started) {
+    app.ticker.add(delta => gameLoop(delta));
+}
+
+
+setInterval(() => {app.ticker.update()}, 1000);
 
 function setup() {
 
@@ -219,7 +248,7 @@ function setLayout() {
 
 function gameLoop(delta) {
 
-    counter.increase(calculateProduction() / 100);
+    counter.increase(calculateProduction() / 60 * delta);
     updateDisplayProduction();
     updateDisplayShopButtons();
 
@@ -227,8 +256,8 @@ function gameLoop(delta) {
     gameData.getCurrentCurrencyCount(this.counter.counter);
 
     for(let i = 0; i < coin.children.length; i++) {
-        coin.getChildAt(i).y -= 2.5;
-        coin.getChildAt(i).alpha -= 0.005;
+        coin.getChildAt(i).y -= 3;
+        coin.getChildAt(i).alpha -= 0.01;
         if(coin.getChildAt(i).alpha <= 0) {
             coin.removeChildAt(i);
         }
