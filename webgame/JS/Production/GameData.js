@@ -155,6 +155,7 @@ class GameData {
         this.gameDataArray[3] = counter.alLTime;
 
         counter.counter = 0;
+        counter.alLTime = 0;
 
         coin.texture = new PIXI.Texture.from("pictures/muenze.png");
     }
