@@ -7,7 +7,7 @@ class Achievement {
     }
 
     check() {
-        if (counter.counter >= this.counter) {
+        if (counter.alLTime >= this.counter) {
             this.status = true;
         }
     }

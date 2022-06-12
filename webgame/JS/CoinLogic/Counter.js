@@ -1,13 +1,12 @@
 class Counter{
-
-    
     constructor(){
-        
+        this.alLTime = 0;
         this.counter = 0;
         this.suffix=[""," k", " M", " B", " T", " Qa", " Qi"]
     }
 
     increase(amount){
+        this.alLTime += amount;
         this.counter += amount;
         this.update();
     }
@@ -22,7 +21,7 @@ class Counter{
     }
 
 
-    update(){
+    update(counter){
 
         // Anzeige Conversion zu Mio / Bio / etc... hier 
         //https://github.com/Trixter9994/Cookie-Clicker-Source-Code/blob/master/main.js

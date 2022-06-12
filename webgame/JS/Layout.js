@@ -315,8 +315,8 @@ function displayProductions() {
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + productions[i].getAmount(); // + 3 weil der erste Produktions Container bei 3 startet
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + productions[i].getProductionValue();
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + productions[i].getAmount();
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionValue() * 100) / 100;
     }
 
 }
@@ -324,7 +324,7 @@ function updateDisplayProduction() {
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + Math.round(productions[i].getBuyingPrice(buyAmount));
-        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount));
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount) * 100) / 100;
     }
 }
 
