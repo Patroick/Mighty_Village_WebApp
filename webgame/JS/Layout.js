@@ -49,7 +49,7 @@ if (ticker.started) {
 }
 
 
-setInterval(() => {app.ticker.update()}, 1000);
+setInterval(() => { app.ticker.update() }, 1000);
 
 function setup() {
 
@@ -59,6 +59,8 @@ function setup() {
     counter = new Counter();
     gameData = new GameData();
     buttonLogic = new ButtonLogic();
+    productions = gameData.productions;
+    pictures = gameData.pictures;
 
     if (document.cookie) {
         gameData.overrideGameData(dataStore.loadData());
@@ -101,7 +103,7 @@ function setup() {
     coin = new Coin("pictures/muenze.png", "audio/coin.wav");
     coin.anchor.set(0.5);
     convertToButton(coin);
-    
+
     textCounter = createNewText("Münzen " + counter.counter, 1, 0, 0, 0.5, 0.5);
 
     app.stage.addChild(containerCoin);
@@ -124,7 +126,7 @@ function setup() {
     app.stage.addChild(containerShop);
 
     containerProductionShop = new PIXI.Container();
-    containerShop.addChild(containerProductionShop)
+    containerShop.addChild(containerProductionShop);
 
     // Bottom
 
@@ -152,6 +154,60 @@ function setup() {
 
     buttonLogic.applyResetButtonBehavior(containerResetButton, 0);
 
+    // Production Upgrade
+
+    for (let i = 0; i < productions.length; i++) {
+        let productionUpgrade = new PIXI.Container();
+        let backgroundProductionContainer = new PIXI.Graphics();
+
+        let textProduction = createNewText(productions[i]["productionType"], 0.75, 0, 0, 0, 0);
+        let textGenerationPerSecond = createNewText("Münzen/sec: " + productions[i]["generatingValue"], 2, 0, 0, 0, 0);
+        let textAmountProduction = createNewText("Menge: " + productions[i]["amount"], 2, 0, 0, 0, 0);
+
+        let productionIcon = createNewSprite(pictures[i], 0, 0, 0, 0, 0);
+
+        containerProductions.addChild(productionUpgrade);
+        productionUpgrade.addChild(backgroundProductionContainer);
+        backgroundProductionContainer.addChild(textProduction);
+        backgroundProductionContainer.addChild(textAmountProduction);
+        backgroundProductionContainer.addChild(textGenerationPerSecond);
+        backgroundProductionContainer.addChild(productionIcon);
+
+    }
+
+    for (let i = 0; i < productions.length; i++) {
+
+        let upgradeButton = new PIXI.Container();
+        let backgroundUpgradeButton = new PIXI.Graphics();
+
+        let textUpgradeButton = createNewText(productions[i]["productionType"], 1, 0, 0, 0, 0);
+        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, 0, 0, 0, 0);
+        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, 0, 0, 0, 0);
+
+        containerProductionShop.addChild(upgradeButton);
+        upgradeButton.addChild(backgroundUpgradeButton);
+        backgroundUpgradeButton.addChild(textUpgradeButton);
+        backgroundUpgradeButton.addChild(textPriceUpgrade);
+        backgroundUpgradeButton.addChild(textCoinProductionPerSecond);
+
+        buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
+    }
+
+    // Buy Buttons & Backgrounds
+
+    buyOne = new PIXI.Container();
+    buyFive = new PIXI.Container();
+    buyTen = new PIXI.Container();
+
+    buyOneBackground = new PIXI.Graphics();
+    buyFiveBackground = new PIXI.Graphics();
+    buyTenBackground = new PIXI.Graphics();
+
+    buyAmountText = createNewText("Menge", 1, 0, 0, 0, 0);
+    buyOneText = createNewText("x1", 2, 0, 0, 0, 0);
+    buyFiveText = createNewText("x5", 2, 0, 0, 0, 0);
+    buyTenText = createNewText("x10", 2, 0, 0, 0, 0);
+
     setLayout();
 }
 
@@ -163,6 +219,17 @@ function setLayout() {
     backgroundCoin.clear();
     containerShop.backgroundUpgradeAmount.clear();
     backgroundResetButton.clear();
+
+    buyOneBackground.clear();
+    buyFiveBackground.clear();
+    buyTenBackground.clear();
+
+
+    // hier noch ne changeText methode machen
+    buyAmountText.destroy();
+    buyOneText.destroy();
+    buyFiveText.destroy();
+    buyTenText.destroy();
 
     // Upgrade Shop Text
 
@@ -180,13 +247,33 @@ function setLayout() {
 
     drawContainerLine(backgroundProductionTitle, 2);
 
-    drawRectangle(backgroundProductionTitle, 0x5B53B5, 0, 0, app.renderer.width / 4, app.renderer.height / 8)
+    drawRectangle(backgroundProductionTitle, 0x5B53B5, 0, 0, app.renderer.width / 4, app.renderer.height / 8);
 
     setTextCoordinates(textProductionTitle, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 2);
 
     drawRectangle(backgroundProduction, 0xE0E0DC, 0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
 
     setContainerCoordinates(containerProductions, containerProductions.x, backgroundProductionTitle.height);
+
+    // Productions zeichnen
+
+    for (let i = 0; i < productions.length; i++) {
+
+        containerProductions.getChildAt(i).getChildAt(0).clear();
+
+        setContainerCoordinates(containerProductions.getChildAt(i).getChildAt(0), containerProductions.x, 0)
+
+        setContainerCoordinates(containerProductions.getChildAt(i).getChildAt(0), 30, containerProductions.getChildAt(i).getChildAt(0).y);
+        drawContainerLine(containerProductions.getChildAt(i).getChildAt(0), 1);
+        drawMultipleRectangle(containerProductions.getChildAt(i).getChildAt(0), 0x938FBD, 0, 0, (window.innerWidth / 4) - 30, app.renderer.height / 8, -(backgroundProductionTitle.height) * i);
+
+        changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(0), 0.75, 10, containerProductions.getChildAt(i).getChildAt(0).height / 5, 0, 0.5);
+        changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(1), 2, 10, containerProductions.getChildAt(i).getChildAt(0).height / 1.8, 0, 0.5);
+        changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(2), 2, 10, containerProductions.getChildAt(i).getChildAt(0).height / 1.4, 0, 0.5);
+
+        changeSprite(containerProductions.getChildAt(i).getChildAt(0).getChildAt(3), containerProductions.getChildAt(i).getChildAt(0).width / 1.25, containerProductions.getChildAt(i).getChildAt(0).height / 2, 0.15, 0.15, 0.5);
+
+    }
 
     // Coin
 
@@ -218,6 +305,48 @@ function setLayout() {
 
     setContainerCoordinates(containerProductionShop, containerProductionShop.x, containerShop.backgroundUpgradeAmount.height);
 
+    // Shop Buttons zeichnen
+
+    for (let i = 0; i < productions.length; i++) {
+
+        containerProductionShop.getChildAt(i).getChildAt(0).clear();
+
+        setContainerCoordinates(containerProductionShop.getChildAt(i).getChildAt(0), containerProductionShop.x, containerProductionShop.getChildAt(i).getChildAt(0).y);
+        drawContainerLine(containerProductionShop.getChildAt(i).getChildAt(0), 1);
+        drawMultipleRectangle(containerProductionShop.getChildAt(i).getChildAt(0), 0xFFCD5D, containerUpgradeShop.getChildAt(0).x, 0, (window.innerWidth / 5), app.renderer.height / 8 - 30, -containerShop.backgroundUpgradeAmount.height * i);
+
+        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0), 1, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0).width / 2, (backgroundProductionTitle.height * i) + containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0).height / 0.65, 0.5, 0.5);
+        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1), 2, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).x, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).y + containerUpgradeShop.getChildAt(0).height / 5, 0.5, 0.5);
+        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2), 2, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).x, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).y + containerUpgradeShop.getChildAt(0).height / 2, 0.5, 0.5);
+    }
+
+    /*
+function displayShopButtons() {
+
+    this.shop = gameData.productions;
+
+    for (let i = 0; i < this.shop.length; i++) {
+        let upgradeButton = new PIXI.Container();
+        let backgroundUpgradeButton = new PIXI.Graphics();
+
+        drawContainerLine(backgroundUpgradeButton, 1);
+        drawMultipleRectangle(backgroundUpgradeButton, 0xFFCD5D, backgroundUpgradeButton.x, containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i, app.renderer.width / 5 - 30, app.renderer.height / 8, containerShop.backgroundUpgradeAmount.height);
+
+        let textUpgradeButton = createNewText(productions[i]["productionType"], 1, backgroundUpgradeButton.width / 2, (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65, 0.5, 0.5);
+        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5, 0.5, 0.5);
+        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2, 0.5, 0.5);
+
+        containerProductionShop.addChild(upgradeButton);
+        upgradeButton.addChild(backgroundUpgradeButton);
+        backgroundUpgradeButton.addChild(textUpgradeButton);
+        backgroundUpgradeButton.addChild(textPriceUpgrade);
+        backgroundUpgradeButton.addChild(textCoinProductionPerSecond);
+
+        buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
+    }
+}
+*/
+
     // Bottom
 
     setContainerCoordinates(containerBottom, 0, app.renderer.height - app.renderer.height / 15);
@@ -230,7 +359,7 @@ function setLayout() {
 
     setContainerCoordinates(containerResetButton, app.renderer.width * 0.865, containerBottom.height / 6);
 
-    drawContainerLine(backgroundResetButton,2);
+    drawContainerLine(backgroundResetButton, 2);
 
     drawRectangle(backgroundResetButton, 0xD6443D, 0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
 
@@ -238,10 +367,17 @@ function setLayout() {
 
     setTextCoordinates(resetButtonTextSecond, containerResetButton.width / 15, containerResetButton.y * 0.01);
 
+    // Buy Button Text
+
+    buyAmountText = createNewText("Menge", 1, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 3, 0.5, 0.5);
+    buyOneText = createNewText("x1", 2, backgroundUpgradeShopTitle.width / 3.9, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
+    buyFiveText = createNewText("x5", 2, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
+    buyTenText = createNewText("x10", 2, backgroundUpgradeShopTitle.width / 1.325, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
+
     // Display Funktionen
 
-    displayProductions();
-    displayShopButtons();
+    //displayProductions();
+    //displayShopButtons();
     displayBuyAmountButtons();
 
 }
@@ -255,10 +391,10 @@ function gameLoop(delta) {
     gameData.checkAchievements();
     gameData.getCurrentCurrencyCount(this.counter.counter);
 
-    for(let i = 0; i < coin.children.length; i++) {
+    for (let i = 0; i < coin.children.length; i++) {
         coin.getChildAt(i).y -= 3;
         coin.getChildAt(i).alpha -= 0.01;
-        if(coin.getChildAt(i).alpha <= 0) {
+        if (coin.getChildAt(i).alpha <= 0) {
             coin.removeChildAt(i);
         }
     }
@@ -283,6 +419,7 @@ function gameLoop(delta) {
 
 }
 
+/*
 function displayProductions() {
 
     this.productions = gameData.productions;
@@ -291,16 +428,16 @@ function displayProductions() {
     for (let i = 0; i < this.productions.length; i++) {
         let productionUpgrade = new PIXI.Container();
         let backgroundProductionContainer = new PIXI.Graphics();
-        backgroundProductionContainer.x = 30;
 
+        backgroundProductionContainer.x = 30;
         drawContainerLine(backgroundProductionContainer, 1);
         drawMultipleRectangle(backgroundProductionContainer, 0x938FBD, 0, 0, app.renderer.width / 4 - 30, app.renderer.height / 8, -(app.renderer.height / 8) * i);
 
         let textProduction = createNewText(productions[i]["productionType"], 0.75, 10, backgroundProductionContainer.height / 5, 0, 0.5);
-        let textGenerationPerSecond = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 1.8, 0, 0.5);
-        let textAmountProduction = createNewText(productions[i]["productionType"], 2, 10, backgroundProductionContainer.height / 1.4, 0, 0.5);
+        let textGenerationPerSecond = createNewText("Münzen/sec: " + productions[i]["generatingValue"], 2, 10, backgroundProductionContainer.height / 1.8, 0, 0.5);
+        let textAmountProduction = createNewText("Menge: " + productions[i]["amount"], 2, 10, backgroundProductionContainer.height / 1.4, 0, 0.5);
 
-        let productionIcon = createNewSprite(pictures[i], backgroundProductionContainer.width / 1.25, backgroundProductionContainer.height / 2 , 0.15, 0.15, 0.5);
+        let productionIcon = createNewSprite(pictures[i], backgroundProductionContainer.width / 1.25, backgroundProductionContainer.height / 2, 0.15, 0.15, 0.5);
 
         containerProductions.addChild(productionUpgrade);
         productionUpgrade.addChild(backgroundProductionContainer);
@@ -311,6 +448,7 @@ function displayProductions() {
 
     }
 }
+*/
 
 function updateDisplayProduction() {
 
@@ -328,9 +466,9 @@ function updateDisplayShopButtons() {
     }
 }
 
-
+/*
 function displayShopButtons() {
-    
+
     this.shop = gameData.productions;
 
     for (let i = 0; i < this.shop.length; i++) {
@@ -348,30 +486,18 @@ function displayShopButtons() {
         upgradeButton.addChild(backgroundUpgradeButton);
         backgroundUpgradeButton.addChild(textUpgradeButton);
         backgroundUpgradeButton.addChild(textPriceUpgrade);
-        backgroundUpgradeButton.addChild(textCoinProductionPerSecond); 
+        backgroundUpgradeButton.addChild(textCoinProductionPerSecond);
 
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
 }
+*/
 
 function displayBuyAmountButtons() {
-
-    buyOne = new PIXI.Container();
-    buyFive = new PIXI.Container();
-    buyTen = new PIXI.Container();
-
-    buyOneBackground = new PIXI.Graphics();
-    buyFiveBackground = new PIXI.Graphics();
-    buyTenBackground = new PIXI.Graphics();
 
     drawContainerLine(buyOneBackground, 1);
     drawContainerLine(buyFiveBackground, 1);
     drawContainerLine(buyTenBackground, 1);
-
-    buyAmountText = createNewText("Menge", 1, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 3, 0.5, 0.5);
-    buyOneText = createNewText("x1", 2, backgroundUpgradeShopTitle.width / 3.9, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
-    buyFiveText = createNewText("x5", 2, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
-    buyTenText = createNewText("x10", 2, backgroundUpgradeShopTitle.width / 1.325, backgroundUpgradeShopTitle.height * 0.825, 0.5, 0.5);
 
     drawRectangle(buyOneBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 6, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
     drawRectangle(buyFiveBackground, 0x6BB6D6, backgroundUpgradeShopTitle.width / 2.4, backgroundUpgradeShopTitle.height / 1.5, backgroundUpgradeShopTitle.width / 5.5, backgroundUpgradeShopTitle.height / 3);
@@ -381,7 +507,7 @@ function displayBuyAmountButtons() {
     containerShop.addChild(buyFive);
     containerShop.addChild(buyTen);
     containerShop.addChild(buyAmountText);
-    
+
     buyOne.addChild(buyOneBackground);
     buyFive.addChild(buyFiveBackground);
     buyTen.addChild(buyTenBackground);
@@ -427,7 +553,7 @@ function calculateProduction() {
 
 }
 
-scrollingContainer(containerProductionShop, "right",app.renderer.width / 5, app.renderer.height - backgroundUpgradeShopTitle.height - containerShop.backgroundUpgradeAmount.height - app.renderer.height / 15);
+scrollingContainer(containerProductionShop, "right", app.renderer.width / 5, app.renderer.height - backgroundUpgradeShopTitle.height - containerShop.backgroundUpgradeAmount.height - app.renderer.height / 15);
 scrollingContainer(containerProductions, "left", app.renderer.width / 4, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
 
 function scrollingContainer(container, position, width, height) {
@@ -441,7 +567,7 @@ function scrollingContainer(container, position, width, height) {
     let scrollBar = new PIXI.Graphics();
     scrollBar.beginFill(0x999896);
     let x;
-    if(position == "right"){
+    if (position == "right") {
         x = container.width
     } else {
         x = 0
@@ -455,18 +581,18 @@ function scrollingContainer(container, position, width, height) {
     let dragging = false;
 
     scrollBar
-        .on('pointerdown', (ev) =>{
+        .on('pointerdown', (ev) => {
             oldPosition = ev.data.getLocalPosition(container);
             dragging = true;
         })
-        .on('pointerup', (ev) =>{
+        .on('pointerup', (ev) => {
             dragging = false;
         })
-        .on('pointerout', (ev) =>{
+        .on('pointerout', (ev) => {
             dragging = false;
         })
-        .on('pointermove', (ev) =>{
-            if(dragging == true) {
+        .on('pointermove', (ev) => {
+            if (dragging == true) {
                 newPosition = ev.data.getLocalPosition(container);
                 let distance = newPosition.y - oldPosition.y
                 if (scrollBar.y + distance >= -1 && scrollBar.y + scrollBar.height + distance <= container.mask.height) {
@@ -533,6 +659,13 @@ function createNewText(text, size, x, y, anchorX, anchorY) {
     return tempText;
 }
 
+function changeText(text, size, x, y, anchorX, anchorY) {
+    text.style = { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 };
+    text.x = x;
+    text.y = y;
+    text.anchor.set(anchorX, anchorY);
+}
+
 function setTextCoordinates(text, x, y) {
     text.x = x;
     text.y = y;
@@ -541,11 +674,19 @@ function setTextCoordinates(text, x, y) {
 function createNewSprite(sprite, x, y, scaleX, scaleY, anchor) {
     let tempSprite = new PIXI.Sprite.from(sprite);
     tempSprite.x = x;
-    tempSprite.y= y;
+    tempSprite.y = y;
     tempSprite.scale.x *= scaleX;
     tempSprite.scale.y *= scaleY;
     tempSprite.anchor.set(anchor);
     return tempSprite;
+}
+
+function changeSprite(sprite, x, y, scaleX, scaleY, anchor) {
+    sprite.x = x;
+    sprite.y = y;
+    sprite.scale.x = scaleX;
+    sprite.scale.y = scaleY;
+    sprite.anchor.set(anchor);
 }
 
 function setObjectCoordinates(object, x, y) {
