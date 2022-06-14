@@ -429,16 +429,16 @@ function displayProductions() {
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + productions[i].getAmount();
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionValue() * 100) / 100;
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + convertNumber(productions[i].getAmount());
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + convertNumber(Math.round(productions[i].getProductionValue() * 100) / 100);
     }
 
 }
 
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
-        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + Math.round(productions[i].getBuyingPrice(buyAmount));
-        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount) * 100) / 100;
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + convertNumber(Math.round(productions[i].getBuyingPrice(buyAmount)));
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + convertNumber(Math.round(productions[i].getProductionAmount(buyAmount) * 100) / 100);
     }
 }
 

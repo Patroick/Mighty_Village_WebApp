@@ -79,7 +79,7 @@ class GameData {
     getNextAchievementName() {
         for (let i = 0; i < this.achievements.length; i++) {
             if (this.achievements[i].status == false) {
-                return "Nächstes Achievement: " + Math.round(counter.alLTime) + " / " + this.achievements[i].name;
+                return "Nächstes Achievement: " + convertNumber(Math.round(counter.alLTime)) + " / " + this.achievements[i].name;
             } else if (i == this.achievements.length - 1) {
                 return "Keine Achievements mehr";
             }
