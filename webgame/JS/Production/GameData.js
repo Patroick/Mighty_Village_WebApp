@@ -42,12 +42,12 @@ class GameData {
             new ProductionUpgrade("Edelstein-Mine", 31.25, 100000),
             new ProductionUpgrade("Testitest", 78, 500000)];
         this.currencyCount = 0;
-        this.achievements = [new Achievement("1k Gold", 1000, "pictures/gem.png"),
-            new Achievement("10k Gold", 10000, "pictures/purplegem.png"),
-            new Achievement("100k Gold", 100000, "pictures/ruby.png"),
-            new Achievement("1M Gold", 1000000, "pictures/diamond.png"),
-            new Achievement("10M Gold", 10000000, "pictures/golddiamond.png"),
-            new Achievement("100M Gold", 100000000, "pictures/pinkdiamond.png")];
+        this.achievements = [new Achievement("10k Gold", 10000, "pictures/gem.png"),
+            new Achievement("100k Gold", 100000, "pictures/purplegem.png"),
+            new Achievement("1M Gold", 1000000, "pictures/ruby.png"),
+            new Achievement("10M Gold", 10000000, "pictures/diamond.png"),
+            new Achievement("100M Gold", 100000000, "pictures/golddiamond.png"),
+            new Achievement("1B Gold", 1000000000, "pictures/pinkdiamond.png")];
         this.gameDataArray = [this.productions, this.currencyCount, this.achievements];
     }
 

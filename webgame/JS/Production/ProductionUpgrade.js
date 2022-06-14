@@ -12,7 +12,7 @@ class ProductionUpgrade {
     }
 
     getProductionValue() {
-        return this.generatingValue * this.amount;
+        return this.generatingValue * this.calcMultiplier() * this.amount;
     }
 
     getBuyingPrice(amount) {
@@ -31,7 +31,19 @@ class ProductionUpgrade {
     }
 
     getProductionAmount(amount) {
-        return this.generatingValue * amount;
+        return this.generatingValue * this.calcMultiplier() * amount;
+    }
+
+    calcMultiplier() {
+        let amount = this.amount;
+        let multiplier = 1;
+        if(amount >= 10){
+            while(amount >= 10) {
+                amount -= 10;
+                multiplier *= 2;
+            }
+        }
+        return multiplier;
     }
 
 }

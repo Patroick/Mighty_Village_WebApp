@@ -390,47 +390,17 @@ function gameLoop(delta) {
     coinLine.lineTo(backgroundCoin.height, backgroundCoin.width);
     coinLine.lineTo(0, backgroundCoin.height);
     coinLine.lineTo(0,0)
-
     coinLine.beginFill(0xFFFF00); */
 
 }
 
-/*
-function displayProductions() {
 
-    this.productions = gameData.productions;
-    this.pictures = gameData.pictures;
-
-    for (let i = 0; i < this.productions.length; i++) {
-        let productionUpgrade = new PIXI.Container();
-        let backgroundProductionContainer = new PIXI.Graphics();
-
-        backgroundProductionContainer.x = 30;
-        drawContainerLine(backgroundProductionContainer, 1);
-        drawMultipleRectangle(backgroundProductionContainer, 0x938FBD, 0, 0, app.renderer.width / 4 - 30, app.renderer.height / 8, -(app.renderer.height / 8) * i);
-
-        let textProduction = createNewText(productions[i]["productionType"], 0.75, 10, backgroundProductionContainer.height / 5, 0, 0.5);
-        let textGenerationPerSecond = createNewText("Münzen/sec: " + productions[i]["generatingValue"], 2, 10, backgroundProductionContainer.height / 1.8, 0, 0.5);
-        let textAmountProduction = createNewText("Menge: " + productions[i]["amount"], 2, 10, backgroundProductionContainer.height / 1.4, 0, 0.5);
-
-        let productionIcon = createNewSprite(pictures[i], backgroundProductionContainer.width / 1.25, backgroundProductionContainer.height / 2, 0.15, 0.15, 0.5);
-
-        containerProductions.addChild(productionUpgrade);
-        productionUpgrade.addChild(backgroundProductionContainer);
-        backgroundProductionContainer.addChild(textProduction);
-        backgroundProductionContainer.addChild(textAmountProduction);
-        backgroundProductionContainer.addChild(textGenerationPerSecond);
-        backgroundProductionContainer.addChild(productionIcon);
-
-    }
-}
-*/
 
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
         containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + convertNumber(productions[i].getAmount());
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + convertNumber(Math.round(productions[i].getProductionValue() * 100) / 100);
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionValue() * 100 )/ 100;
     }
 
 }
@@ -438,36 +408,9 @@ function updateDisplayProduction() {
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + convertNumber(Math.round(productions[i].getBuyingPrice(buyAmount)));
-        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + convertNumber(Math.round(productions[i].getProductionAmount(buyAmount) * 100) / 100);
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(this.buyAmount) * 100) / 100;
     }
 }
-
-/*
-function displayShopButtons() {
-
-    this.shop = gameData.productions;
-
-    for (let i = 0; i < this.shop.length; i++) {
-        let upgradeButton = new PIXI.Container();
-        let backgroundUpgradeButton = new PIXI.Graphics();
-
-        drawContainerLine(backgroundUpgradeButton, 1);
-        drawMultipleRectangle(backgroundUpgradeButton, 0xFFCD5D, backgroundUpgradeButton.x, containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i, app.renderer.width / 5 - 30, app.renderer.height / 8, containerShop.backgroundUpgradeAmount.height);
-
-        let textUpgradeButton = createNewText(productions[i]["productionType"], 1, backgroundUpgradeButton.width / 2, (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65, 0.5, 0.5);
-        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5, 0.5, 0.5);
-        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2, 0.5, 0.5);
-
-        containerProductionShop.addChild(upgradeButton);
-        upgradeButton.addChild(backgroundUpgradeButton);
-        backgroundUpgradeButton.addChild(textUpgradeButton);
-        backgroundUpgradeButton.addChild(textPriceUpgrade);
-        backgroundUpgradeButton.addChild(textCoinProductionPerSecond);
-
-        buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
-    }
-}
-*/
 
 function displayBuyAmountButtons() {
 
