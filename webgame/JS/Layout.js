@@ -311,13 +311,15 @@ function setLayout() {
 
         containerProductionShop.getChildAt(i).getChildAt(0).clear();
 
-        setContainerCoordinates(containerProductionShop.getChildAt(i).getChildAt(0), containerProductionShop.x, containerProductionShop.getChildAt(i).getChildAt(0).y);
-        drawContainerLine(containerProductionShop.getChildAt(i).getChildAt(0), 1);
-        drawMultipleRectangle(containerProductionShop.getChildAt(i).getChildAt(0), 0xFFCD5D, containerUpgradeShop.getChildAt(0).x, 0, (window.innerWidth / 5), app.renderer.height / 8 - 30, -containerShop.backgroundUpgradeAmount.height * i);
+        setContainerCoordinates(containerProductionShop.getChildAt(i).getChildAt(0), containerProductionShop.x, 0);
 
-        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0), 1, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0).width / 2, (backgroundProductionTitle.height * i) + containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0).height / 0.65, 0.5, 0.5);
-        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1), 2, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).x, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).y + containerUpgradeShop.getChildAt(0).height / 5, 0.5, 0.5);
-        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2), 2, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).x, containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).y + containerUpgradeShop.getChildAt(0).height / 2, 0.5, 0.5);
+        drawContainerLine(containerProductionShop.getChildAt(i).getChildAt(0), 1);
+        drawMultipleRectangle(containerProductionShop.getChildAt(i).getChildAt(0), 0xFFCD5D, containerUpgradeShop.getChildAt(0).x, 0, (window.innerWidth / 5) - 30, app.renderer.height / 9, (-containerShop.backgroundUpgradeAmount.height/1.5) * i);
+
+        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(0), 1, containerProductionShop.getChildAt(i).getChildAt(0).width / 2, containerProductionShop.getChildAt(i).getChildAt(0).height / 5, 0.5, 0.5);
+        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1), 2, containerProductionShop.getChildAt(i).getChildAt(0).width / 20, containerProductionShop.getChildAt(i).getChildAt(0).height / 1.8, 0, 0.5);
+        changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2), 2, containerProductionShop.getChildAt(i).getChildAt(0).width / 20, containerProductionShop.getChildAt(i).getChildAt(0).height / 1.3, 0, 0.5);
+
     }
 
     /*
