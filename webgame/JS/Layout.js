@@ -18,6 +18,7 @@ window.addEventListener('resize', resize);
 function resize() {
     app.resizeTo = window;
     setLayout();
+    location.reload();
 }
 
 ticker = app.ticker;
