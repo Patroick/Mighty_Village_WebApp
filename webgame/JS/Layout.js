@@ -219,6 +219,7 @@ function setLayout() {
     backgroundCoin.clear();
     containerShop.backgroundUpgradeAmount.clear();
     backgroundResetButton.clear();
+    containerShop.backgroundUpgrades.clear();
 
     buyOneBackground.clear();
     buyFiveBackground.clear();
@@ -321,33 +322,6 @@ function setLayout() {
         changeText(containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2), 2, containerProductionShop.getChildAt(i).getChildAt(0).width / 20, containerProductionShop.getChildAt(i).getChildAt(0).height / 1.3, 0, 0.5);
 
     }
-
-    /*
-function displayShopButtons() {
-
-    this.shop = gameData.productions;
-
-    for (let i = 0; i < this.shop.length; i++) {
-        let upgradeButton = new PIXI.Container();
-        let backgroundUpgradeButton = new PIXI.Graphics();
-
-        drawContainerLine(backgroundUpgradeButton, 1);
-        drawMultipleRectangle(backgroundUpgradeButton, 0xFFCD5D, backgroundUpgradeButton.x, containerShop.backgroundUpgradeAmount.height + (app.renderer.height / 8) * i, app.renderer.width / 5 - 30, app.renderer.height / 8, containerShop.backgroundUpgradeAmount.height);
-
-        let textUpgradeButton = createNewText(productions[i]["productionType"], 1, backgroundUpgradeButton.width / 2, (backgroundProductionTitle.height * i) + backgroundUpgradeButton.height / 0.65, 0.5, 0.5);
-        let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 5, 0.5, 0.5);
-        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, textUpgradeButton.x, textUpgradeButton.y + backgroundUpgradeShopTitle.height / 2, 0.5, 0.5);
-
-        containerProductionShop.addChild(upgradeButton);
-        upgradeButton.addChild(backgroundUpgradeButton);
-        backgroundUpgradeButton.addChild(textUpgradeButton);
-        backgroundUpgradeButton.addChild(textPriceUpgrade);
-        backgroundUpgradeButton.addChild(textCoinProductionPerSecond);
-
-        buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
-    }
-}
-*/
 
     // Bottom
 
