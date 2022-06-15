@@ -1,4 +1,4 @@
-Achievement = require("../webgame/JS/Achievement.js")
+Achievement = require("../webgame/JS/Logic/Achievement.js")
 
 var assert = require('assert');
 describe('Array', function () {
