@@ -395,6 +395,7 @@ function gameLoop(delta) {
 
 }
 
+// Local Storage anstatt cookies
 
 
 function updateDisplayProduction() {
