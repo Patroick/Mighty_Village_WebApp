@@ -159,4 +159,14 @@ class GameData {
 
         coin.texture = new PIXI.Texture.from("pictures/muenze.png");
     }
+
+    getAllProductionValue() {
+        let amount = 0;
+
+        for (let i = 0; i < this.productions.length; i++) {
+            amount += this.productions[i].generatingValue * this.productions[i].amount;
+        }
+
+        return amount;
+    }
 }

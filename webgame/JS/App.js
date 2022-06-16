@@ -84,6 +84,7 @@ function setup() {
     backgroundProductionTitle = new PIXI.Graphics();
 
     textProductionTitle = createNewText("Production", 1, 0, 0, 0.5, 0.5);
+    textProductionValuePerSecond = createNewText("Generation/sec: " + gameData.getAllProductionValue(), 2, 0, 0, 0.5, 0.5);
 
     backgroundProduction = new PIXI.Graphics();
     containerProductions = new PIXI.Container();
@@ -92,8 +93,8 @@ function setup() {
     containerProduction.addChild(backgroundProductionTitle);
     containerProduction.addChild(textProductionTitle);
     containerProduction.addChild(backgroundProduction);
-
     containerProduction.addChild(containerProductions);
+    containerProduction.addChild(textProductionValuePerSecond);
 
     // Coin
 
@@ -256,7 +257,9 @@ function setLayout() {
 
     drawRectangle(backgroundProductionTitle, 0x5B53B5, 0, 0, app.renderer.width / 4, app.renderer.height / 8);
 
-    setTextCoordinates(textProductionTitle, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 2);
+    setTextCoordinates(textProductionTitle, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 2.5);
+
+    setTextCoordinates(textProductionValuePerSecond, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 1.5);
 
     drawRectangle(backgroundProduction, 0xE0E0DC, 0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
 
@@ -369,6 +372,7 @@ function gameLoop(delta) {
     counter.increase(calculateProduction() / 60 * delta);
     updateDisplayProduction();
     updateDisplayShopButtons();
+    updateGenerationPerSecond();
 
     gameData.checkAchievements();
     gameData.getCurrentCurrencyCount(this.counter.counter);
@@ -417,6 +421,10 @@ function updateDisplayShopButtons() {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + convertNumber(Math.round(productions[i].getBuyingPrice(buyAmount)));
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(this.buyAmount) * 100) / 100;
     }
+}
+
+function updateGenerationPerSecond() {
+    containerProduction.getChildAt(4).text = "Generation/sec: " + gameData.getAllProductionValue();
 }
 
 function displayBuyAmountButtons() {
