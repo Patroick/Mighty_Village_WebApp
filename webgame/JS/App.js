@@ -8,7 +8,7 @@ app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 document.body.appendChild(app.view);
 
-fontSize = 32;
+fontSize = 32 * ((window.innerWidth * (window.innerWidth / 1920)/window.innerHeight * (window.innerHeight / 1080))*0.5625);
 font = { fontFamily: 'Helvetica', fontSize: fontSize, fill: 0x000000, align: 'left' };
 
 setup();
