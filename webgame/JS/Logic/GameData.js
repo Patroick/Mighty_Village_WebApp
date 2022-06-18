@@ -1,3 +1,5 @@
+// Florian
+
 class GameData {
 
     productions;
@@ -14,6 +16,8 @@ class GameData {
     ];
 
     gameDataArray;
+
+    // Patrick
 
     constructor() {
 
@@ -90,6 +94,8 @@ class GameData {
         this.currencyCount = currencyCount;
     }
 
+    // Florian
+
     getAllGameData() {
 
         this.gameDataArray[0] = this.productions;
@@ -147,9 +153,9 @@ class GameData {
         let amount = 0;
 
         for (let i = 0; i < this.productions.length; i++) {
-            amount += this.productions[i].generatingValue * this.productions[i].amount;
+            amount += this.productions[i].getProductionValue();
         }
 
-        return amount;
+        return Math.round(amount * 100) / 100;
     }
 }

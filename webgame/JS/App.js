@@ -170,7 +170,7 @@ function setup() {
         let backgroundProductionContainer = new PIXI.Graphics();
 
         let textProduction = createNewText(productions[i]["productionType"], 0.75, 0, 0, 0, 0);
-        let textGenerationPerSecond = createNewText("Münzen/sec: " + productions[i]["generatingValue"], 2, 0, 0, 0, 0);
+        let textGenerationPerSecond = createNewText("Münzen/sec: " + convertNumber(productions[i]["generatingValue"]), 2, 0, 0, 0, 0);
         let textAmountProduction = createNewText("Menge: " + productions[i]["amount"], 2, 0, 0, 0, 0);
 
         let productionIcon = createNewSprite(pictures[i], 0, 0, 0, 0, 0);
@@ -191,7 +191,7 @@ function setup() {
 
         let textUpgradeButton = createNewText(productions[i]["productionType"], 1, 0, 0, 0, 0);
         let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, 0, 0, 0, 0);
-        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount)), 2, 0, 0, 0, 0);
+        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + productions[i].getProductionAmount(buyAmount), 2, 0, 0, 0, 0);
 
         containerProductionShop.addChild(upgradeButton);
         upgradeButton.addChild(backgroundUpgradeButton);

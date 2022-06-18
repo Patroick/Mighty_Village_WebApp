@@ -1,4 +1,7 @@
+// Patrick
+
 class Counter{
+
     constructor(){
         this.alLTime = 0;
         this.counter = 0;
