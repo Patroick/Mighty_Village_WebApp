@@ -4,16 +4,18 @@ let app = new PIXI.Application({
     resolution: 1,
 });
 
+
+window.addEventListener('resize', resize);
+
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 document.body.appendChild(app.view);
 
-fontSize = 32 * ((window.innerWidth * (window.innerWidth / 1920)/window.innerHeight * (window.innerHeight / 1080))*0.5625);
+fontSize = window.innerWidth / 60;
 font = { fontFamily: 'Helvetica', fontSize: fontSize, fill: 0x000000, align: 'left' };
 
 setup();
 
-window.addEventListener('resize', resize);
 
 function resize() {
     app.resizeTo = window;
@@ -281,7 +283,8 @@ function setLayout() {
         changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(1), 2, 10, containerProductions.getChildAt(i).getChildAt(0).height / 1.8, 0, 0.5);
         changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(2), 2, 10, containerProductions.getChildAt(i).getChildAt(0).height / 1.4, 0, 0.5);
 
-        changeSprite(containerProductions.getChildAt(i).getChildAt(0).getChildAt(3), containerProductions.getChildAt(i).getChildAt(0).width / 1.25, containerProductions.getChildAt(i).getChildAt(0).height / 2, 0.15, 0.15, 0.5);
+        changeSprite(containerProductions.getChildAt(i).getChildAt(0).getChildAt(3), containerProductions.getChildAt(i).getChildAt(0).width / 1.25, containerProductions.getChildAt(i).getChildAt(0).height / 2,
+            (containerProductions.getChildAt(i).getChildAt(0).height / 167) * 0.15, (containerProductions.getChildAt(i).getChildAt(0).height / 167) * 0.15, 0.5);
 
     }
 

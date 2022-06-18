@@ -1,3 +1,7 @@
+/*
+Klasse Achievements 
+*/
+
 class Achievement {
     constructor(name, counter, skin) {
         this.name = name;
