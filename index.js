@@ -17,15 +17,12 @@ app.get('/webgame/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '/webgame/index.html'))
 });
 
+// Wenn auf dem Server eine Get Request auf die Infoseite Index.html geschickt wird, wird mit dieser vom Server geantwortert
 app.get('/infoseite/index.html', (req, res) => {
     res.sendFile(path.join(__dirname, '/infoseite/index.html'))
 });
 
-app.get('/webgame/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '/webgame/index.html'))
-});
-
-
+// app.use ladet die Ressourcen vom mitgegeben Directory durch path.join. Diese sind die NodeJS Modules und die JS Skripte welche für das Spiel benötigt werden
 app.use('/webgame/pictures', express.static(path.join(__dirname, '/webgame/pictures')));
 app.use('/webgame/audio', express.static(path.join(__dirname, '/webgame/audio')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Coing Logic')));
@@ -34,10 +31,10 @@ app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Shop')))
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS')));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 
-let PORT = process.env.PORT || 80;
+// Definiert den Port auf dem der Server über localhost abrufbar ist
+let PORT = 80;
 
-app.listen(PORT, () => {
-    console.log(`My REST API running on port ${PORT}`);
-});
+// Gibt an auf welchen Port unsere Anwendung "hört"
+app.listen(PORT, () => {});
 
-// Zum starten --> npm run dev 
+// Zum starten --> npm run start:dev

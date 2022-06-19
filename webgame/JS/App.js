@@ -11,11 +11,14 @@ app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 document.body.appendChild(app.view);
 
+// Globale schriftgröße, welche sich an die größe des Bildschirms anpasst
 fontSize = window.innerWidth / 60;
+
+// Globale font
 font = { fontFamily: 'Helvetica', fontSize: fontSize, fill: 0x000000, align: 'left' };
 
+// Methodenaufruf der setup Methode
 setup();
-
 
 function resize() {
     app.resizeTo = window;
@@ -54,29 +57,46 @@ if (ticker.started) {
 
 setInterval(() => { app.ticker.update() }, 1000);
 
+// Erstellt Objekte und Elemente erhalten ihre Logik
 function setup() {
 
+    // Buy Amount (die Menge die bei Klicken auf eine Productionscontainer beim Kauf verwendet wird, also die Menge) wird standardmäßig auf 1 gesetzt
     buyAmount = 1;
 
+    // Erzeugen von neuen Objekten welche für den Gameloop und das Spiel an sich benötigt werden
     dataStore = new DataStorage();
     counter = new Counter();
     gameData = new GameData();
     buttonLogic = new ButtonLogic();
+
+    // Arrays welche die Produktionsgeböude und die Bilder beinhalten
     productions = gameData.productions;
     pictures = gameData.pictures;
 
+    // Wenn Cookie vorhanden -> Spieldaten überschreiben
     if (document.cookie) {
         gameData.overrideGameData(dataStore.loadData());
     }
 
     // Upgrade Shop Text
 
+    // Neuen Pixi Container erstellen
     containerUpgradeShop = new PIXI.Container();
+
+    // Neue Pixi Graphic erstellen
     backgroundUpgradeShopTitle = new PIXI.Graphics();
 
+    /* 
+        Text wird initialisiert mit Text der angezeigt wird, Fontsize, Koordinaten und wo im Text sich die Anker Punkte befinden.
+        d.h. Anchor 0.5, 0.5 = Anchor ist Mittig im Text und somit wird der Text von diesem Punkt aus verschoben
+        Anchor 0, 0.5 wäre ganz links (x = 0) und in der Mitte auf der y-Achse
+    */
     textUpgradeShopTitle = createNewText("Upgrade Shop", 1, 0, 0, 0.5, 0.5);
 
+    // fügt den ContainerUpgradeShop als Kind auf die app.stage hinzu
     app.stage.addChild(containerUpgradeShop);
+
+    // fügt den backgroundUpgradeShopTitle und textUpgradeShopTitle als Kind auf den containerUpgradeShop hinzu
     containerUpgradeShop.addChild(backgroundUpgradeShopTitle);
     containerUpgradeShop.addChild(textUpgradeShopTitle);
 
@@ -165,6 +185,10 @@ function setup() {
 
     // Production Upgrade
 
+    /* 
+        Erstellt für jedes Produktionsgebäude im productions Array einen Container, einen Hintergrund, 3 Texte und 1 Sprite (dieser kommt vom pictures Array)
+        Anschließend werden jeweils mit addChild auf die passenden Container hinzugefügt
+    */
     for (let i = 0; i < productions.length; i++) {
         let productionUpgrade = new PIXI.Container();
         let backgroundProductionContainer = new PIXI.Graphics();
@@ -184,6 +208,11 @@ function setup() {
 
     }
 
+    /*
+        Erstellt für jedes Produktionsgebäude im productions Array einen Container, einen Hintergrund und 3 Texte im Upgrade Shop
+        Anschließend werden jeweils mit addChild auf die passenden Container hinzugefügt
+        Am Ende wird noch jedem "Button" Container die Button Behavior hinzugefügt, damit man Produktionsgebäude kaufen kann
+    */
     for (let i = 0; i < productions.length; i++) {
 
         let upgradeButton = new PIXI.Container();
@@ -220,8 +249,13 @@ function setup() {
     setLayout();
 }
 
+/*
+    Objekte werden gezeichnet und richtig positioniert
+    Im Gegensatz zum setup wird das setLayout während dem ganzen Spielverlauf immer wieder aufgerufen, etwas bei einem Window Resize
+*/
 function setLayout() {
 
+    // Die Graphic Container werden mit clear wieder transparent und somit ist die Farbe weg um sie Anschließend wieder neu zu zeichnen
     backgroundProductionTitle.clear();
     backgroundProduction.clear();
     backgroundUpgradeShopTitle.clear();
@@ -235,7 +269,7 @@ function setLayout() {
     buyTenBackground.clear();
 
 
-    // hier noch ne changeText methode machen
+    // Zerstört die Texte von den Mengen Buttons und der Überschrifft, damit diese nicht beim Resizen doppelt angezeigt werden
     buyAmountText.destroy();
     buyOneText.destroy();
     buyFiveText.destroy();
@@ -243,12 +277,16 @@ function setLayout() {
 
     // Upgrade Shop Text
 
+    // Setzt die Container Koordinaten vom containerUpgradeShop
     setContainerCoordinates(containerUpgradeShop, app.renderer.width - app.renderer.width / 5, 0);
 
+    // Zeichnet die Border um den Hintergrund des Containers
     drawContainerLine(backgroundUpgradeShopTitle, 2);
 
+    // Zeichnet das Rechteck für den Hintergrund mit der mitgegebenen Farbe und den mitgegebenen Koordinaten und Dimensionen
     drawRectangle(backgroundUpgradeShopTitle, 0xD6862B, 0, 0, app.renderer.width / 5, app.renderer.height / 8);
 
+    // Setzt die Koordinaten des Textes
     setTextCoordinates(textUpgradeShopTitle, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 2);
 
     // Produktionsanzeige
@@ -269,6 +307,7 @@ function setLayout() {
 
     // Productions zeichnen
 
+    // Zeichnet die Container für die Produktionsgebäude anzeige
     for (let i = 0; i < productions.length; i++) {
 
         containerProductions.getChildAt(i).getChildAt(0).clear();
@@ -283,6 +322,7 @@ function setLayout() {
         changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(1), 2, 10, containerProductions.getChildAt(i).getChildAt(0).height / 1.8, 0, 0.5);
         changeText(containerProductions.getChildAt(i).getChildAt(0).getChildAt(2), 2, 10, containerProductions.getChildAt(i).getChildAt(0).height / 1.4, 0, 0.5);
 
+        // Ändert die Sprite Koordinaten und die Dimension
         changeSprite(containerProductions.getChildAt(i).getChildAt(0).getChildAt(3), containerProductions.getChildAt(i).getChildAt(0).width / 1.25, containerProductions.getChildAt(i).getChildAt(0).height / 2,
             (containerProductions.getChildAt(i).getChildAt(0).height / 167) * 0.15, (containerProductions.getChildAt(i).getChildAt(0).height / 167) * 0.15, 0.5);
 
@@ -296,8 +336,10 @@ function setLayout() {
 
     drawRectangle(backgroundCoin, 0xCEDDF0, 0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
 
+    // Setzt 
     setObjectCoordinates(coin, backgroundCoin.width / 2, backgroundCoin.height / 2);
 
+    // Setzt die Scale des Coin Objektes auf die mitgegebenen Parameter
     setObjectScale(coin, containerCoin.width / 1000, containerCoin.width / 1000);
 
     setTextCoordinates(textCounter, backgroundCoin.width / 2, backgroundCoin.height / 13);
@@ -320,6 +362,7 @@ function setLayout() {
 
     // Shop Buttons zeichnen
 
+    // Zeichnet die Shop Buttons
     for (let i = 0; i < productions.length; i++) {
 
         containerProductionShop.getChildAt(i).getChildAt(0).clear();
@@ -364,8 +407,6 @@ function setLayout() {
 
     // Display Funktionen
 
-    //displayProductions();
-    //displayShopButtons();
     displayBuyAmountButtons();
 
 }
@@ -430,6 +471,7 @@ function updateGenerationPerSecond() {
     containerProduction.getChildAt(4).text = "Generation/sec: " + gameData.getAllProductionValue();
 }
 
+// Zeichnet die Mengen Buttons x1, x5 und x10 mit den dazugehörigen Texten und Funktionen der Buttons (Behavior)
 function displayBuyAmountButtons() {
 
     drawContainerLine(buyOneBackground, 1);
@@ -543,6 +585,12 @@ function scrollingContainer(container, position, width, height) {
         });
 }
 
+/*
+    Die Nachfolgenden Funktionen dienen dazu, den Code eine möglichst lose Kopplung zu geben
+    Es wurden dadurch sehr viele Zeilen Code weniger und der Code ist übersichtlicher
+*/
+
+// Zeichnet die Border mit der mitgegebenen Breite (in px) bei dem mitgegebenen Container 
 function drawContainerLine(container, width) {
     container.line.alignment = 0;
     container.line.color = 0x000000;
@@ -550,6 +598,7 @@ function drawContainerLine(container, width) {
     container.line.visible = true;
 }
 
+// Zeichnet den Hintergrund als ein Rechteck mit dem mitgebenen Parametern
 function drawRectangle(container, color, x, y, width, height) {
     container.beginFill(color);
     container.drawRect(
@@ -561,6 +610,10 @@ function drawRectangle(container, color, x, y, width, height) {
     container.endFill();
 }
 
+/*
+    Zeichnet den Hintergrund als ein Rechteck mit dem mitgebenen Parametern
+    Wird in den for loops verwendet, da sich dort die y Koordinate stets ändert
+*/
 function drawMultipleRectangle(container, color, x, y, width, height, yChange) {
     container.y -= yChange;
     container.beginFill(color);
@@ -573,21 +626,25 @@ function drawMultipleRectangle(container, color, x, y, width, height, yChange) {
     container.endFill();
 }
 
+// Setzt die Koordinaten des mitgegebenen Containers auf die mitgegebenen Koordinaten
 function setContainerCoordinates(container, x, y) {
     container.x = x;
     container.y = y;
 }
 
+// Setzt die Dimension des mitgegebenen Containers auf die mitgegebenen Dimensionen
 function setContainerDimensions(container, width, height) {
     container.width = width;
     container.height = height;
 }
 
-function convertToButton(background) {
-    background.interactive = true;
-    background.buttonMode = true;
+// Macht den mitgegebenen Container interaktiv und zu einem Button 
+function convertToButton(container) {
+    container.interactive = true;
+    container.buttonMode = true;
 }
 
+// Erstellt einen neuen Text mit den mitgegebenen Parametern
 function createNewText(text, size, x, y, anchorX, anchorY) {
     let tempText = new PIXI.Text(text, { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 });
     tempText.resolution = 2;
@@ -596,6 +653,7 @@ function createNewText(text, size, x, y, anchorX, anchorY) {
     return tempText;
 }
 
+// Ändert die Eigenschaften des Textes auf die mitgegebenen Parameter
 function changeText(text, size, x, y, anchorX, anchorY) {
     text.style = { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 };
     text.x = x;
@@ -603,11 +661,13 @@ function changeText(text, size, x, y, anchorX, anchorY) {
     text.anchor.set(anchorX, anchorY);
 }
 
+// Setzt die Text Koordinaten auf die mitgebenen Parameter
 function setTextCoordinates(text, x, y) {
     text.x = x;
     text.y = y;
 }
 
+// Erstellt einen neuen Sprite mit den mitgebenen Parametern
 function createNewSprite(sprite, x, y, scaleX, scaleY, anchor) {
     let tempSprite = new PIXI.Sprite.from(sprite);
     tempSprite.x = x;
@@ -618,6 +678,7 @@ function createNewSprite(sprite, x, y, scaleX, scaleY, anchor) {
     return tempSprite;
 }
 
+// Ändert die Eigenschaften des Sprites auf die mitgebenen Parameter
 function changeSprite(sprite, x, y, scaleX, scaleY, anchor) {
     sprite.x = x;
     sprite.y = y;
@@ -626,11 +687,13 @@ function changeSprite(sprite, x, y, scaleX, scaleY, anchor) {
     sprite.anchor.set(anchor);
 }
 
+// Setzt die Koordinaten des Ojektes auf die mitgebenen Parameter
 function setObjectCoordinates(object, x, y) {
     object.x = x;
     object.y = y;
 }
 
+// Setzt die Scale des Objektes auf die mitgebenen Parameter
 function setObjectScale(object, scaleX, scaleY) {
     object.scale.x = scaleX;
     object.scale.y = scaleY;
