@@ -1,10 +1,27 @@
-// Florian
-
+/*  
+    Beinhaltet alle Produktionsgebäude, den derzeitigen Stand der Münzen, die Achievements, die Bilder für die Produktionsgebäude
+    und ein GameDataArray welches die Produktionsgebäude, den Stand der Münzen und die Achievements beinhaltet.
+*/
 class GameData {
 
+    /*
+        Array aller Produktionsgebäude
+    */
     productions;
+
+    /*
+        Datenfeld der derzeitigen Stand der Münzen
+    */
     currencyCount;
+
+    /*
+        Array aller Achievements
+    */
     achievements;
+
+    /*
+        Array aller Bilder welche für die Produktionsgebäude verwendet werden
+    */
     pictures = [
         "pictures/bauernhof.png",
         "pictures/holzhutte.png",
@@ -15,6 +32,9 @@ class GameData {
         "pictures/schloss.png"
     ];
 
+    /*
+        Array der Spieldaten
+    */
     gameDataArray;
 
     // Patrick
@@ -94,8 +114,16 @@ class GameData {
         this.currencyCount = currencyCount;
     }
 
-    // Florian
-
+    /*
+        getAllGameData()
+        Gibt ein Array mit akutellen Spiel Daten zurück
+        Parameter -> keine Parameter
+        Return 
+            -> Alle aktuell vorhandenen Produktionsgebäude
+            -> aktueller Stand der Münzen
+            -> Stand der Achievements
+            -> den allTime Münzen Stand
+    */
     getAllGameData() {
 
         this.gameDataArray[0] = this.productions;
@@ -106,6 +134,12 @@ class GameData {
         return this.gameDataArray;
     }
 
+    /*  
+        overrideGameData(gameDataArray)
+        Überschreibt das vorhandene Spieldaten Array mit als Parameter als Array mitgegebene Spieldaten
+        Parameter -> [] -> Array mit GameData
+        Return -> kein Returnwert
+    */
     overrideGameData(gameDataArray) {
 
         for (var i = 0; i < this.productions.length; i++) {
@@ -126,6 +160,12 @@ class GameData {
         }
     }
 
+    /*
+        eraseAllGameData()
+        Leert das Array mit den Spieldaten um so den Spielstand zurückzustzen
+        Parameter -> keine Parameter
+        Return -> kein Returnwert
+    */
     eraseAllGameData() {
 
         for (let i = 0; i < this.productions.length; i++) {
@@ -149,6 +189,12 @@ class GameData {
         coin.texture = new PIXI.Texture.from("pictures/muenze.png");
     }
 
+    /*
+        getAllProductionValue()
+        Gibt ein Array mit akutellen Spiel Daten zurück
+        Parameter -> keine Parameter
+        Return -> derzeitige Summe der Münzen/sec aller Produktionsgebäude
+    */
     getAllProductionValue() {
         let amount = 0;
 

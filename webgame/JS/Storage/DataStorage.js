@@ -1,19 +1,40 @@
+/*
+    Beinhaltet die Logik um den Spielstand in einem Cookie abzuspeichern und wieder zu laden
+*/
+
 class DataStorage {
 
-    // hier vll JSON.stringify(); verwenden? sollte fürs Object speichern gut funktionieren laut dem Internetz;
-
+    /*
+        Beinhaltet die Daten die in den/von dem Cookie geladen werden
+    */
     dataArray;
 
+    /*
+        constructor()
+        Beim erstellen einen DataStorage Objektes wird ein dazugehöriges dataArray für die Daten erstellt
+        Parameter -> keine Parameter
+        Return -> kein Returnwert
+    */
     constructor(){
         this.dataArray = new Array();
     }
 
-    //Implementierung folgt
-
+    /*
+        saveData()
+        Speichert alle derzeit vorhandenen Daten des dataArrays in den Cookie ab, mit Ablaufdatum in der Zukunft, damit der Cookie erhalten bleibt
+        Parameter -> keine Parameter
+        Return -> kein Returnwert
+    */
     saveData() {
         document.cookie = JSON.stringify(this.dataArray) + ";expires=Thu, 18 Dec 2100 12:00:00 UTC;";
     }
 
+    /*
+        loadData()
+        Ladet alle vorhandenen Daten vom Cookie und speichert sie im dataArray 
+        Parameter -> keine Parameter
+        Return -> geladenes dataArray vom Cookie
+    */
     loadData() {
         this.dataArray = JSON.parse(document.cookie);
 
@@ -30,6 +51,12 @@ class DataStorage {
         return this.dataArray;
     }
 
+    /*
+        collectData(data)
+        Speichert die mitgegebenen Daten in das dataArray
+        Parameter -> Daten die gespeichert werden sollen
+        Return -> kein Returnwert
+    */
     collectData(data) {
         this.dataArray = data;
     }

@@ -1,5 +1,18 @@
+/*
+    Beinhaltet den Constructor für ein Produktionsupgrade und die Logik um mit dem Produktionsupgrade zu arbeiten
+*/
+
 class ProductionUpgrade {
 
+    /*
+        constructor(productionType, generatingValue, price)
+        Erstellt ein neues Produktionsupgrade Objekt mit den mitgegebenen Parametern und einer Menge von 0
+        Parameter
+            -> Name des Produktionsgebäude (z.B. "Farm" oder "Schmied")
+            -> Menge der erzeugten Münzen pro Sekunde
+            -> Kosten des Produktionsgebäude
+        Return -> kein Returnwert
+    */
     constructor(productionType, generatingValue, price) {
         this.productionType = productionType;
         this.generatingValue = generatingValue;
@@ -7,10 +20,23 @@ class ProductionUpgrade {
         this.amount = 0;
     }
 
+    /*
+        addProduction(amount)
+        erhäht die Menge des Produktionsgebäude beim aufrufen der Methode um die als Parameter mitgegebene Menge
+        Parameter
+            -> Menge welche gekauft werden soll
+        Return -> kein Returnwert
+    */
     addProduction(amount) {
         this.amount += amount;
     }
 
+    /*
+        getProductionValue()
+        
+        Parameter -> keine Parameter
+        Return -> 
+    */
     getProductionValue() {
         return this.generatingValue * this.calcMultiplier() * this.amount;
     }
