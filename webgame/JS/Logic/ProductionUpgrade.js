@@ -22,9 +22,8 @@ class ProductionUpgrade {
 
     /*
         addProduction(amount)
-        erhäht die Menge des Produktionsgebäude beim aufrufen der Methode um die als Parameter mitgegebene Menge
-        Parameter
-            -> Menge welche gekauft werden soll
+        erhöht die Menge des Produktionsgebäudes beim aufrufen der Methode um die als Parameter mitgegebene Menge
+        Parameter -> Menge welche gekauft werden soll
         Return -> kein Returnwert
     */
     addProduction(amount) {
