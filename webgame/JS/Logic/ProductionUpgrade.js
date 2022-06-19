@@ -11,7 +11,8 @@ class ProductionUpgrade {
             -> Name des Produktionsgebäude (z.B. "Farm" oder "Schmied")
             -> Menge der erzeugten Münzen pro Sekunde
             -> Kosten des Produktionsgebäude
-        Return -> kein Returnwert
+        Return
+            -> kein Returnwert
     */
     constructor(productionType, generatingValue, price) {
         this.productionType = productionType;
@@ -23,8 +24,10 @@ class ProductionUpgrade {
     /*
         addProduction(amount)
         erhöht die Menge des Produktionsgebäudes beim aufrufen der Methode um die als Parameter mitgegebene Menge
-        Parameter -> Menge welche gekauft werden soll
-        Return -> kein Returnwert
+        Parameter
+            -> Menge welche gekauft werden soll
+        Return
+            -> kein Returnwert
     */
     addProduction(amount) {
         this.amount += amount;
@@ -40,6 +43,15 @@ class ProductionUpgrade {
         return this.generatingValue * this.calcMultiplier() * this.amount;
     }
 
+    /*
+        getBuyingProce(amount)
+        Berechnet den Preis für den Kauf eines Produktionsupgrades
+        Parameter
+            -> Menge wieviel Produktionen gekauft werden sollen
+        Return
+            -> Kaufpreis
+    */
+
     getBuyingPrice(amount) {
 
         let buyingPrice = 0;
@@ -51,13 +63,40 @@ class ProductionUpgrade {
         return buyingPrice;
     }
 
+    /*
+        getAmount()
+        Gibt Menge der Produktion zurück
+        Parameter
+            -> keine Parameter
+        Return
+            -> Menge der Produktion
+    */
+
     getAmount() {
         return this.amount;
     }
 
-    getProductionAmount(amount) {
-        return this.generatingValue * this.calcMultiplier() * amount;
+    /*
+        getProductionAmount(amount)
+        Gibt die Menge zurück welche von der Produktion generiert wird
+        Parameter
+            -> keine Parameter
+        Return
+            -> Menge welche von der Produktion generiert wird
+    */
+
+    getProductionAmount() {
+        return this.generatingValue * this.calcMultiplier() * this.amount;
     }
+
+    /*
+        calcMultiplier()
+        Berechnet den aktuellen Multiplier für die Produktiongeneration
+        Parameter
+            -> keine Parameter
+        Return
+            -> Multiplier für die Produktiongeneration
+    */
 
     calcMultiplier() {
         let amount = this.amount;

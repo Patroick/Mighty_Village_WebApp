@@ -1,11 +1,30 @@
-// Patrick
+// Beinhaltet den aktuellen Counter so wie den Allzeit Counter mit dazugehörigen Funktionen zum Erhöhen und Verringern
 
 class Counter{
+
+    /*
+        constructor()
+        Konstruktor erstellt ein neues Counter Objekt und setzt die Counter Variablen auf 0
+        Parameter
+            -> keine Parameter
+        Return
+            -> kein Returnwert
+    */
 
     constructor(){
         this.alLTime = 0;
         this.counter = 0;
     }
+
+    /*
+        increase(amount)
+        Erhöht den Counter um die angegebene Menge, wird für Produktionen sowie das klickebare Objekt verwendet und
+        aktualisiert das Textfeld welches den Counter anzeigt
+        Parameter
+            -> Wert um den der Counter erhöht werden soll
+        Return
+            -> kein Returnwert
+    */
 
     increase(amount){
         this.alLTime += amount;
@@ -13,27 +32,35 @@ class Counter{
         textCounter.text = convertNumber(this.counter) + " Münzen";
     }
 
+    /*
+        decrease(amount)
+        Verringert den Counter um die angegebene Menge, wird beim Kaufen von Produktionen verwendet und aktualisiert
+        das Textfeld, welches den Counter anzeigt
+        Parameter
+            -> Wert, um den der Counter verringert werden soll
+        Return
+            -> kein Returnwert
+    */
+
     decrease(amount){
         this.counter -= amount;
         textCounter.text = convertNumber(this.counter) + " Münzen";
     }
-
-    set(amount){
-        this.counter = amount;
-    }
-
-
-
 }
 
 
 suffix=[""," k", " M", " B", " T", " Qa", " Qi"];
 
-function convertNumber(counter){
+/*
+        convertNumber()
+        Wandelt einen Zahlenwert in einen leichter lesbares Format um
+        Parameter
+            -> den zu konvertierenden Zahlenwert
+        Return
+            -> konvertierter Zahlenwert
+*/
 
-    // Anzeige Conversion zu Mio / Bio / etc... hier
-    //https://github.com/Trixter9994/Cookie-Clicker-Source-Code/blob/master/main.js
-    // Zeile 106
+function convertNumber(counter){
 
     let suffixIndex = 0;
 

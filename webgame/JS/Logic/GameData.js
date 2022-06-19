@@ -4,24 +4,16 @@
 */
 class GameData {
 
-    /*
-        Array aller Produktionsgebäude
-    */
+    //Array aller Produktionsgebäude
     productions;
 
-    /*
-        Datenfeld der derzeitigen Stand der Münzen
-    */
+    //Datenfeld der derzeitigen Stand der Münzen
     currencyCount;
 
-    /*
-        Array aller Achievements
-    */
+    //Array aller Achievements
     achievements;
 
-    /*
-        Array aller Bilder welche für die Produktionsgebäude verwendet werden
-    */
+    //Array aller Bilder welche für die Produktionsgebäude verwendet werden
     pictures = [
         "pictures/bauernhof.png",
         "pictures/holzhutte.png",
@@ -32,13 +24,19 @@ class GameData {
         "pictures/schloss.png"
     ];
 
-    /*
-        Array der Spieldaten
-    */
+    //Array der Spieldaten
     gameDataArray;
 
-    // Patrick
-
+    /*
+        constructor()
+        Erstellt ein neues GameData Objekt mit jeweils einem Array aller Produktionsgebäude, einem Array mit allen
+        Achievements und eine Variable für den Münzen stand welche zur Speicherung in das Array gameDataArray
+        geschrieben werden
+        Parameter
+            -> keine Parameter
+        Return
+            -> kein Returnwert
+    */
     constructor() {
 
         this.productions = [new ProductionUpgrade("Farm", 0.1, 10),
@@ -58,6 +56,16 @@ class GameData {
         this.gameDataArray = [this.productions, this.currencyCount, this.achievements];
     }
 
+    /*
+        buyProduction()
+        Bei genügend Münzen wird die Menge des Produktionsgebäudes erhöht
+        Parameter
+            -> Name des zu kaufenden Produktionsgebäudes
+            -> Menge wie viel Produktionsgebäude gekauft werden soll
+        Return
+            -> kein Returnwert
+    */
+
     buyProduction(productionName, amount) {
         for (let i = 0; i < this.productions.length; i++) {
             if (this.productions[i].productionType == productionName) {
@@ -69,13 +77,14 @@ class GameData {
         }
     }
 
-    getCurrentProductionUpgradePrice(productionName) {
-        for (let i = 0; i < this.productions.length; i++) {
-            if (this.productions[i].productionType == productionName) {
-                return this.productions[i].getBuyingPrice(1);
-            }
-        }
-    }
+    /*
+        checkAchievements()
+        Prüft ob ein Achievement erreicht wurde, wird jeden Frame aufgerufen
+        Parameter
+            -> keine Parameter
+        Return
+            -> kein Returnwert
+    */
 
     checkAchievements() {
         for (let i = 0; i < this.achievements.length; i++) {
@@ -83,15 +92,33 @@ class GameData {
         }
     }
 
+    /*
+        getNextAchievementName()
+        Gibt den Name des nächsten Achievements zurück, Wird für Achievement Anzeige verwendet
+        Parameter
+            -> keine Parameter
+        Return
+            -> Name des nächsten Achievements
+    */
+
     getNextAchievementName() {
         for (let i = 0; i < this.achievements.length; i++) {
             if (this.achievements[i].status == false) {
                 return "Nächstes Achievement: " + convertNumber(Math.round(counter.alLTime)) + " / " + this.achievements[i].name;
             } else if (i == this.achievements.length - 1) {
-                return "Keine Achievements mehr";
+                return 'Verwenden Sie den Code "MightyVillageMaster" im Hauptspiel für eine Belohnung!';
             }
         }
     }
+
+    /*
+        getCurrentAchievement()
+        Findet das aktuelle Achievement und gibt es zurück, wird zum setzen des Skins verwendet
+        Parameter
+            -> keine Parameter
+        Return
+            -> Achievement Objekt
+    */
 
     getCurrentAchievement() {
 
@@ -109,6 +136,14 @@ class GameData {
         }
     }
 
+    /*
+        getCurrentCurrencyCount()
+        Holt sich den aktuellen Münzstand und speichert ihn in der Variable currencyCount
+        Parameter
+            -> keine Parameter
+        Return
+            -> kein Returnwert
+    */
 
     getCurrentCurrencyCount(currencyCount) {
         this.currencyCount = currencyCount;

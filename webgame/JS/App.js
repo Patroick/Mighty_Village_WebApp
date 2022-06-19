@@ -140,7 +140,7 @@ function setup() {
         .on('pointerup', coin.clickUp)
         .on('pointerupoutside', coin.clickUp)
         .on('pointerover', coin.clickUp)
-        .on('pointerout', coin.hoverOver)
+        .on('pointerout', coin.cancel)
         .on('pointercancel', coin.cancel);
 
     // Shop

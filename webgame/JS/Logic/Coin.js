@@ -1,4 +1,20 @@
+/*
+Erweitert die PIXI Klasse Sprite und beinhaltet Methoden zur Animation des Sprites sowie die
+erhöhung des Counters bei Klick
+ */
+
 class Coin extends PIXI.Sprite{
+
+    /*
+        constructor(texture, audio)
+        Erstellt ein neues Coin Objekt mit den mitgegebenen Parametern
+        Parameter
+            -> Sprite (Bild) des Coins
+            -> Audio (Sound) bei Klick des Coins
+        Return
+            -> kein Returnwert
+    */
+
     constructor(texture, audio){
         super(PIXI.Texture.from(texture));
         this.increment = 1;
@@ -9,6 +25,15 @@ class Coin extends PIXI.Sprite{
             volume: 0.15
         });
     }
+
+    /*
+        clickDown(e)
+        Bei Klick des Coins wird der Sprite kleiner, der Counter erhöht, ein Sound abgespielt und ein Text erstellt
+        Parameter
+            -> Event Objekt
+        Return
+            -> kein Returnwert
+    */
 
     clickDown(e){
 
@@ -23,20 +48,38 @@ class Coin extends PIXI.Sprite{
         // Counter erhöhung 
 
         counter.increase(this.increment);
+
+        // Anpassung der Größe des Sprites
         this.scale.x /= 1.1;
         this.scale.y /= 1.1;
+
+        // Sound abspielen
+
         this.sound.play();
     }
 
-    clickUp(counter){
+    /*
+        clickUp()
+        Vergrößert Sprite bei Beenden des Klickes
+        Parameter
+            -> keine Parameter
+        Return
+            -> kein Returnwert
+    */
+
+    clickUp(){
         this.scale.x *= 1.1;
         this.scale.y *= 1.1;
     }
 
-    hoverOver(){
-        this.scale.x /= 1.1;
-        this.scale.y /= 1.1;
-    }
+    /*
+        cancel()
+        Sollte ein Klick nicht abgeschlossen werden, wird der Sprite wieder zurück auf die ursprüngliche Größe gesetzt
+        Parameter
+            -> keine Parameter
+        Return
+            -> kein Returnwert
+    */
 
     cancel(){
         this.height = app.renderer.height / 2;
