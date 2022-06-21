@@ -209,7 +209,7 @@ function setup() {
     }
 
     /*
-        Erstellt für jedes Produktionsgebäude im productions Array einen Container, einen Hintergrund und 3 Texte im Upgrade Shop
+        Erstellt für jedes Produktionsgebäude im productions Array einen Container einen Hintergrund und 3 Texte im Upgrade Shop
         Anschließend werden jeweils mit addChild auf die passenden Container hinzugefügt
         Am Ende wird noch jedem "Button" Container die Button Behavior hinzugefügt, damit man Produktionsgebäude kaufen kann
     */
@@ -463,7 +463,7 @@ function updateDisplayProduction() {
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + convertNumber(Math.round(productions[i].getBuyingPrice(buyAmount)));
-        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(this.buyAmount) * 100) / 100;
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount) * 100) / 100;
     }
 }
 

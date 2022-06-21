@@ -85,8 +85,8 @@ class ProductionUpgrade {
             -> Menge welche von der Produktion generiert wird
     */
 
-    getProductionAmount() {
-        return this.generatingValue * this.calcMultiplier() * this.amount;
+    getProductionAmount(buyAmount) {
+        return this.generatingValue * this.calcMultiplier() * buyAmount;
     }
 
     /*
