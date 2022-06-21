@@ -32,7 +32,7 @@ app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS')));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 
 // Definiert den Port auf dem der Server über localhost abrufbar ist
-let PORT = 80;
+let PORT = process.env.PORT || 80;
 
 // Gibt an auf welchen Port unsere Anwendung "hört"
 app.listen(PORT, () => {});
