@@ -77,10 +77,10 @@ class ProductionUpgrade {
     }
 
     /*
-        getProductionAmount(amount)
+        getProductionAmount(buyAmount)
         Gibt die Menge zurück welche von der Produktion generiert wird
         Parameter
-            -> keine Parameter
+            -> Menge wie viele Produktionen gekauft werden sollen
         Return
             -> Menge welche von der Produktion generiert wird
     */
