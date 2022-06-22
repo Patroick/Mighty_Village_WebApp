@@ -1,3 +1,4 @@
+// Erstellt eine neue PIXI Applikation mit der aktuellen Fensterbreite und Fensterhöhe und setzt die Auflösung auf 1
 let app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -5,10 +6,15 @@ let app = new PIXI.Application({
 });
 
 
+// Event Listener für ein Resize Event des Browser Fensters
 window.addEventListener('resize', resize);
 
+// Setzt die Canvas Position absolut 
 app.renderer.view.style.position = "absolute";
+// Setzt die Display Art des Canvas auf block
 app.renderer.view.style.display = "block";
+
+// App wird als Kind auf das aktuelle Dokument hinzugefügt
 document.body.appendChild(app.view);
 
 // Globale schriftgröße, welche sich an die größe des Bildschirms anpasst
@@ -20,6 +26,12 @@ font = { fontFamily: 'Helvetica', fontSize: fontSize, fill: 0x000000, align: 'le
 // Methodenaufruf der setup Methode
 setup();
 
+/*
+    Wird vom Event Lisetener bei einem Resize Event aufgerufen
+    Passt die Größe der App and die größe des Fensters an
+    Ruft die setLayout() Methode auf um die vorherigen Hintergründe und Texte zu entfernen um diese anschließend passend zur Fenstergröße neu zu zeichnen
+    location.reload() ladet das ganze Fenster nochmal neu, da wir bei Resize auf ein größeres Fenster ein Problem hatten welches unlösbar scheint
+*/
 function resize() {
     app.resizeTo = window;
     setLayout();
@@ -33,6 +45,10 @@ app.ticker.maxFPS = 60;
 //let timeBlur;
 //let timeFocus;
 
+/*
+    Falls die App in den Hintergrund verschoben wird, also kein aktiver Tab mehr ist, wird das Intervall erhöht,
+    damit die App mit der gleichen Geschwindigkeit im Hintergrund weiterläuft
+*/
 window.onblur = () => {
     //timeBlur = Date.now();
     //console.log(counter.counter);
@@ -42,6 +58,7 @@ window.onblur = () => {
     }, 1000);
 }
 
+// Wird das Fenster wieder in Focus gebracht, resetet sich das Intervall und der originale Ticker bestimmt wieder die geschwindigkeit
 window.onfocus = () => {
     //timeFocus = Date.now();
     //console.log(counter.counter);
