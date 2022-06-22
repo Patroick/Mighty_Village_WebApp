@@ -293,7 +293,7 @@ function setLayout() {
     // Upgrade Shop Text
 
     // Setzt die Container Koordinaten vom containerUpgradeShop
-    setContainerCoordinates(containerUpgradeShop, app.renderer.width - app.renderer.width / 5, 0);
+    setObjectCoordinates(containerUpgradeShop, app.renderer.width - app.renderer.width / 5, 0);
 
     // Zeichnet die Border um den Hintergrund des Containers
     drawContainerLine(backgroundUpgradeShopTitle, 2);
@@ -302,23 +302,23 @@ function setLayout() {
     drawRectangle(backgroundUpgradeShopTitle, 0xD6862B, 0, 0, app.renderer.width / 5, app.renderer.height / 8);
 
     // Setzt die Koordinaten des Textes
-    setTextCoordinates(textUpgradeShopTitle, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 2);
+    setObjectCoordinates(textUpgradeShopTitle, backgroundUpgradeShopTitle.width / 2, backgroundUpgradeShopTitle.height / 2);
 
     // Produktionsanzeige
 
-    setContainerCoordinates(containerProduction, 0, 0);
+    setObjectCoordinates(containerProduction, 0, 0);
 
     drawContainerLine(backgroundProductionTitle, 2);
 
     drawRectangle(backgroundProductionTitle, 0x5B53B5, 0, 0, app.renderer.width / 4, app.renderer.height / 8);
 
-    setTextCoordinates(textProductionTitle, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 2.5);
+    setObjectCoordinates(textProductionTitle, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 2.5);
 
-    setTextCoordinates(textProductionValuePerSecond, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 1.5);
+    setObjectCoordinates(textProductionValuePerSecond, backgroundProductionTitle.width / 2, backgroundProductionTitle.height / 1.5);
 
     drawRectangle(backgroundProduction, 0xE0E0DC, 0, backgroundProductionTitle.height, backgroundProductionTitle.width, app.renderer.height - backgroundProductionTitle.height - app.renderer.height / 15);
 
-    setContainerCoordinates(containerProductions, containerProductions.x, backgroundProductionTitle.height);
+    setObjectCoordinates(containerProductions, containerProductions.x, backgroundProductionTitle.height);
 
     // Productions zeichnen
 
@@ -327,9 +327,9 @@ function setLayout() {
 
         containerProductions.getChildAt(i).getChildAt(0).clear();
 
-        setContainerCoordinates(containerProductions.getChildAt(i).getChildAt(0), containerProductions.x, 0)
+        setObjectCoordinates(containerProductions.getChildAt(i).getChildAt(0), containerProductions.x, 0)
 
-        setContainerCoordinates(containerProductions.getChildAt(i).getChildAt(0), 30, containerProductions.getChildAt(i).getChildAt(0).y);
+        setObjectCoordinates(containerProductions.getChildAt(i).getChildAt(0), 30, containerProductions.getChildAt(i).getChildAt(0).y);
         drawContainerLine(containerProductions.getChildAt(i).getChildAt(0), 1);
         drawMultipleRectangle(containerProductions.getChildAt(i).getChildAt(0), 0x938FBD, 0, 0, (window.innerWidth / 4) - 30, app.renderer.height / 8, -(backgroundProductionTitle.height) * i);
 
@@ -345,7 +345,7 @@ function setLayout() {
 
     // Coin
 
-    setContainerCoordinates(containerCoin, backgroundProductionTitle.width, 0);
+    setObjectCoordinates(containerCoin, backgroundProductionTitle.width, 0);
 
     drawContainerLine(backgroundCoin, 2);
 
@@ -357,11 +357,11 @@ function setLayout() {
     // Setzt die Scale des Coin Objektes auf die mitgegebenen Parameter
     setObjectScale(coin, containerCoin.width / 1000, containerCoin.width / 1000);
 
-    setTextCoordinates(textCounter, backgroundCoin.width / 2, backgroundCoin.height / 13);
+    setObjectCoordinates(textCounter, backgroundCoin.width / 2, backgroundCoin.height / 13);
 
     // Shop
 
-    setContainerCoordinates(containerShop, app.renderer.width - app.renderer.width / 5, backgroundUpgradeShopTitle.height);
+    setObjectCoordinates(containerShop, app.renderer.width - app.renderer.width / 5, backgroundUpgradeShopTitle.height);
 
     setContainerDimensions(backgroundUpgrades, app.renderer.width / 5, app.renderer.height / 6)
 
@@ -369,11 +369,11 @@ function setLayout() {
 
     drawRectangle(backgroundUpgradeAmount, 0xFCA00A, 0, 0, app.renderer.width / 5, app.renderer.height / 6);
 
-    setContainerCoordinates(backgroundUpgrades, 0, backgroundUpgradeAmount.height);
+    setObjectCoordinates(backgroundUpgrades, 0, backgroundUpgradeAmount.height);
 
     drawRectangle(backgroundUpgrades, 0xE0E0DC, 0, 0, app.renderer.width / 5, app.renderer.height - backgroundUpgradeAmount.height - backgroundUpgradeShopTitle.height - app.renderer.height / 15);
 
-    setContainerCoordinates(containerProductionShop, containerProductionShop.x, backgroundUpgradeAmount.height);
+    setObjectCoordinates(containerProductionShop, containerProductionShop.x, backgroundUpgradeAmount.height);
 
     // Shop Buttons zeichnen
 
@@ -382,7 +382,7 @@ function setLayout() {
 
         containerProductionShop.getChildAt(i).getChildAt(0).clear();
 
-        setContainerCoordinates(containerProductionShop.getChildAt(i).getChildAt(0), containerProductionShop.x, 0);
+        setObjectCoordinates(containerProductionShop.getChildAt(i).getChildAt(0), containerProductionShop.x, 0);
 
         drawContainerLine(containerProductionShop.getChildAt(i).getChildAt(0), 1);
         drawMultipleRectangle(containerProductionShop.getChildAt(i).getChildAt(0), 0xFFCD5D, containerUpgradeShop.getChildAt(0).x, 0, (window.innerWidth / 5) - 30, app.renderer.height / 9, (-backgroundUpgradeAmount.height/1.5) * i);
@@ -395,23 +395,23 @@ function setLayout() {
 
     // Bottom
 
-    setContainerCoordinates(containerBottom, 0, app.renderer.height - app.renderer.height / 15);
+    setObjectCoordinates(containerBottom, 0, app.renderer.height - app.renderer.height / 15);
 
     drawContainerLine(backgroundBottom, 2);
 
     drawRectangle(backgroundBottom, 0xD66D60, 0, 0, app.renderer.width, app.renderer.height / 15);
 
-    setTextCoordinates(achievementText, containerBottom.width / 200, backgroundBottom.height / 3);
+    setObjectCoordinates(achievementText, containerBottom.width / 200, backgroundBottom.height / 3);
 
-    setContainerCoordinates(containerResetButton, app.renderer.width * 0.865, containerBottom.height / 6);
+    setObjectCoordinates(containerResetButton, app.renderer.width * 0.865, containerBottom.height / 6);
 
     drawContainerLine(backgroundResetButton, 2);
 
     drawRectangle(backgroundResetButton, 0xD6443D, 0, 0, containerResetButton.width / 0.85, app.renderer.height / 25);
 
-    setTextCoordinates(resetButtonTextFirst, containerResetButton.width / 7, containerResetButton.y * 0.3);
+    setObjectCoordinates(resetButtonTextFirst, containerResetButton.width / 7, containerResetButton.y * 0.3);
 
-    setTextCoordinates(resetButtonTextSecond, containerResetButton.width / 15, containerResetButton.y * 0.01);
+    setObjectCoordinates(resetButtonTextSecond, containerResetButton.width / 15, containerResetButton.y * 0.01);
 
     // Buy Button Text
 
@@ -643,12 +643,6 @@ function drawMultipleRectangle(container, color, x, y, width, height, yChange) {
     container.endFill();
 }
 
-// Setzt die Koordinaten des mitgegebenen Containers auf die mitgegebenen Koordinaten
-function setContainerCoordinates(container, x, y) {
-    container.x = x;
-    container.y = y;
-}
-
 // Setzt die Dimension des mitgegebenen Containers auf die mitgegebenen Dimensionen
 function setContainerDimensions(container, width, height) {
     container.width = width;
@@ -666,7 +660,7 @@ function createNewText(text, size, x, y, anchorX, anchorY) {
     let tempText = new PIXI.Text(text, { fontFamily: 'Helvetica', fontSize: fontSize / size, fill: 0x000000 });
     tempText.resolution = 2;
     tempText.anchor.set(anchorX, anchorY);
-    setTextCoordinates(tempText, x, y);
+    setObjectCoordinates(tempText, x, y);
     return tempText;
 }
 
@@ -676,12 +670,6 @@ function changeText(text, size, x, y, anchorX, anchorY) {
     text.x = x;
     text.y = y;
     text.anchor.set(anchorX, anchorY);
-}
-
-// Setzt die Text Koordinaten auf die mitgebenen Parameter
-function setTextCoordinates(text, x, y) {
-    text.x = x;
-    text.y = y;
 }
 
 // Erstellt einen neuen Sprite mit den mitgebenen Parametern
