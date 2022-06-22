@@ -467,7 +467,7 @@ function gameLoop(delta) {
 
 // Local Storage anstatt cookies
 
-
+// Aktualisiert die dargestellte Menge und Münzen / Sekunde der Produktionsgebäude in dem Productions Container
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
@@ -477,6 +477,7 @@ function updateDisplayProduction() {
 
 }
 
+// Aktualisiert die dargestellten Preise und Münzen / Sekunde der im Shop kaufbaren Produktionsgebäude
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + convertNumber(Math.round(productions[i].getBuyingPrice(buyAmount)));
@@ -484,6 +485,7 @@ function updateDisplayShopButtons() {
     }
 }
 
+// Aktualisiert die im Produktionstitel angezeigte Münzen Generation / Sekunde
 function updateGenerationPerSecond() {
     containerProduction.getChildAt(4).text = "Generation/sec: " + gameData.getAllProductionValue();
 }
