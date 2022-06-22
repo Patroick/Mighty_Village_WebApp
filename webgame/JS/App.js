@@ -172,6 +172,21 @@ function setup() {
     containerProductionShop = new PIXI.Container();
     containerShop.addChild(containerProductionShop);
 
+    // Buy Buttons & Backgrounds
+
+    buyOne = new PIXI.Container();
+    buyFive = new PIXI.Container();
+    buyTen = new PIXI.Container();
+
+    buyOneBackground = new PIXI.Graphics();
+    buyFiveBackground = new PIXI.Graphics();
+    buyTenBackground = new PIXI.Graphics();
+
+    buyAmountText = createNewText("Menge", 1, 0, 0, 0, 0);
+    buyOneText = createNewText("x1", 2, 0, 0, 0, 0);
+    buyFiveText = createNewText("x5", 2, 0, 0, 0, 0);
+    buyTenText = createNewText("x10", 2, 0, 0, 0, 0);
+
     // Bottom
 
     containerBottom = new PIXI.Container();
@@ -245,21 +260,6 @@ function setup() {
 
         buttonLogic.applyButtonBehavior(upgradeButton, 0, productions[i]["productionType"]);
     }
-
-    // Buy Buttons & Backgrounds
-
-    buyOne = new PIXI.Container();
-    buyFive = new PIXI.Container();
-    buyTen = new PIXI.Container();
-
-    buyOneBackground = new PIXI.Graphics();
-    buyFiveBackground = new PIXI.Graphics();
-    buyTenBackground = new PIXI.Graphics();
-
-    buyAmountText = createNewText("Menge", 1, 0, 0, 0, 0);
-    buyOneText = createNewText("x1", 2, 0, 0, 0, 0);
-    buyFiveText = createNewText("x5", 2, 0, 0, 0, 0);
-    buyTenText = createNewText("x10", 2, 0, 0, 0, 0);
 
     setLayout();
 }
