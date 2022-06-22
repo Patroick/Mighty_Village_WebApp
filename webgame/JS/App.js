@@ -342,7 +342,7 @@ function setLayout() {
             (containerProductions.getChildAt(i).getChildAt(0).height / 167) * 0.15, (containerProductions.getChildAt(i).getChildAt(0).height / 167) * 0.15, 0.5);
 
     }
-
+    
     // Coin
 
     setObjectCoordinates(containerCoin, backgroundProductionTitle.width, 0);
