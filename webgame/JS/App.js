@@ -139,7 +139,6 @@ function setup() {
 
     containerCoin = new PIXI.Container();
     backgroundCoin = new PIXI.Graphics();
-    coinLine = new PIXI.Graphics();
 
     coin = new Coin("pictures/muenze.png", "audio/coin.wav");
     coin.anchor.set(0.5);
