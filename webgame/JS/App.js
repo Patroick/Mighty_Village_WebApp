@@ -351,7 +351,7 @@ function setLayout() {
 
     drawRectangle(backgroundCoin, 0xCEDDF0, 0, 0, app.renderer.width - backgroundProductionTitle.width - backgroundUpgradeShopTitle.width, app.renderer.height - app.renderer.height / 15);
 
-    // Setzt 
+    // Setzt die Kooridnaten des Coin Objekts auf die mitgegebenen Parameter
     setObjectCoordinates(coin, backgroundCoin.width / 2, backgroundCoin.height / 2);
 
     // Setzt die Scale des Coin Objektes auf die mitgegebenen Parameter
