@@ -266,7 +266,7 @@ function setup() {
 
 /*
     Objekte werden gezeichnet und richtig positioniert
-    Im Gegensatz zum setup wird das setLayout während dem ganzen Spielverlauf immer wieder aufgerufen, etwas bei einem Window Resize
+    Im Gegensatz zum setup wird das setLayout während dem ganzen Spielverlauf immer wieder aufgerufen, z.B. bei einem Window Resize
 */
 function setLayout() {
 
