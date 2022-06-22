@@ -150,7 +150,6 @@ function setup() {
     containerCoin.addChild(backgroundCoin);
     containerCoin.addChild(coin);
     containerCoin.addChild(textCounter);
-    containerCoin.addChild(coinLine);
 
     coin.on('pointerdown', coin.clickDown)
         .on('pointerup', coin.clickUp)
