@@ -20,19 +20,14 @@ class ButtonLogic {
     */
     applyButtonBehavior(pixiParentContainer, index, name) {
 
-        var childContainer = pixiParentContainer.getChildAt(index);
-        pixiParentContainer.removeChildAt(index);
+        pixiParentContainer.getChildAt(index).name = name;
+        pixiParentContainer.getChildAt(index).interactive = true;
+        pixiParentContainer.getChildAt(index).buttonMode = true;
 
-        childContainer.name = name;
-        childContainer.interactive = true;
-        childContainer.buttonMode = true;
-
-        childContainer
-            .on('pointerdown', (event) => {
+        pixiParentContainer.getChildAt(index)
+            .on('pointerdown', () => {
                 gameData.buyProduction(name, buyAmount);
             });
-
-        pixiParentContainer.addChildAt(childContainer, index);
 
     }
 
@@ -46,12 +41,10 @@ class ButtonLogic {
     */
     applyResetButtonBehavior(pixiParentContainer, index) {
 
-        var childContainer = pixiParentContainer.getChildAt(index);
+        pixiParentContainer.getChildAt(index).interactive = true;
+        pixiParentContainer.getChildAt(index).buttonMode = true;
 
-        childContainer.interactive = true;
-        childContainer.buttonMode = true;
-
-        childContainer
+        pixiParentContainer.getChildAt(index)
             .on('pointerdown', (event) => {
                 gameData.eraseAllGameData();
             });
