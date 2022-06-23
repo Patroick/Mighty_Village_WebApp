@@ -20,9 +20,9 @@ class DataStorage {
     }
 
     /*
-        saveData()
+        saveData(data)
         Speichert alle derzeit vorhandenen Daten des dataArrays in den Cookie ab, mit Ablaufdatum in der Zukunft, damit der Cookie erhalten bleibt
-        Parameter -> keine Parameter
+        Parameter -> Spieldaten die gespeichert werden sollen
         Return -> kein Returnwert
     */
     saveData(data) {
