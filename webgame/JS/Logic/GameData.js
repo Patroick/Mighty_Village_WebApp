@@ -234,7 +234,7 @@ class GameData {
         let amount = 0;
 
         for (let i = 0; i < this.productions.length; i++) {
-            amount += this.productions[i].getProductionValue();
+            amount += this.productions[i].getProductionValue(productions[i].amount);
         }
 
         return Math.round(amount * 100) / 100;

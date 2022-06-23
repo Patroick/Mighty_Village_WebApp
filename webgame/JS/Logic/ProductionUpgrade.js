@@ -39,8 +39,8 @@ class ProductionUpgrade {
         Parameter -> keine Parameter
         Return -> 
     */
-    getProductionValue() {
-        return this.generatingValue * this.calcMultiplier() * this.amount;
+    getProductionValue(amount) {
+        return this.generatingValue * this.calcMultiplier() * amount;
     }
 
     /*
@@ -61,32 +61,6 @@ class ProductionUpgrade {
         }
 
         return buyingPrice;
-    }
-
-    /*
-        getAmount()
-        Gibt Menge der Produktion zurück
-        Parameter
-            -> keine Parameter
-        Return
-            -> Menge der Produktion
-    */
-
-    getAmount() {
-        return this.amount;
-    }
-
-    /*
-        getProductionAmount(buyAmount)
-        Gibt die Menge zurück welche von der Produktion generiert wird basierend darauf wieviel Produktionen gekauft werden sollen
-        Parameter
-            -> Menge wie viele Produktionen gekauft werden sollen
-        Return
-            -> Menge welche von der Produktion generiert wird
-    */
-
-    getProductionAmount(buyAmount) {
-        return this.generatingValue * this.calcMultiplier() * buyAmount;
     }
 
     /*

@@ -250,7 +250,7 @@ function setup() {
 
         let textUpgradeButton = createNewText(productions[i]["productionType"], 1, 0, 0, 0, 0);
         let textPriceUpgrade = createNewText("Preis: " + Math.round(productions[i].getBuyingPrice(1)), 2, 0, 0, 0, 0);
-        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + productions[i].getProductionAmount(buyAmount), 2, 0, 0, 0, 0);
+        let textCoinProductionPerSecond = createNewText("Münzen/sec: " + productions[i].getProductionValue(buyAmount), 2, 0, 0, 0, 0);
 
         containerProductionShop.addChild(upgradeButton);
         upgradeButton.addChild(backgroundUpgradeButton);
@@ -467,8 +467,8 @@ function gameLoop(delta) {
 function updateDisplayProduction() {
 
     for (let i = 0; i < productions.length; i++) {
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + convertNumber(productions[i].getAmount());
-        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionValue() * 100 )/ 100;
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(1).text = "Menge: " + convertNumber(productions[i].amount);
+        containerProductions.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionValue(productions[i].amount) * 100 )/ 100;
     }
 
 }
@@ -477,7 +477,7 @@ function updateDisplayProduction() {
 function updateDisplayShopButtons() {
     for (let i = 0; i < productions.length; i++) {
         containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(1).text = "Preis: " + convertNumber(Math.round(productions[i].getBuyingPrice(buyAmount)));
-        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionAmount(buyAmount) * 100) / 100;
+        containerProductionShop.getChildAt(i).getChildAt(0).getChildAt(2).text = "Münzen/sec: " + Math.round(productions[i].getProductionValue(buyAmount) * 100) / 100;
     }
 }
 
@@ -540,7 +540,7 @@ function calculateProduction() {
     let value = 0;
 
     for (let i = 0; i < gameData.productions.length; i++) {
-        value += gameData.productions[i].getProductionValue();
+        value += gameData.productions[i].getProductionValue(productions[i].amount);
     }
 
     return value;
