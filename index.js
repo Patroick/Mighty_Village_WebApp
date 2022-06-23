@@ -25,9 +25,6 @@ app.get('/infoseite/index.html', (req, res) => {
 // app.use ladet die Ressourcen vom mitgegeben Directory durch path.join. Diese sind die NodeJS Modules und die JS Skripte welche für das Spiel benötigt werden
 app.use('/webgame/pictures', express.static(path.join(__dirname, '/webgame/pictures')));
 app.use('/webgame/audio', express.static(path.join(__dirname, '/webgame/audio')));
-app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Coing Logic')));
-app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Production')));
-app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS/Shop')));
 app.use('/webgame/JS', express.static(path.join(__dirname, '/webgame/JS')));
 app.use('/node_modules', express.static(path.join(__dirname, '/node_modules')));
 
