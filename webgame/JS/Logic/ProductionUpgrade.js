@@ -35,7 +35,7 @@ class ProductionUpgrade {
 
     /*
         getProductionValue()
-        
+        Gibt die Menge zurück welche von der Produktion generiert wird
         Parameter -> keine Parameter
         Return -> 
     */
@@ -44,7 +44,7 @@ class ProductionUpgrade {
     }
 
     /*
-        getBuyingProce(amount)
+        getBuyingPrice(amount)
         Berechnet den Preis für den Kauf eines Produktionsupgrades
         Parameter
             -> Menge wieviel Produktionen gekauft werden sollen
@@ -78,7 +78,7 @@ class ProductionUpgrade {
 
     /*
         getProductionAmount(buyAmount)
-        Gibt die Menge zurück welche von der Produktion generiert wird
+        Gibt die Menge zurück welche von der Produktion generiert wird basierend darauf wieviel Produktionen gekauft werden sollen
         Parameter
             -> Menge wie viele Produktionen gekauft werden sollen
         Return
