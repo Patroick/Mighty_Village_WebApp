@@ -20,6 +20,16 @@ class DataStorage {
     }
 
     /*
+        collectData(data)
+        Speichert die mitgegebenen Daten in das dataArray
+        Parameter -> Daten die gespeichert werden sollen
+        Return -> kein Returnwert
+    */
+    collectData(data) {
+        this.dataArray = data;
+    }
+
+    /*
         saveData()
         Speichert alle derzeit vorhandenen Daten des dataArrays in den Cookie ab, mit Ablaufdatum in der Zukunft, damit der Cookie erhalten bleibt
         Parameter -> keine Parameter
@@ -49,16 +59,6 @@ class DataStorage {
         }
 
         return this.dataArray;
-    }
-
-    /*
-        collectData(data)
-        Speichert die mitgegebenen Daten in das dataArray
-        Parameter -> Daten die gespeichert werden sollen
-        Return -> kein Returnwert
-    */
-    collectData(data) {
-        this.dataArray = data;
     }
 
 }
