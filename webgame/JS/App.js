@@ -447,9 +447,7 @@ function gameLoop(delta) {
     achievementText.text = gameData.getNextAchievementName();
     gameData.getCurrentAchievement().setSkin();
 
-
-    dataStore.collectData(gameData.getAllGameData());
-    dataStore.saveData();
+    dataStore.saveData(gameData.getAllGameData());
 
     /* coinLine.lineStyle(2, 0xFFFF00);
     coinLine.bezierCurveTo(
