@@ -20,7 +20,6 @@ class ButtonLogic {
     */
     applyButtonBehavior(pixiParentContainer, index, name) {
 
-        pixiParentContainer.getChildAt(index).name = name;
         pixiParentContainer.getChildAt(index).interactive = true;
         pixiParentContainer.getChildAt(index).buttonMode = true;
 
@@ -45,7 +44,7 @@ class ButtonLogic {
         pixiParentContainer.getChildAt(index).buttonMode = true;
 
         pixiParentContainer.getChildAt(index)
-            .on('pointerdown', (event) => {
+            .on('pointerdown', () => {
                 gameData.eraseAllGameData();
             });
     }
