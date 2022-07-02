@@ -15,13 +15,13 @@ class GameData {
 
     //Array aller Bilder welche für die Produktionsgebäude verwendet werden
     pictures = [
-        "pictures/bauernhof.png",
-        "pictures/holzhutte.png",
-        "pictures/mine.png",
-        "pictures/schmied.png",
-        "pictures/juwelier.png",
-        "pictures/edelsteinmine.png",
-        "pictures/schloss.png"
+        "webgame/pictures/bauernhof.png",
+        "webgame/pictures/holzhutte.png",
+        "webgame/pictures/mine.png",
+        "webgame/pictures/schmied.png",
+        "webgame/pictures/juwelier.png",
+        "webgame/pictures/edelsteinmine.png",
+        "webgame/pictures/schloss.png"
     ];
 
     //Array der Spieldaten

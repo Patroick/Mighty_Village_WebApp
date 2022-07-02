@@ -140,7 +140,7 @@ function setup() {
     containerCoin = new PIXI.Container();
     backgroundCoin = new PIXI.Graphics();
 
-    coin = new Coin("pictures/muenze.png", "audio/coin.wav");
+    coin = new Coin("webgame/pictures/muenze.png", "webgame/audio/coin.wav");
     coin.anchor.set(0.5);
     convertToButton(coin);
 
