@@ -20,10 +20,12 @@ class Coin extends PIXI.Sprite{
         this.increment = 1;
         this.height = app.renderer.height / 2;
         this.width = app.renderer.height / 2;
+        /* Edit 25.09.2022 Funktioniert warum auch immer nicht mehr 
         this.sound = PIXI.sound.Sound.from({
             url: audio,
             volume: 0.15
         });
+        */
     }
 
     /*
